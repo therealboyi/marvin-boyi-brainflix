@@ -59,3 +59,44 @@
     padding: 16px;
   }
 }
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "navbar" "main" "footer";
+}
+
+.navbar {
+  grid-area: navbar;
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.video-section {
+  grid-row: 1;
+}
+.video-section video {
+  width: 100%;
+  height: auto;
+}
+
+.headline {
+  grid-row: 2;
+}
+
+.headline-container h1, .headline-container h2, .headline-container p {
+  margin: 0.5rem 0;
+}
+
+.next-video-section {
+  grid-row: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

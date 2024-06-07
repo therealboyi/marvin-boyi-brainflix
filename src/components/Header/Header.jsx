@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature
 const Header = () => {
   return (
     <header>
-      {/* <Link to="/"></Link>Kombucha Music Shop
-      <Nav />
-      Shop <Nav /> */}
+      <NavBar />
+      {}
+      <nav></nav>
     </header>
   );
 };
+
 export default Header;

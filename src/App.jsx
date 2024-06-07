@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.scss';
 import NavBar from './components/NavBar/NavBar';
-// import Header from './components/Header/Header'
 
 function App() {
+  const nextVideos = [
+    {},
+  ];
+
   return (
     <div className="app global-grid">
       <NavBar className="navbar" />
       <main className="main">
         <section className="video-section">
-          <video>Video Player Component</video>
+          <VideoPlayer />
         </section>
         <section className="headline">
           <div className="headline-container">
@@ -28,6 +31,7 @@ function App() {
           <div>Next Videos Component</div>
         </section>
       </main>
+      <Footer videos={nextVideos} />
     </div>
   );
 }
