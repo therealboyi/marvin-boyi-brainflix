@@ -1,32 +1,35 @@
 import React from 'react';
 import './App.scss';
 import NavBar from './components/NavBar/NavBar';
+// import Header from './components/Header/Header'
 
 function App() {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Brain + Flix</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app global-grid">
+      <NavBar className="navbar" />
+      <main className="main">
+        <section className="video-section">
+          <video>Video Player Component</video>
+        </section>
+        <section className="headline">
+          <div className="headline-container">
+            <h1>Video Title</h1>
+            <h2>Video Details</h2>
+            <p>Video Description</p>
+          </div>
+          <div className="comment-section-container">
+            <p>Comment Section Component</p>
+          </div>
+        </section>
+        <section className="next-video-section">
+          <div>Next Videos Component</div>
+          <div>Next Videos Component</div>
+          <div>Next Videos Component</div>
+          <div>Next Videos Component</div>
+        </section>
+      </main>
+    </div>
+  );
 }
 
 export default App;
