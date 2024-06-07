@@ -1,0 +1,31 @@
+// Global breakpoints
+$desktop-breakpoint: 1280px;
+$tablet-breakpoint: 768px;
+$mobile-breakpoint: 320px;
+
+@import './styles/partials/mixins';
+@import './styles/partials/fonts';
+
+// Global layout grid
+.global-grid {
+  display: grid;
+  padding: auto;
+
+  @media (min-width: $desktop-breakpoint) {
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+    padding: auto;
+  }
+
+  @media (min-width: $tablet-breakpoint) and (max-width: ($desktop-breakpoint - 1px)) {
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+    padding: 36px;
+  }
+
+  @media (max-width: ($tablet-breakpoint - 1px)) {
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+    padding: 16px;
+  }
+}
