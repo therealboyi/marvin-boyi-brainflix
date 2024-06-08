@@ -33,3 +33,4 @@ vite.config.js
 App.css
 .eslintrc.cjs
 *.cjs
+utils.js

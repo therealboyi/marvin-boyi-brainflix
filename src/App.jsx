@@ -4,11 +4,14 @@ import NavBar from './components/NavBar/NavBar';
 import NextVideos from './components/NextVideos/NextVideos';
 import Footer from './components/Footer/Footer';
 import VideoPlayer from './components/VideoPlayer/VideoPlayer';
-// import Buttons from './components/Buttons';
+import VideoTitle from './components/VideoTitle/VideoTitle';
+import MetricData from './components/MetricData/MetricData';
+import VideoDescription from './components/VideoDetails/VideoDetails';
+import CommentSection from './components/CommentSection/CommentSection';
 
 function App() {
   const nextVideos = [
-    {},
+    // your next videos data
   ];
 
   return (
@@ -20,12 +23,12 @@ function App() {
         </section>
         <section className="headline">
           <div className="headline-container">
-            <h1>Video Title</h1>
-            <h2>Video Details</h2>
-            <p>Video Description</p>
+            <VideoTitle />
+            <MetricData />
           </div>
+          <VideoDescription />
           <div className="comment-section-container">
-            <p>Comment Section Component</p>
+            <CommentSection />
           </div>
         </section>
         <section className="next-video-section">
