@@ -173,7 +173,12 @@ const VideoPlayer = () => {
   return (
     <div className="video-player-container">
       <div className="video-player">
-        <video ref={videoRef} onClick={handlePlayPause}>
+        {!isPlaying && (
+          <div className="thumbnail" onClick={handlePlayPause}>
+            <img src={videoDetails.image} alt={videoDetails.title} />
+          </div>
+        )}
+        <video ref={videoRef} onClick={handlePlayPause} style={{ display: isPlaying ? 'block' : 'none' }}>
           <source src={videoDetails.video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>

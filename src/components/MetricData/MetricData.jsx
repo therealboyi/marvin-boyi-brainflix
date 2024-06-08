@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const VideoDescription = () => {
-  const [videoDescription, setVideoDescription] = useState('');
+const MetricData = () => {
+  const [videoMetrics, setVideoMetrics] = useState({ views: '', likes: '', channel: '', timestamp: '' });
   const [apiKey, setApiKey] = useState('');
 
   useEffect(() => {
@@ -33,20 +33,33 @@ const VideoDescription = () => {
           ...video,
           video: `${video.video}?api_key=${apiKey}`
         }));
-        setVideoDescription(updatedVideoDetails[0].description);
+        const { views, likes, channel, timestamp } = updatedVideoDetails[0];
+        setVideoMetrics({ views, likes, channel, timestamp });
       })
       .catch(error => console.error('Error fetching video details:', error));
   }, [apiKey]);
 
-  if (!videoDescription) {
+  if (!videoMetrics.views || !videoMetrics.likes || !videoMetrics.channel || !videoMetrics.timestamp) {
     return <div>Loading...</div>;
   }
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   return (
-    <div className="video-description">
-      <p>{videoDescription}</p>
+    <div className="metric-data">
+      <p>Channel: {videoMetrics.channel}</p>
+      <p>Date: {formatDate(videoMetrics.timestamp)}</p>
+      <p>Views: {videoMetrics.views}</p>
+      <p>Likes: {videoMetrics.likes}</p>
     </div>
   );
 };
 
-export default VideoDescription;
+export default MetricData;

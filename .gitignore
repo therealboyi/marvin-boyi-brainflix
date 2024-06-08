@@ -33,3 +33,7 @@ vite.config.js
 App.css
 .eslintrc.cjs
 *.cjs
+<<<<<<< HEAD
+=======
+utils.js
+>>>>>>> feature

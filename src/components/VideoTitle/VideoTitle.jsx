@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const VideoDescription = () => {
-  const [videoDescription, setVideoDescription] = useState('');
+const VideoTitle = () => {
+  const [videoTitle, setVideoTitle] = useState('');
   const [apiKey, setApiKey] = useState('');
 
   useEffect(() => {
@@ -33,20 +33,20 @@ const VideoDescription = () => {
           ...video,
           video: `${video.video}?api_key=${apiKey}`
         }));
-        setVideoDescription(updatedVideoDetails[0].description);
+        setVideoTitle(updatedVideoDetails[0].title);
       })
       .catch(error => console.error('Error fetching video details:', error));
   }, [apiKey]);
 
-  if (!videoDescription) {
+  if (!videoTitle) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="video-description">
-      <p>{videoDescription}</p>
+    <div className="video-title">
+      <h1>{videoTitle}</h1>
     </div>
   );
 };
 
-export default VideoDescription;
+export default VideoTitle;

@@ -1,5 +1,6 @@
-import React from "react";
-import "./NavBar.scss";
+import React from 'react';
+import Button from '../Buttons/Button';
+import './NavBar.scss';
 
 function NavBar() {
   return (
@@ -34,14 +35,9 @@ function NavBar() {
           />
         </div>
       </div>
-      <button className="header__upload-button">
-        <img
-          src="/src/assets/icons/upload.svg"
-          alt="Upload Icon"
-          className="header__upload-icon"
-        />
-        <span className="header__upload-button-text">Upload</span>
-      </button>
+      <Button className="primary" iconSrc="/src/assets/icons/upload.svg">
+        Upload
+      </Button>
       <div className="header__avatar header__avatar--outside">
         <img
           src="/src/assets/images/Mohan-muruge.jpg"
