@@ -6,6 +6,71 @@ $mobile-breakpoint: 320px;
 @import './styles/partials/mixins';
 @import './styles/partials/fonts';
 
+// Global font sizes
+html {
+  font-size: 16px; // Base font size
+}
+
+h1, h2, h3, p, a, button, label {
+  margin: 0; // Ensure no extra margin
+}
+
+h1 {
+  font-size: 33px; 
+  line-height: 44px;
+  font-weight: 700;
+
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 24px; 
+    line-height: 32px;
+  }
+}
+
+h2 {
+  font-size: 12px; 
+  line-height: 20px;
+  font-weight: 700;
+
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 12px; 
+    line-height: 20px;
+  }
+}
+
+h3 {
+  font-size: 14px; 
+  line-height: 22px;
+  font-weight: 700;
+
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 13px; 
+    line-height: 18px;
+  }
+}
+
+p {
+  font-size: 14px; 
+  line-height: 22px;
+  font-weight: 400;
+
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 13px; 
+    line-height: 18px;
+  }
+}
+
+a, button, label {
+  font-size: 12px; 
+  line-height: 20px;
+  font-weight: 700;
+  text-decoration: none;
+
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 10px; 
+    line-height: 20px;
+  }
+}
+
 // Global layout grid
 .global-grid {
   display: grid;
@@ -130,6 +195,7 @@ $mobile-breakpoint: 320px;
   flex-wrap: wrap;
   gap: 1rem;
 }
+
 .clickable {
   cursor: pointer;
 }

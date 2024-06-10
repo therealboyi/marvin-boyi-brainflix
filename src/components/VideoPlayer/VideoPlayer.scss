@@ -1,5 +1,3 @@
-@import '../../styles/partials/scrubber-mixin';
-
 .video-player-container {
     width: 100%;
     margin: 0 auto;
@@ -90,62 +88,10 @@
             .center-controls {
                 flex-grow: 1;
                 justify-content: center;
-
-                .scrubber {
-                    @include scrubber-styles;
-                }
             }
 
             .right-controls {
                 margin-left: auto;
-
-                .volume-container {
-                    display: flex;
-                    align-items: center;
-                    position: relative;
-
-                    &:hover .volume {
-                        width: 100px;
-                        opacity: 1;
-                    }
-
-                    img {
-                        width: 30px;
-                        height: 30px;
-                        cursor: pointer;
-                    }
-
-                    .volume {
-                        margin-left: 5px;
-                        width: 0;
-                        max-width: 100px;
-                        // -webkit-appearance: none;
-                        background: #fff;
-                        height: 5px;
-                        border-radius: 5px;
-                        outline: none;
-                        cursor: pointer;
-                        transition: width 0.3s ease, opacity 0.3s ease;
-                        opacity: 0;
-
-                        &::-webkit-slider-thumb {
-                            -webkit-appearance: none;
-                            width: 15px;
-                            height: 15px;
-                            border-radius: 50%;
-                            background: #fff;
-                            cursor: pointer;
-                        }
-
-                        &::-moz-range-thumb {
-                            width: 15px;
-                            height: 15px;
-                            border-radius: 50%;
-                            background: #fff;
-                            cursor: pointer;
-                        }
-                    }
-                }
 
                 .control-button {
                     background: none;
@@ -177,14 +123,6 @@
         .right-controls {
             height: 30px;
             padding: 5px;
-        }
-        .center-controls .scrubber {
-            height: 3px;
-            &::-webkit-slider-thumb,
-            &::-moz-range-thumb {
-                width: 10px;
-                height: 10px;
-            }
         }
         .left-controls .control-button img,
         .right-controls .control-button img {

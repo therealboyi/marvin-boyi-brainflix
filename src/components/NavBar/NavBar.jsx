@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from '../Buttons/Button'; 
+import Avatar from '../Avatar/Avatar';
+import Button from '../Buttons/Button';
 import './NavBar.scss';
 
 function NavBar() {
@@ -28,22 +29,14 @@ function NavBar() {
           />
         </div>
         <div className="header__avatar header__avatar--inside">
-          <img
-            src="/src/assets/images/Mohan-muruge.jpg"
-            alt="Avatar"
-            className="header__avatar-image"
-          />
+          <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
         </div>
       </div>
       <Button type="submit" iconSrc="/src/assets/icons/upload.svg" className="comments__button--custom">
         Upload
       </Button>
       <div className="header__avatar header__avatar--outside">
-        <img
-          src="/src/assets/images/Mohan-muruge.jpg"
-          alt="Avatar"
-          className="header__avatar-image"
-        />
+        <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
       </div>
     </header>
   );

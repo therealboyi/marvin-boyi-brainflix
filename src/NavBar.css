@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  padding: 0 1rem;
 }
 .header__logo {
   display: flex;
@@ -43,6 +42,15 @@
   padding: 0.5rem 0.5rem 0.5rem 2.5rem;
   box-sizing: border-box;
   height: 2.5rem;
+  font-family: "Avenir", sans-serif;
+}
+.header__search-input::-moz-placeholder {
+  font-family: "Avenir", sans-serif;
+  color: #323232;
+}
+.header__search-input::placeholder {
+  font-family: "Avenir", sans-serif;
+  color: #323232;
 }
 .header__avatar {
   width: 40px;
@@ -141,8 +149,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;

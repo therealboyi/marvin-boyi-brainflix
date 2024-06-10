@@ -1,70 +1,79 @@
 .metric-data {
+  --icon-color: #AFAFAF; 
+  --channel-color: #323232; 
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .metric-column {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .metric-item {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 10px;
+    display: flex;
     align-items: center;
-    flex-wrap: wrap;
-  
+
+    &.metric-item-bold {
+      color: var(--channel-color); 
+      font-weight: 600;
+    }
+
+    &:not(.metric-item-bold) {
+      color: var(--icon-color); 
+    }
+
+    .icon {
+      width: 16px; 
+      height: 16px; 
+      margin-right: 8px;
+      fill: var(--icon-color);
+    }
+  }
+
+  @media (max-width: 768px) { 
+    flex-direction: column;
+    align-items: flex-start;
+
     .metric-column {
-      flex: 1;
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      margin-right: 20px;
-  
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  
-    .metric-item {
-      flex: 1;
-      text-align: center;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-  
-      &.metric-item-bold {
-        font-weight: 600;
-      }
-  
-      .icon {
-        width: 16px; 
-        height: 16px; 
-        margin-right: 8px;
-      }
-    }
-  
-    @media (max-width: 768px) { 
-      flex-direction: column;
-      align-items: flex-start;
-  
-      .metric-column {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 10px;
-  
-        .metric-item {
-          text-align: left;
-          width: 48%; // Each item will take up roughly half the width
-          margin-bottom: 0;
-  
-          &:last-child {
-            margin-bottom: 10px;
-          }
-        }
-      }
-    }
-  
-    @media (min-width: 769px) { // Tablet and desktop screens
-      .metric-column {
-        flex-direction: row;
-  
-        .metric-item {
-          width: auto; // Reset width to default
-          text-align: center; // Center text for larger screens
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 0px;
+      margin-top: 0px;
+
+      .metric-item {
+        text-align: left;
+        width: 48%; 
+        margin-bottom: 0;
+
+        &:last-child {
+          margin-bottom: 10px;
         }
       }
     }
   }
-  
+
+  @media (min-width: 769px) { 
+    .metric-column {
+      flex-direction: row;
+
+      .metric-item {
+        width: auto; 
+        text-align: center; 
+      }
+    }
+  }
+}

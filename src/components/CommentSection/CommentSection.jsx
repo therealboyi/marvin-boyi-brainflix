@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CommentSection.scss';
 import { formatTimestamp } from '../utils';
-import Button from '../Buttons/Button'; 
+import Button from '../Buttons/Button';
+import Avatar from '../Avatar/Avatar';
 
 const CommentSection = ({ currentVideoId }) => {
   const [comments, setComments] = useState([]);
@@ -91,9 +92,9 @@ const CommentSection = ({ currentVideoId }) => {
       <h2 className="comments__counter">{comments.length} Comments</h2>
       <div className="comments__form-container">
         <div className="comments__form-wrapper">
-          <img src="/src/assets/images/Mohan-muruge.jpg" alt="User Avatar" className="comments__avatar" />
+          <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="User Avatar" size="large" />
           <div className="comments__form-column">
-            <label htmlFor="comment" className="comments__label">JOIN THE CONVERSATION</label>
+            <span htmlFor="comment" className="comments__label bold">JOIN THE CONVERSATION</span>
             <form className={`comments__form ${isDesktopOrTablet ? 'comments__form--horizontal' : ''}`} onSubmit={addNewComment}>
               <textarea
                 id="comment"
@@ -112,11 +113,11 @@ const CommentSection = ({ currentVideoId }) => {
           <React.Fragment key={comment.id || comment.timestamp}>
             <div className="comments__divider"></div>
             <div className={`comments__item ${isDesktopOrTablet && index === comments.length - 1 ? 'comments__item--last' : ''}`}>
-              <img src="./assets/images/Mohan-muruge.jpg" alt="User Avatar" className="comments__avatar" />
+          <Avatar src="" alt="" size="large" />
               <div className="comments__content">
                 <div className="comments__header">
-                  <span className="comments__name">{comment.name}</span>
-                  <span className="comments__date">{formatTimestamp(new Date(comment.timestamp))}</span>
+                  <p className="comments__name bold">{comment.name}</p>
+                  <p className="comments__date">{formatTimestamp(new Date(comment.timestamp))}</p>
                 </div>
                 <p className="comments__text">{comment.comment}</p>
               </div>
