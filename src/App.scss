@@ -1,0 +1,135 @@
+// Global breakpoints
+$desktop-breakpoint: 1280px;
+$tablet-breakpoint: 768px;
+$mobile-breakpoint: 320px;
+
+@import './styles/partials/mixins';
+@import './styles/partials/fonts';
+
+// Global layout grid
+.global-grid {
+  display: grid;
+  padding: auto;
+
+  @media (min-width: $desktop-breakpoint) {
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+    padding: auto;
+  }
+
+  @media (min-width: $tablet-breakpoint) and (max-width: ($desktop-breakpoint - 1px)) {
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+    padding: 36px;
+  }
+
+  @media (max-width: ($tablet-breakpoint - 1px)) {
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+    padding: 16px;
+  }
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "navbar"
+    "main"
+    "footer";
+}
+
+.navbar {
+  grid-area: navbar;
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.video-section {
+  grid-row: 1;
+  video {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: 2fr 1px 1fr; 
+  grid-gap: 1rem;
+
+  @media (min-width: $desktop-breakpoint) {
+    grid-template-columns: 2fr 1px 1fr; 
+    grid-gap: 0rem; 
+  }
+
+  @media (max-width: ($desktop-breakpoint - 1px)) {
+    grid-template-columns: 1fr; 
+  }
+}
+
+.headline {
+  grid-column: 1;
+
+  @media (min-width: $desktop-breakpoint) {
+    padding-right: 1rem; 
+  }
+}
+
+.divider {
+  background-color: #ccc; 
+  height: 1px;
+  margin: 1rem 0;
+}
+
+.title-divider {
+  @media (min-width: $tablet-breakpoint) and (max-width: ($desktop-breakpoint - 1px)) {
+    display: none;
+  }
+  
+  @media (min-width: $desktop-breakpoint) {
+    display: none; 
+  }
+}
+
+.main-divider {
+  grid-column: 2;
+  background-color: #ccc; 
+  width: 1px;
+  height: 100%;
+  
+  @media (max-width: ($desktop-breakpoint - 1px)) {
+    display: none; 
+  }
+}
+
+.footer {
+  grid-column: 3;
+  width: 100%; 
+
+  @media (max-width: ($desktop-breakpoint - 1px)) {
+    grid-column: 1;
+    width: 100%; 
+  }
+}
+
+.headline-container {
+  h1, h2, p {
+    margin: 0.5rem 0;
+  }
+}
+
+.next-video-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.clickable {
+  cursor: pointer;
+}
