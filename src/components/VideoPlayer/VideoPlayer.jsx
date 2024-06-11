@@ -17,6 +17,7 @@ const VideoPlayer = ({ currentVideoId }) => {
   const [duration, setDuration] = useState(0);
   const [videoDetails, setVideoDetails] = useState(null);
   const [apiKey, setApiKey] = useState('');
+  const [isFullHeight, setIsFullHeight] = useState(false);
 
   useEffect(() => {
     fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register')
@@ -94,6 +95,7 @@ const VideoPlayer = ({ currentVideoId }) => {
 
     const handleEnded = () => {
       setIsPlaying(false);
+      setIsFullHeight(false);
     };
 
     video.addEventListener('progress', handleProgress);
@@ -111,9 +113,11 @@ const VideoPlayer = ({ currentVideoId }) => {
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
+      setIsFullHeight(true);
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
+      setIsFullHeight(false);
     }
   };
 
@@ -172,7 +176,7 @@ const VideoPlayer = ({ currentVideoId }) => {
   }
 
   return (
-    <div className="video-player-container">
+    <div className={`video-player-container ${isFullHeight ? 'full-height' : ''}`}>
       <div className="video-player">
         {!isPlaying && (
           <div className="thumbnail" onClick={handlePlayPause}>

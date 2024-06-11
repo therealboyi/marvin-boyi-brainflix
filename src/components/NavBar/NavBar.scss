@@ -1,4 +1,5 @@
 .header {
+  // Base styles
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,12 +80,12 @@
     border-radius: 50%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     flex-direction: column;
     align-items: stretch;
 
     &__logo {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       display: flex;
       justify-content: center;
     }
@@ -115,13 +116,13 @@
     }
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     &__logo a img {
       margin-right: 5rem;
     }
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     &__search-avatar-wrapper {
       flex: 1;
       display: flex;

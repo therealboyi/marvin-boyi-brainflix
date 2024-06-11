@@ -1,133 +1,152 @@
-.video-player-container {
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 56.25%;
-    background-color: black;
-    position: relative;
+// Global breakpoints
+$desktop-breakpoint: 1280px;
+$tablet-breakpoint: 768px;
+$mobile-breakpoint: 320px;
 
-    .video-player {
-        position: absolute;
-        top: 0;
-        left: 0;
+.video-player-container {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 45%; 
+  background-color: black;
+  position: relative;
+  transition: padding-top 0.3s ease, margin 0.3s ease; 
+
+  &.full-height {
+    padding-top: 45%; 
+  }
+
+  .video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 1;
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+
+      @media (min-width: $tablet-breakpoint) {
+        object-fit: contain; 
+      }
+
+      @media (max-width: $tablet-breakpoint) {
+        object-fit: cover; 
+      }
+    }
+
+    .thumbnail {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 2;
+
+      img {
         width: 100%;
         height: 100%;
-        background: black;
-        z-index: 1;
+        object-fit: cover;
 
-        video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%);
-            object-fit: contain;
-            z-index: 2;
+        @media (min-width: $desktop-breakpoint) {
+          width: 67%; 
         }
 
-        .thumbnail {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 2;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
+        @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
+          width: 91%; 
         }
-
-        .controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-
-            .left-controls,
-            .center-controls,
-            .right-controls {
-                background: rgba(0, 0, 0, 0.5);
-                padding: 10px;
-                border-radius: 5px;
-                display: flex;
-                align-items: center;
-                margin: 0 10px;
-                height: 25px;
-            }
-
-            .left-controls {
-                margin-right: auto;
-
-                .control-button {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    margin: 0 5px;
-                    position: relative;
-
-                    img {
-                        width: 20px;
-                        height: 20px;
-                    }
-                }
-            }
-
-            .center-controls {
-                flex-grow: 1;
-                justify-content: center;
-            }
-
-            .right-controls {
-                margin-left: auto;
-
-                .control-button {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    margin: 0 5px;
-                    position: relative;
-
-                    img {
-                        width: 30px;
-                        height: 30px;
-                    }
-                }
-            }
-        }
+      }
     }
-}
 
-@media (min-width: 1280px) {
-    .video-player-container {
-        padding-top: 55rem;
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+
+      .left-controls,
+      .center-controls,
+      .right-controls {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+        height: 25px;
+      }
+
+      .left-controls {
+        margin-right: auto;
+
+        .control-button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          margin: 0 5px;
+          position: relative;
+
+          img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+
+      .center-controls {
+        flex-grow: 1;
+        justify-content: center;
+      }
+
+      .right-controls {
+        margin-left: auto;
+
+        .control-button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          margin: 0 5px;
+          position: relative;
+
+          img {
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
     }
+  }
 }
 
 @media (max-width: 320px) {
-    .video-player-container .controls {
-        .left-controls,
-        .center-controls,
-        .right-controls {
-            height: 30px;
-            padding: 5px;
-        }
-        .left-controls .control-button img,
-        .right-controls .control-button img {
-            width: 20px;
-            height: 20px;
-        }
+  .video-player-container .controls {
+    .left-controls,
+    .center-controls,
+    .right-controls {
+      height: 30px;
+      padding: 5px;
     }
+    .left-controls .control-button img,
+    .right-controls .control-button img {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
