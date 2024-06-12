@@ -1,6 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 
 const VolumeButton = ({ volume, onVolumeChange, onVolumeToggle }) => {
+=======
+import './VolumeButton.scss';
+
+const VolumeButton = ({ volume, onVolumeChange, onVolumeToggle }) => {
+  const volumeValue = volume * 100;
+
+>>>>>>> sprint-2
   return (
     <div className="volume-container">
       <img
@@ -12,9 +20,16 @@ const VolumeButton = ({ volume, onVolumeChange, onVolumeToggle }) => {
         type="range"
         min="0"
         max="100"
+<<<<<<< HEAD
         value={volume * 100}
         onChange={onVolumeChange}
         className="volume"
+=======
+        value={volumeValue}
+        onChange={onVolumeChange}
+        className="volume"
+        style={{ '--volume-value': `${volumeValue}%` }}
+>>>>>>> sprint-2
       />
     </div>
   );
