@@ -25,20 +25,25 @@ const CommentSection = ({ currentVideoId }) => {
   }, []);
 
   useEffect(() => {
-    axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register')
-      .then(response => {
+    const fetchApiKey = async () => {
+      try {
+        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
         setApiKey(response.data.api_key);
-      })
-      .catch(error => console.error('Error fetching API key:', error));
+      } catch (error) {
+        console.error('Error fetching API key:', error);
+      }
+    };
+    fetchApiKey();
   }, []);
 
   useEffect(() => {
-    if (!apiKey || !currentVideoId) return;
+    const fetchVideoDetails = async () => {
+      if (!apiKey || !currentVideoId) return;
 
-    setLoading(true);
+      setLoading(true);
 
-    axios.get('/src/data/video-details.json')
-      .then(response => {
+      try {
+        const response = await axios.get('/src/data/video-details.json');
         const updatedVideoDetails = response.data.map(video => ({
           ...video,
           video: `${video.video}?api_key=${apiKey}`
@@ -46,11 +51,13 @@ const CommentSection = ({ currentVideoId }) => {
         const video = updatedVideoDetails.find(video => video.id === currentVideoId);
         setComments(video ? video.comments : []);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching video details:', error);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchVideoDetails();
   }, [apiKey, currentVideoId]);
 
   const addNewComment = async (event) => {
@@ -113,7 +120,7 @@ const CommentSection = ({ currentVideoId }) => {
           <React.Fragment key={comment.id || comment.timestamp}>
             <div className="comments__divider"></div>
             <div className={`comments__item ${isDesktopOrTablet && index === comments.length - 1 ? 'comments__item--last' : ''}`}>
-          <Avatar src="" alt="" size="large" />
+              <Avatar src="" alt="" size="large" />
               <div className="comments__content">
                 <div className="comments__header">
                   <p className="comments__name bold">{comment.name}</p>
