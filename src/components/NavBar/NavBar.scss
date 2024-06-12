@@ -1,4 +1,5 @@
 .header {
+<<<<<<< HEAD
   display: flex;
   justify-content: space-between;
   align-items: center; 
@@ -8,6 +9,17 @@
     margin-right: 0rem;
     display: flex;
     align-items: center; 
+=======
+  // Base styles
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+>>>>>>> sprint-2
     a img {
       width: auto;
       height: auto;
@@ -25,6 +37,7 @@
   &__search-container {
     flex-grow: 1;
     position: relative;
+<<<<<<< HEAD
     height: auto; 
   }
 
@@ -45,15 +58,52 @@
     padding: 0.5rem 0.5rem 0.5rem 2.5rem; 
     box-sizing: border-box;
     height: auto; 
+=======
+    height: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    height: 1.5rem;
+    width: auto;
+  }
+
+  &__search-input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    box-sizing: border-box;
+    height: 2.5rem;
+    font-family: 'Avenir', sans-serif; // Ensure the base font is set for the input
+  }
+
+  &__search-input::placeholder {
+    font-family: 'Avenir', sans-serif; // Ensure placeholder text uses Avenir font
+    color: #323232; // Placeholder text color
+>>>>>>> sprint-2
   }
 
   &__avatar {
     width: 40px;
     height: 40px;
+<<<<<<< HEAD
     border-radius: 50%; 
     overflow: hidden; 
     flex-shrink: 0;
     background-color: #E1E1E1; 
+=======
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: #E1E1E1;
+>>>>>>> sprint-2
 
     &--inside {
       display: none;
@@ -61,23 +111,39 @@
 
     &--outside {
       display: block;
+<<<<<<< HEAD
       margin-left: 0rem;
+=======
+      margin-left: 1rem;
+>>>>>>> sprint-2
     }
   }
 
   &__avatar-image {
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
     object-fit: cover; 
     border-radius: 50%; 
   }
 
   @media (max-width: 768px) {
+=======
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 767px) {
+>>>>>>> sprint-2
     flex-direction: column;
     align-items: stretch;
 
     &__logo {
+<<<<<<< HEAD
       margin-bottom: 1rem;
+=======
+      margin-bottom: 0.5rem;
+>>>>>>> sprint-2
       display: flex;
       justify-content: center;
     }
@@ -108,7 +174,17 @@
     }
   }
 
+<<<<<<< HEAD
   @media (min-width: 769px) {
+=======
+  @media (min-width: 768px) {
+    &__logo a img {
+      margin-right: 5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+>>>>>>> sprint-2
     &__search-avatar-wrapper {
       flex: 1;
       display: flex;
@@ -120,13 +196,24 @@
 
     &__search-container {
       flex-grow: 1;
+<<<<<<< HEAD
       margin-right: 1rem;  
       height: auto;
+=======
+      margin-right: 1rem;
+      height: auto;
+      display: flex;
+      align-items: center;
+>>>>>>> sprint-2
     }
 
     &__search-input {
       width: 100%;
+<<<<<<< HEAD
       height: auto;
+=======
+      height: 2.5rem;
+>>>>>>> sprint-2
     }
 
     &__avatar--inside {
@@ -141,7 +228,40 @@
 
   @media (min-width: 1280px) {
     &__logo {
+<<<<<<< HEAD
       margin-right: 20rem;
     }
   }
 }
+=======
+      margin-right: 10rem;
+    }
+  }
+}
+
+.comments__button--custom {
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15rem;
+  height: 2.5rem; 
+  margin-bottom: 0.5rem;
+}
+
+.comments__button--custom .button__icon {
+  margin-right: 0.5rem;
+  height: 1.5rem;
+  margin-left: 0;
+}
+
+.comments__button--custom .button__text {
+  flex: 1;
+  text-align: center;
+  text-transform: uppercase;
+  margin-left: -2rem;
+}
+>>>>>>> sprint-2

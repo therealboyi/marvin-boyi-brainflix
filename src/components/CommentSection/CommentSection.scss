@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .comments {
   padding: 3rem;
   text-align: left;
@@ -23,18 +24,52 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+=======
+.bold {
+  font-weight: 600;
+}
+
+body {
+  font-family: 'Avenir', sans-serif;
+}
+
+.comments {
+  padding: 0rem;
+  text-align: left;
+}
+
+.comments__counter {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.comments__form-container {
+  margin-bottom: 0rem;
+}
+
+.comments__form-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+>>>>>>> sprint-2
 }
 
 .comments__avatar {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+<<<<<<< HEAD
   margin-right: 1rem;
+=======
+>>>>>>> sprint-2
   background-color: #e1e1e1;
   object-fit: cover;
   flex-shrink: 0;
 }
 
+<<<<<<< HEAD
 @media (max-width: 767px) {
   .comments__avatar {
     width: 2.25rem;
@@ -42,10 +77,13 @@
   }
 }
 
+=======
+>>>>>>> sprint-2
 .comments__form {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+<<<<<<< HEAD
 }
 
 .comments__label {
@@ -64,6 +102,44 @@
   font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #323232;
   flex-grow: 1;
+=======
+  margin-top: 0.5rem;
+  width: 100%;
+  margin-bottom: -1rem;
+
+}
+
+.comments__form--horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+.comments__label {
+  color: #AFAFAF;
+}
+
+.comments__textarea,
+.comments__button--custom {
+  width: 100%;
+  height: 2.5rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.comments__textarea {
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  color: #323232;
+  flex-grow: 1;
+  resize: none;
+  margin-bottom: 0.5rem;
+  font-family: 'Avenir', sans-serif;
+}
+
+.comments__textarea::placeholder {
+  font-family: 'Avenir', sans-serif;
+  color: #323232;
+>>>>>>> sprint-2
 }
 
 .comments__textarea.error {
@@ -75,12 +151,16 @@
 }
 
 .comments__button--custom {
+<<<<<<< HEAD
   padding: 0.5rem 1rem;
   background-color: #3273dc;
+=======
+>>>>>>> sprint-2
   color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+<<<<<<< HEAD
   font-size: 1rem;
   font-weight: 500;
   display: flex;
@@ -91,18 +171,31 @@
 
 .comments__button--custom:hover {
   background-color: #276cda;
+=======
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15rem;
+  margin-bottom: 0.5rem;
+>>>>>>> sprint-2
 }
 
 .comments__button--custom .button__icon {
   margin-right: 0.5rem;
+<<<<<<< HEAD
   height: 1.5rem; 
   margin-left: 0; 
+=======
+  height: 1.5rem;
+  margin-left: 0;
+>>>>>>> sprint-2
 }
 
 .comments__button--custom .button__text {
   flex: 1;
   text-align: center;
   text-transform: uppercase;
+<<<<<<< HEAD
   margin-left: -2rem; 
 }
 
@@ -136,28 +229,61 @@
   padding-top: 1rem;
 }
 
+=======
+  margin-left: -2rem;
+}
+
+.comments__list {
+  border-top: none;
+  border-bottom: none;
+  padding-top: 1rem;
+}
+
+.comments__divider {
+  height: 1px;
+  background-color: #e1e1e1;
+  margin: 1rem 0;
+}
+
+>>>>>>> sprint-2
 .comments__item {
   display: flex;
   align-items: flex-start;
   margin-bottom: 1rem;
+<<<<<<< HEAD
   padding-bottom: 1rem;
   border-bottom: 1px solid #E1E1E1;
+=======
+>>>>>>> sprint-2
 }
 
 .comments__item:last-child {
   margin-bottom: 0;
 }
 
+<<<<<<< HEAD
+=======
+.comments__item--last {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+>>>>>>> sprint-2
 .comments__item .comments__avatar {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+<<<<<<< HEAD
   margin-right: 1rem;
+=======
+>>>>>>> sprint-2
   background-color: #e1e1e1;
   object-fit: cover;
   flex-shrink: 0;
 }
 
+<<<<<<< HEAD
 @media (max-width: 767px) {
   .comments__item .comments__avatar {
     width: 2.25rem;
@@ -165,10 +291,16 @@
   }
 }
 
+=======
+>>>>>>> sprint-2
 .comments__content {
   display: flex;
   flex-direction: column;
   width: 100%;
+<<<<<<< HEAD
+=======
+  padding-left: 1rem;
+>>>>>>> sprint-2
 }
 
 .comments__header {
@@ -178,15 +310,52 @@
 }
 
 .comments__name {
+<<<<<<< HEAD
   font-weight: 550;
 }
 
 .comments__date {
   font-size: 0.8rem;
+=======
+}
+
+.comments__date {
+>>>>>>> sprint-2
   color: #E1E1E1;
 }
 
 .comments__text {
+<<<<<<< HEAD
   font-size: 1rem;
   font-weight: 500;
+=======
+}
+
+@media (min-width: 768px) {
+  .comments__form--horizontal {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .comments__textarea {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+
+  .comments__button--custom {
+    margin-bottom: 0;
+    width: auto;
+  }
+
+  .comments__divider:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .comments__textarea {
+    height: 5rem; 
+    margin-bottom: 1rem;
+  }
+>>>>>>> sprint-2
 }

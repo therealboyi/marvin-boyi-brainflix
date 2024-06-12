@@ -5,7 +5,11 @@ import VolumeButton from '../Buttons/VolumeButton';
 import FullscreenButton from '../Buttons/FullscreenButton';
 import Scrubber from '../Buttons/Scrubber';
 
+<<<<<<< HEAD
 const VideoPlayer = () => {
+=======
+const VideoPlayer = ({ currentVideoId }) => {
+>>>>>>> sprint-2
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -17,6 +21,7 @@ const VideoPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [videoDetails, setVideoDetails] = useState(null);
   const [apiKey, setApiKey] = useState('');
+<<<<<<< HEAD
 
   useEffect(() => {
     fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register')
@@ -43,14 +48,55 @@ const VideoPlayer = () => {
         return response.json();
       })
       .then(data => {
+=======
+  const [isFullHeight, setIsFullHeight] = useState(false);
+
+  useEffect(() => {
+    const fetchApiKey = async () => {
+      try {
+        const response = await fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+        setApiKey(data.api_key);
+      } catch (error) {
+        console.error('Error fetching API key:', error);
+      }
+    };
+    fetchApiKey();
+  }, []);
+
+  useEffect(() => {
+    const fetchVideoDetails = async () => {
+      if (!apiKey) return;
+
+      try {
+        const response = await fetch('/src/data/video-details.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+>>>>>>> sprint-2
         const updatedVideoDetails = data.map(video => ({
           ...video,
           video: `${video.video}?api_key=${apiKey}`
         }));
+<<<<<<< HEAD
         setVideoDetails(updatedVideoDetails[0]);
       })
       .catch(error => console.error('Error fetching video details:', error));
   }, [apiKey]);
+=======
+        const video = updatedVideoDetails.find(video => video.id === currentVideoId);
+        setVideoDetails(video);
+      } catch (error) {
+        console.error('Error fetching video details:', error);
+      }
+    };
+    fetchVideoDetails();
+  }, [apiKey, currentVideoId]);
+>>>>>>> sprint-2
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -93,6 +139,10 @@ const VideoPlayer = () => {
 
     const handleEnded = () => {
       setIsPlaying(false);
+<<<<<<< HEAD
+=======
+      setIsFullHeight(false);
+>>>>>>> sprint-2
     };
 
     video.addEventListener('progress', handleProgress);
@@ -110,9 +160,17 @@ const VideoPlayer = () => {
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
+<<<<<<< HEAD
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
+=======
+      setIsFullHeight(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+      setIsFullHeight(false);
+>>>>>>> sprint-2
     }
   };
 
@@ -171,7 +229,11 @@ const VideoPlayer = () => {
   }
 
   return (
+<<<<<<< HEAD
     <div className="video-player-container">
+=======
+    <div className={`video-player-container ${isFullHeight ? 'full-height' : ''}`}>
+>>>>>>> sprint-2
       <div className="video-player">
         {!isPlaying && (
           <div className="thumbnail" onClick={handlePlayPause}>
