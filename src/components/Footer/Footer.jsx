@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NextVideos from '../NextVideos/NextVideos';
-import PropTypes from 'prop-types';
+import './Footer.scss';
 
 const Footer = ({ currentVideoId, setCurrentVideoId }) => {
   const [videos, setVideos] = useState([]);
@@ -28,11 +28,6 @@ const Footer = ({ currentVideoId, setCurrentVideoId }) => {
       <NextVideos videos={videos} onVideoClick={setCurrentVideoId} />
     </footer>
   );
-};
-
-Footer.propTypes = {
-  currentVideoId: PropTypes.string.isRequired,
-  setCurrentVideoId: PropTypes.func.isRequired,
 };
 
 export default Footer;
