@@ -1,21 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import NextVideos from '../NextVideos/NextVideos';
-<<<<<<< HEAD
-
-const Footer = () => {
-  const [videos, setVideos] = useState([]);
-
-  useEffect(() => {
-    fetch('/src/data/video-details.json')
-      .then(response => response.json())
-      .then(data => setVideos(data))
-      .catch(error => console.error('Error fetching video data:', error));
-  }, []);
-
-  return (
-    <footer className="footer">
-      <NextVideos videos={videos} />
-=======
 import './Footer.scss';
 
 const Footer = ({ currentVideoId, setCurrentVideoId }) => {
@@ -42,7 +26,6 @@ const Footer = ({ currentVideoId, setCurrentVideoId }) => {
   return (
     <footer className="footer">
       <NextVideos videos={videos} onVideoClick={setCurrentVideoId} />
->>>>>>> sprint-2
     </footer>
   );
 };

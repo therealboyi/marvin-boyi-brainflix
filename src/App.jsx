@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import './App.scss';
-import NavBar from './components/NavBar/NavBar';
-import NextVideos from './components/NextVideos/NextVideos';
-import Footer from './components/Footer/Footer';
-import VideoPlayer from './components/VideoPlayer/VideoPlayer';
-import VideoTitle from './components/VideoTitle/VideoTitle';
-import MetricData from './components/MetricData/MetricData';
-import VideoDescription from './components/VideoDetails/VideoDetails';
-import CommentSection from './components/CommentSection/CommentSection';
-
-function App() {
-  const nextVideos = [
-    // your next videos data
-  ];
-=======
 import React, { useState, useEffect } from "react";
 import "./App.scss";
 import NavBar from "./components/NavBar/NavBar";
@@ -54,35 +37,12 @@ function App() {
       localStorage.setItem('currentVideoId', currentVideoId);
     }
   }, [currentVideoId]);
->>>>>>> sprint-2
 
   return (
     <div className="app global-grid">
       <NavBar className="navbar" />
       <main className="main">
         <section className="video-section">
-<<<<<<< HEAD
-          <VideoPlayer />
-        </section>
-        <section className="headline">
-          <div className="headline-container">
-            <VideoTitle />
-            <MetricData />
-          </div>
-          <VideoDescription />
-          <div className="comment-section-container">
-            <CommentSection />
-          </div>
-        </section>
-        <section className="next-video-section">
-          <div>Next Videos Component</div>
-          <div>Next Videos Component</div>
-          <div>Next Videos Component</div>
-          <div>Next Videos Component</div>
-        </section>
-      </main>
-      <Footer videos={nextVideos} />
-=======
           <VideoPlayer currentVideoId={currentVideoId} />
         </section>
         <div className="content-container">
@@ -102,7 +62,6 @@ function App() {
           <Footer currentVideoId={currentVideoId} setCurrentVideoId={setCurrentVideoId} />
         </div>
       </main>
->>>>>>> sprint-2
     </div>
   );
 }
