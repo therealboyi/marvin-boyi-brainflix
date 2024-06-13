@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
-import Button from '../Buttons/Button';
+import Button from '../Buttons/Button/Button';
 import './NavBar.scss';
 
 function NavBar() {

@@ -1,9 +1,10 @@
+// VideoPlayer.jsx
 import React, { useRef, useState, useEffect } from 'react';
 import './VideoPlayer.scss';
-import PlayPauseButton from '../Buttons/PlayPauseButton';
-import VolumeButton from '../Buttons/VolumeButton';
-import FullscreenButton from '../Buttons/FullscreenButton';
-import Scrubber from '../Buttons/Scrubber';
+import PlayPauseButton from '../Buttons/PlayPauseButton/PlayPauseButton';
+import VolumeButton from '../Buttons/VolumeButton/VolumeButton';
+import FullscreenButton from '../Buttons/FullscreenButton/FullscreenButton';
+import Scrubber from '../Buttons/Scrubber/Scrubber';
 
 const VideoPlayer = ({ currentVideoId }) => {
   const videoRef = useRef(null);
@@ -193,7 +194,7 @@ const VideoPlayer = ({ currentVideoId }) => {
         </video>
         <div className="controls">
           <div className="left-controls">
-            <PlayPauseButton isPlaying={isPlaying} onClick={handlePlayPause} />
+            <PlayPauseButton isPlaying={isPlaying} onTogglePlayPause={handlePlayPause} />
           </div>
           <div className="center-controls">
             <Scrubber 
@@ -205,7 +206,7 @@ const VideoPlayer = ({ currentVideoId }) => {
             />
           </div>
           <div className="right-controls">
-            <FullscreenButton isFullscreen={isFullscreen} onClick={handleFullscreen} />
+            <FullscreenButton isFullscreen={isFullscreen} onToggleFullscreen={handleFullscreen} />
             <VolumeButton 
               volume={volume} 
               onVolumeChange={handleVolumeChange} 

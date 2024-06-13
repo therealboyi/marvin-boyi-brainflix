@@ -1,3 +1,4 @@
+// App.scss
 // Global breakpoints
 $desktop-breakpoint: 1280px;
 $tablet-breakpoint: 768px;
@@ -96,8 +97,7 @@ a, button, label {
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "navbar"
-    "main"
-    "footer";
+    "main";
 }
 
 .navbar {
@@ -198,19 +198,19 @@ a, button, label {
   }
 }
 
-.footer {
+.headline-container {
+  h1, h2, p {
+    margin: 0.5rem 0;
+  }
+}
+
+.next-videos-container {
   grid-column: 3;
   width: 100%; 
 
   @media (max-width: $desktop-breakpoint) {
     grid-column: 1;
     width: 100%; 
-  }
-}
-
-.headline-container {
-  h1, h2, p {
-    margin: 0.5rem 0;
   }
 }
 

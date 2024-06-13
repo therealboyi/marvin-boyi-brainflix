@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CommentSection.scss';
 import { formatTimestamp } from '../utils';
-import Button from '../Buttons/Button';
+import Button from '../Buttons/Button/Button';
 import Avatar from '../Avatar/Avatar';
 
 const CommentSection = ({ currentVideoId }) => {

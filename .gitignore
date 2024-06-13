@@ -22,7 +22,7 @@ dist-ssr
 *.njsproj
 *.min.css
 *.css.map
-.md
+*.md
 *.sln
 *.sw?
 vite.svg
