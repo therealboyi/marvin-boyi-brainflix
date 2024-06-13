@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './NextVideos.scss';
 
 const NextVideos = ({ videos, onVideoClick }) => {
@@ -33,18 +32,6 @@ const NextVideos = ({ videos, onVideoClick }) => {
       </ul>
     </div>
   );
-};
-
-NextVideos.propTypes = {
-  videos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      channel: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onVideoClick: PropTypes.func.isRequired,
 };
 
 export default NextVideos;

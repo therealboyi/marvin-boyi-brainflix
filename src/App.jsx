@@ -14,12 +14,22 @@ function App() {
   });
 
   useEffect(() => {
-    if (!currentVideoId) {
-      fetch('/src/data/video-details.json')
-        .then(response => response.json())
-        .then(data => setCurrentVideoId(data[0].id)) 
-        .catch(error => console.error('Error fetching video data:', error));
-    }
+    const fetchVideoData = async () => {
+      if (!currentVideoId) {
+        try {
+          const response = await fetch('/src/data/video-details.json');
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          const data = await response.json();
+          setCurrentVideoId(data[0].id);
+        } catch (error) {
+          console.error('Error fetching video data:', error);
+        }
+      }
+    };
+
+    fetchVideoData();
   }, [currentVideoId]);
 
   useEffect(() => {
@@ -39,16 +49,16 @@ function App() {
           <section className="headline">
             <div className="headline-container">
               <VideoTitle currentVideoId={currentVideoId} />
-              <div className="divider title-divider"></div> {}
+              <div className="divider title-divider"></div>
               <MetricData currentVideoId={currentVideoId} />
-              <div className="divider"></div> {}
+              <div className="divider"></div>
             </div>
             <VideoDescription currentVideoId={currentVideoId} />
             <div className="comment-section-container">
               <CommentSection currentVideoId={currentVideoId} />
             </div>
           </section>
-          <div className="divider main-divider"></div> {}
+          <div className="divider main-divider"></div>
           <Footer currentVideoId={currentVideoId} setCurrentVideoId={setCurrentVideoId} />
         </div>
       </main>
@@ -57,4 +67,3 @@ function App() {
 }
 
 export default App;
-

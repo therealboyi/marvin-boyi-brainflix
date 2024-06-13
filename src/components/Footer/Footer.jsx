@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import NextVideos from '../NextVideos/NextVideos';
-import PropTypes from 'prop-types';
+import './Footer.scss';
 
 const Footer = ({ currentVideoId, setCurrentVideoId }) => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    fetch('/src/data/video-details.json')
-      .then(response => response.json())
-      .then(data => {
+    const fetchVideoDetails = async () => {
+      try {
+        const response = await fetch('/src/data/video-details.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
         const filteredVideos = data.filter(video => video.id !== currentVideoId);
         setVideos(filteredVideos);
-      })
-      .catch(error => console.error('Error fetching video data:', error));
+      } catch (error) {
+        console.error('Error fetching video data:', error);
+      }
+    };
+
+    fetchVideoDetails();
   }, [currentVideoId]);
 
   return (
@@ -20,11 +28,6 @@ const Footer = ({ currentVideoId, setCurrentVideoId }) => {
       <NextVideos videos={videos} onVideoClick={setCurrentVideoId} />
     </footer>
   );
-};
-
-Footer.propTypes = {
-  currentVideoId: PropTypes.string.isRequired,
-  setCurrentVideoId: PropTypes.func.isRequired,
 };
 
 export default Footer;
