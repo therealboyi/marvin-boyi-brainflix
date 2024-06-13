@@ -1,3 +1,4 @@
+// Scrubber.scss
 @import '../../../styles/partials/variables';
 
 .scrubber-container {
@@ -5,7 +6,7 @@
   align-items: center;
   width: 100%;
 
-  .timer {
+  .scrubber__timer {
     margin: 0 10px;
     color: #fff;
   }

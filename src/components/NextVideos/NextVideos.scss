@@ -1,3 +1,4 @@
+// NextVideos.scss
 $desktop-breakpoint: 1280px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 320px;
@@ -21,6 +22,10 @@ $mobile-breakpoint: 320px;
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+  }
+
+  &__item--clickable {
+    cursor: pointer;
   }
 
   &__thumbnail {

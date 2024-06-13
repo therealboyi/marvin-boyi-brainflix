@@ -1,3 +1,4 @@
+// utils.js
 // Function to format timestamps
 export const formatTimestamp = (date) => {
     const now = new Date();

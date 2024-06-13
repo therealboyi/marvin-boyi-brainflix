@@ -19,7 +19,7 @@ const Scrubber = ({ value, buffer, onScrub, currentTime, duration }) => {
 
   return (
     <div className="scrubber-container">
-      <span className="timer">{formatTime(currentTime)}</span>
+      <span className="scrubber__timer">{formatTime(currentTime)}</span>
       <input
         type="range"
         min="0"
@@ -29,7 +29,7 @@ const Scrubber = ({ value, buffer, onScrub, currentTime, duration }) => {
         className="scrubber"
         style={{ background: getBackground() }}
       />
-      <span className="timer">{formatTime(duration)}</span>
+      <span className="scrubber__timer">{formatTime(duration)}</span>
     </div>
   );
 };
