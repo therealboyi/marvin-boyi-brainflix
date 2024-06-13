@@ -20,10 +20,6 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-<<<<<<< HEAD
-.css
-=======
->>>>>>> sprint-2
 *.min.css
 *.css.map
 .md
@@ -36,12 +32,6 @@ vite.config.js
 App.css
 .eslintrc.cjs
 *.cjs
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 utils.js
->>>>>>> feature
-=======
 *.txt
 *.css
->>>>>>> sprint-2

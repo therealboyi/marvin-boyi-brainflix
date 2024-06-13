@@ -1,8 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-=======
 import Avatar from '../Avatar/Avatar';
->>>>>>> sprint-2
 import Button from '../Buttons/Button';
 import './NavBar.scss';
 
@@ -32,24 +29,6 @@ function NavBar() {
           />
         </div>
         <div className="header__avatar header__avatar--inside">
-<<<<<<< HEAD
-          <img
-            src="/src/assets/images/Mohan-muruge.jpg"
-            alt="Avatar"
-            className="header__avatar-image"
-          />
-        </div>
-      </div>
-      <Button className="primary" iconSrc="/src/assets/icons/upload.svg">
-        Upload
-      </Button>
-      <div className="header__avatar header__avatar--outside">
-        <img
-          src="/src/assets/images/Mohan-muruge.jpg"
-          alt="Avatar"
-          className="header__avatar-image"
-        />
-=======
           <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
         </div>
       </div>
@@ -58,7 +37,6 @@ function NavBar() {
       </Button>
       <div className="header__avatar header__avatar--outside">
         <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
->>>>>>> sprint-2
       </div>
     </header>
   );

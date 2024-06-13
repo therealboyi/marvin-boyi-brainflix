@@ -1,36 +1,4 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-
-const MetricData = () => {
-  const [videoMetrics, setVideoMetrics] = useState({ views: '', likes: '', channel: '', timestamp: '' });
-  const [apiKey, setApiKey] = useState('');
-
-  useEffect(() => {
-    fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setApiKey(data.api_key);
-      })
-      .catch(error => console.error('Error fetching API key:', error));
-  }, []);
-
-  useEffect(() => {
-    if (!apiKey) return;
-
-    fetch('/src/data/video-details.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => {
-=======
 import './MetricData.scss';
 import views from '/Users/user/Documents/Brainstation/marvin-boyi-brainflix/src/assets/icons/views.svg';
 import likes from '/Users/user/Documents/Brainstation/marvin-boyi-brainflix/src/assets/icons/likes.svg';
@@ -66,18 +34,10 @@ const MetricData = ({ currentVideoId }) => {
           throw new Error('Network response was not ok ' + response.statusText);
         }
         const data = await response.json();
->>>>>>> sprint-2
         const updatedVideoDetails = data.map(video => ({
           ...video,
           video: `${video.video}?api_key=${apiKey}`
         }));
-<<<<<<< HEAD
-        const { views, likes, channel, timestamp } = updatedVideoDetails[0];
-        setVideoMetrics({ views, likes, channel, timestamp });
-      })
-      .catch(error => console.error('Error fetching video details:', error));
-  }, [apiKey]);
-=======
         const video = updatedVideoDetails.find(video => video.id === currentVideoId);
         const { views, likes, channel, timestamp } = video || {};
         setVideoMetrics({ views, likes, channel, timestamp });
@@ -97,7 +57,6 @@ const MetricData = ({ currentVideoId }) => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
->>>>>>> sprint-2
 
   if (!videoMetrics.views || !videoMetrics.likes || !videoMetrics.channel || !videoMetrics.timestamp) {
     return <div>Loading...</div>;
@@ -105,28 +64,14 @@ const MetricData = ({ currentVideoId }) => {
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
-<<<<<<< HEAD
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-=======
     const day = date.getDate();
     const month = date.getMonth() + 1; 
     const year = date.getFullYear();
     return `${month}/${day}/${year}`;
->>>>>>> sprint-2
   };
 
   return (
     <div className="metric-data">
-<<<<<<< HEAD
-      <p>Channel: {videoMetrics.channel}</p>
-      <p>Date: {formatDate(videoMetrics.timestamp)}</p>
-      <p>Views: {videoMetrics.views}</p>
-      <p>Likes: {videoMetrics.likes}</p>
-=======
       {isMobile ? (
         <>
           <div className="metric-column">
@@ -150,7 +95,6 @@ const MetricData = ({ currentVideoId }) => {
           </div>
         </>
       )}
->>>>>>> sprint-2
     </div>
   );
 };

@@ -1,50 +1,3 @@
-<<<<<<< HEAD
-.next-videos {
-    padding: 1rem;
-    background-color: #f9f9f9;
-  
-    &__title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-  
-    &__list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  
-    &__item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-  
-    &__thumbnail {
-      width: 120px;
-      height: 90px;
-      margin-right: 1rem;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-  
-    &__info {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    &__video-title {
-      font-size: 1.2rem;
-      margin: 0 0 0.5rem;
-    }
-  
-    &__channel {
-      font-size: 0.9rem;
-      color: #555;
-    }
-  }
-  
-=======
 $desktop-breakpoint: 1280px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 320px;
@@ -112,4 +65,3 @@ $mobile-breakpoint: 320px;
     padding: 1rem;
   }
 }
->>>>>>> sprint-2

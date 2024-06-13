@@ -1,32 +1,6 @@
 @font-face {
-<<<<<<< HEAD
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
-    font-weight: 400; /* Normal */
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/AvenirNextLTPro-Demi.otf') format('opentype');
-    font-weight: 600; /* Semi-bold */
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
-    font-weight: 700; /* Bold */
-    font-style: normal;
-  }
-  
-  body {
-    $base-font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  
-=======
   font-family: 'Avenir Next';
-  src: url('/src/assets/fonts/AvenirNextLTPro.ttf') format('ttf'),
+  src: url('/src/assets/fonts/AvenirNextLTPro.ttf') format('truetype'),
        url('/src/assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
@@ -34,7 +8,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/src/assets/fonts/AvenirNextLTProDemi.ttf') format('ttf'),
+  src: url('/src/assets/fonts/AvenirNextLTProDemi.ttf') format('truetype'),
        url('/src/assets/fonts/AvenirNextLTPro-Demi.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
@@ -42,7 +16,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/src/assets/fonts/AvenirNextLTProBold.ttf') format('ttf'),
+  src: url('/src/assets/fonts/AvenirNextLTProBold.ttf') format('truetype'),
        url('/src/assets/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
@@ -51,4 +25,3 @@
 body {
   font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
->>>>>>> sprint-2

@@ -1,9 +1,6 @@
 import React from 'react';
 import './Scrubber.scss';
-<<<<<<< HEAD
-=======
 import scrubIcon from '../../assets/icons/scrub.svg';
->>>>>>> sprint-2
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
