@@ -1,3 +1,4 @@
+// MetricData.scss
 .metric-data {
   --icon-color: #AFAFAF; 
   --channel-color: #323232; 
@@ -7,7 +8,7 @@
   align-items: center;
   flex-wrap: wrap;
 
-  .metric-column {
+  &__column {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -18,23 +19,23 @@
     }
   }
 
-  .metric-item {
+  &__item {
     flex: 1;
     text-align: center;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
 
-    &.metric-item-bold {
+    &--bold {
       color: var(--channel-color); 
       font-weight: 600;
     }
 
-    &:not(.metric-item-bold) {
+    &:not(&--bold) {
       color: var(--icon-color); 
     }
 
-    .icon {
+    &__icon {
       width: 16px; 
       height: 16px; 
       margin-right: 8px;
@@ -46,7 +47,7 @@
     flex-direction: column;
     align-items: flex-start;
 
-    .metric-column {
+    &__column {
       width: 100%;
       display: flex;
       flex-direction: row;
@@ -54,7 +55,7 @@
       margin-bottom: 0px;
       margin-top: 0px;
 
-      .metric-item {
+      &__item {
         text-align: left;
         width: 48%; 
         margin-bottom: 0;
@@ -67,13 +68,14 @@
   }
 
   @media (min-width: 769px) { 
-    .metric-column {
+    &__column {
       flex-direction: row;
 
-      .metric-item {
+      &__item {
         width: auto; 
         text-align: center; 
       }
     }
   }
 }
+

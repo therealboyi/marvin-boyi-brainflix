@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
+import axios from 'axios';
 import './VideoPlayer.scss';
-import PlayPauseButton from '../Buttons/PlayPauseButton';
-import VolumeButton from '../Buttons/VolumeButton';
-import FullscreenButton from '../Buttons/FullscreenButton';
-import Scrubber from '../Buttons/Scrubber';
+import PlayPauseButton from '../Buttons/PlayPauseButton/PlayPauseButton';
+import VolumeButton from '../Buttons/VolumeButton/VolumeButton';
+import FullscreenButton from '../Buttons/FullscreenButton/FullscreenButton';
+import Scrubber from '../Buttons/Scrubber/Scrubber';
 
 const VideoPlayer = ({ currentVideoId }) => {
   const videoRef = useRef(null);
@@ -22,12 +23,8 @@ const VideoPlayer = ({ currentVideoId }) => {
   useEffect(() => {
     const fetchApiKey = async () => {
       try {
-        const response = await fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        setApiKey(data.api_key);
+        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
+        setApiKey(response.data.api_key);
       } catch (error) {
         console.error('Error fetching API key:', error);
       }
@@ -37,25 +34,20 @@ const VideoPlayer = ({ currentVideoId }) => {
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
-      if (!apiKey) return;
+      if (!apiKey || !currentVideoId) return;
 
       try {
-        const response = await fetch('/src/data/video-details.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        const updatedVideoDetails = data.map(video => ({
-          ...video,
-          video: `${video.video}?api_key=${apiKey}`
-        }));
-        const video = updatedVideoDetails.find(video => video.id === currentVideoId);
+        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
+        const video = response.data;
         setVideoDetails(video);
+        setDuration(parseDuration(video.duration));
       } catch (error) {
         console.error('Error fetching video details:', error);
       }
     };
-    fetchVideoDetails();
+    if (apiKey && currentVideoId) {
+      fetchVideoDetails();
+    }
   }, [apiKey, currentVideoId]);
 
   useEffect(() => {
@@ -93,7 +85,6 @@ const VideoPlayer = ({ currentVideoId }) => {
     };
 
     const handleLoadedMetadata = () => {
-      setDuration(video.duration);
       requestAnimationFrame(updateScrubber);
     };
 
@@ -126,7 +117,7 @@ const VideoPlayer = ({ currentVideoId }) => {
   };
 
   const handleScrub = (e) => {
-    const scrubTime = (e.target.value / 100) * videoRef.current.duration;
+    const scrubTime = (e.target.value / 100) * duration;
     videoRef.current.currentTime = scrubTime;
     setScrubberValue(e.target.value);
     setCurrentTime(scrubTime);
@@ -175,27 +166,34 @@ const VideoPlayer = ({ currentVideoId }) => {
     }
   };
 
+  const parseDuration = (duration) => {
+    const parts = duration.split(':');
+    const minutes = parseInt(parts[0], 10);
+    const seconds = parseInt(parts[1], 10);
+    return minutes * 60 + seconds;
+  };
+
   if (!videoDetails) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className={`video-player-container ${isFullHeight ? 'full-height' : ''}`}>
-      <div className="video-player">
+    <div className={`video-player video-player--container ${isFullHeight ? 'video-player--full-height' : ''}`}>
+      <div className="video-player__wrapper">
         {!isPlaying && (
-          <div className="thumbnail" onClick={handlePlayPause}>
+          <div className="video-player__thumbnail" onClick={handlePlayPause}>
             <img src={videoDetails.image} alt={videoDetails.title} />
           </div>
         )}
-        <video ref={videoRef} onClick={handlePlayPause} style={{ display: isPlaying ? 'block' : 'none' }}>
-          <source src={videoDetails.video} type="video/mp4" />
+        <video ref={videoRef} onClick={handlePlayPause} className="video-player__video" style={{ display: isPlaying ? 'block' : 'none' }}>
+          <source src={`${videoDetails.video}?api_key=${apiKey}`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="controls">
-          <div className="left-controls">
-            <PlayPauseButton isPlaying={isPlaying} onClick={handlePlayPause} />
+        <div className="video-player__controls">
+          <div className="video-player__controls--left">
+            <PlayPauseButton isPlaying={isPlaying} onTogglePlayPause={handlePlayPause} />
           </div>
-          <div className="center-controls">
+          <div className="video-player__controls--center">
             <Scrubber 
               value={scrubberValue} 
               buffer={bufferValue} 
@@ -204,8 +202,8 @@ const VideoPlayer = ({ currentVideoId }) => {
               duration={duration} 
             />
           </div>
-          <div className="right-controls">
-            <FullscreenButton isFullscreen={isFullscreen} onClick={handleFullscreen} />
+          <div className="video-player__controls--right">
+            <FullscreenButton isFullscreen={isFullscreen} onToggleFullscreen={handleFullscreen} />
             <VolumeButton 
               volume={volume} 
               onVolumeChange={handleVolumeChange} 

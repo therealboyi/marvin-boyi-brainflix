@@ -1,3 +1,4 @@
+// VideoPlayer.scss
 // Global breakpoints
 $desktop-breakpoint: 1280px;
 $tablet-breakpoint: 768px;
@@ -5,19 +6,21 @@ $mobile-breakpoint: 320px;
 
 @import '../../styles/partials/scrubber-mixin';
 
-.video-player-container {
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 45%; 
-  background-color: black;
-  position: relative;
-  transition: padding-top 0.3s ease, margin 0.3s ease; 
+.video-player {
+  &--container {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 45%; 
+    background-color: black;
+    position: relative;
+    transition: padding-top 0.3s ease, margin 0.3s ease; 
+  }
 
-  &.full-height {
+  &--full-height {
     padding-top: 45%; 
   }
 
-  .video-player {
+  &__wrapper {
     position: absolute;
     top: 0;
     left: 0;
@@ -25,163 +28,163 @@ $mobile-breakpoint: 320px;
     height: 100%;
     background: black;
     z-index: 1;
+  }
 
-    video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+  &__video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    @media (min-width: $tablet-breakpoint) {
+      object-fit: contain; 
+    }
+
+    @media (max-width: $tablet-breakpoint) {
+      object-fit: cover; 
+    }
+  }
+
+  &__thumbnail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+
+    img {
       width: 100%;
       height: 100%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
+      object-fit: cover;
 
-      @media (min-width: $tablet-breakpoint) {
-        object-fit: contain; 
+      @media (min-width: $desktop-breakpoint) {
+        width: 67%; 
       }
 
-      @media (max-width: $tablet-breakpoint) {
-        object-fit: cover; 
+      @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
+        width: 91%; 
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+
+    &--left,
+    &--center,
+    &--right {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      margin: 0 10px;
+      height: 25px;
+    }
+
+    &--left {
+      margin-right: auto;
+
+      .control-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 0 5px;
+        position: relative;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
 
-    .thumbnail {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      transform: translate(-50%, -50%);
-      display: flex;
+    &--center {
+      flex-grow: 1;
       justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 2;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-
-        @media (min-width: $desktop-breakpoint) {
-          width: 67%; 
-        }
-
-        @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
-          width: 91%; 
-        }
+      .scrubber {
+        @include scrubber-styles;
       }
     }
 
-    .controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
+    &--right {
+      margin-left: auto;
 
-      .left-controls,
-      .center-controls,
-      .right-controls {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        border-radius: 5px;
+      .volume-container {
         display: flex;
         align-items: center;
-        margin: 0 10px;
-        height: 25px;
-      }
+        position: relative;
 
-      .left-controls {
-        margin-right: auto;
+        &:hover .volume {
+          width: 100px;
+          opacity: 1;
+        }
 
-        .control-button {
-          background: none;
-          border: none;
+        img {
+          width: 30px;
+          height: 30px;
           cursor: pointer;
-          margin: 0 5px;
-          position: relative;
-
-          img {
-            width: 20px;
-            height: 20px;
-          }
         }
-      }
 
-      .center-controls {
-        flex-grow: 1;
-        justify-content: center;
+        .volume {
+          margin-left: 5px;
+          width: 0;
+          max-width: 100px;
+          background: #fff;
+          height: 5px;
+          border-radius: 5px;
+          outline: none;
+          cursor: pointer;
+          transition: width 0.3s ease, opacity 0.3s ease;
+          opacity: 0;
 
-        .scrubber {
-          @include scrubber-styles;
-        }
-      }
-
-      .right-controls {
-        margin-left: auto;
-
-        .volume-container {
-          display: flex;
-          align-items: center;
-          position: relative;
-
-          &:hover .volume {
-            width: 100px;
-            opacity: 1;
-          }
-
-          img {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-          }
-
-          .volume {
-            margin-left: 5px;
-            width: 0;
-            max-width: 100px;
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
             background: #fff;
-            height: 5px;
-            border-radius: 5px;
-            outline: none;
             cursor: pointer;
-            transition: width 0.3s ease, opacity 0.3s ease;
-            opacity: 0;
+          }
 
-            &::-webkit-slider-thumb {
-              -webkit-appearance: none;
-              width: 15px;
-              height: 15px;
-              border-radius: 50%;
-              background: #fff;
-              cursor: pointer;
-            }
-
-            &::-moz-range-thumb {
-              width: 15px;
-              height: 15px;
-              border-radius: 50%;
-              background: #fff;
-              cursor: pointer;
-            }
+          &::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
           }
         }
+      }
 
-        .control-button {
-          background: none;
-          border: none;
-          cursor: pointer;
-          margin: 0 5px;
-          position: relative;
+      .control-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 0 5px;
+        position: relative;
 
-          img {
-            width: 30px;
-            height: 30px;
-          }
+        img {
+          width: 30px;
+          height: 30px;
         }
       }
     }
@@ -189,20 +192,20 @@ $mobile-breakpoint: 320px;
 }
 
 @media (min-width: 1280px) {
-  .video-player-container {
+  .video-player--container {
     padding-top: 55rem;
   }
 }
 
 @media (max-width: 320px) {
-  .video-player-container .controls {
-    .left-controls,
-    .center-controls,
-    .right-controls {
+  .video-player__controls {
+    &--left,
+    &--center,
+    &--right {
       height: 30px;
       padding: 5px;
     }
-    .center-controls .scrubber {
+    &--center .scrubber {
       height: 3px;
       &::-webkit-slider-thumb,
       &::-moz-range-thumb {
@@ -210,8 +213,8 @@ $mobile-breakpoint: 320px;
         height: 10px;
       }
     }
-    .left-controls .control-button img,
-    .right-controls .control-button img {
+    &--left .control-button img,
+    &--right .control-button img {
       width: 20px;
       height: 20px;
     }

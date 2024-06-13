@@ -1,3 +1,4 @@
+// NextVideos.jsx
 import React from 'react';
 import './NextVideos.scss';
 
@@ -14,7 +15,7 @@ const NextVideos = ({ videos, onVideoClick }) => {
         {videos.map((video) => (
           <li
             key={video.id}
-            className="next-videos__item clickable"
+            className="next-videos__item next-videos__item--clickable"
             onClick={() => onVideoClick(video.id)}
           >
             <img

@@ -1,3 +1,4 @@
+// VideoTitle.jsx
 import React, { useState, useEffect } from 'react';
 
 const VideoTitle = ({ currentVideoId }) => {
@@ -50,9 +51,10 @@ const VideoTitle = ({ currentVideoId }) => {
 
   return (
     <div className="video-title">
-      <h1>{videoTitle}</h1>
+      <h1 className="video-title__text">{videoTitle}</h1>
     </div>
   );
 };
 
 export default VideoTitle;
+

@@ -1,5 +1,5 @@
+// Avatar.jsx
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Avatar.scss';
 
 const Avatar = ({ src, alt, size = 'medium', className = '' }) => {
@@ -18,13 +18,6 @@ const Avatar = ({ src, alt, size = 'medium', className = '' }) => {
       />
     </div>
   );
-};
-
-Avatar.propTypes = {
-  src: PropTypes.string,
-  alt: PropTypes.string.isRequired,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  className: PropTypes.string,
 };
 
 export default Avatar;

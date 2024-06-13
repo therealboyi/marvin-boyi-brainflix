@@ -1,8 +1,9 @@
+// PlayPauseButton.jsx
 import React from 'react';
 
-const PlayPauseButton = ({ isPlaying, onClick }) => {
+const PlayPauseButton = ({ isPlaying, onTogglePlayPause }) => {
   return (
-    <button onClick={onClick} className="control-button">
+    <button onClick={onTogglePlayPause} className="control-button">
       <img
         src={isPlaying ? "/src/assets/icons/pause.svg" : "/src/assets/icons/play.svg"}
         alt={isPlaying ? "Pause" : "Play"}

@@ -1,3 +1,4 @@
+// VolumeButton.jsx
 import React from 'react';
 import './VolumeButton.scss';
 

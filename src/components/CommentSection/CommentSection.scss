@@ -1,3 +1,4 @@
+// CommentSection.scss
 .bold {
   font-weight: 600;
 }
@@ -78,7 +79,7 @@ body {
   color: #323232;
 }
 
-.comments__textarea.error {
+.comments__textarea--error {
   border-color: #d22d2d;
 }
 
@@ -98,13 +99,13 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.comments__button--custom .button__icon {
+.comments__button .button__icon {
   margin-right: 0.5rem;
   height: 1.5rem;
   margin-left: 0;
 }
 
-.comments__button--custom .button__text {
+.comments__button .button__text {
   flex: 1;
   text-align: center;
   text-transform: uppercase;

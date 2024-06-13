@@ -1,5 +1,5 @@
+// NavBar.scss
 .header {
-  // Base styles
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,12 +47,12 @@
     padding: 0.5rem 0.5rem 0.5rem 2.5rem;
     box-sizing: border-box;
     height: 2.5rem;
-    font-family: 'Avenir', sans-serif; // Ensure the base font is set for the input
+    font-family: 'Avenir', sans-serif;
   }
 
   &__search-input::placeholder {
-    font-family: 'Avenir', sans-serif; // Ensure placeholder text uses Avenir font
-    color: #323232; // Placeholder text color
+    font-family: 'Avenir', sans-serif;
+    color: #323232;
   }
 
   &__avatar {
@@ -78,6 +78,32 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+  }
+
+  &__button {
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 15rem;
+    height: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__button .button__icon {
+    margin-right: 0.5rem;
+    height: 1.5rem;
+    margin-left: 0;
+  }
+
+  &__button .button__text {
+    flex: 1;
+    text-align: center;
+    text-transform: uppercase;
+    margin-left: -2rem;
   }
 
   @media (max-width: 767px) {
@@ -120,9 +146,7 @@
     &__logo a img {
       margin-right: 5rem;
     }
-  }
 
-  @media (min-width: 768px) {
     &__search-avatar-wrapper {
       flex: 1;
       display: flex;
@@ -160,30 +184,4 @@
       margin-right: 10rem;
     }
   }
-}
-
-.comments__button--custom {
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 15rem;
-  height: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.comments__button--custom .button__icon {
-  margin-right: 0.5rem;
-  height: 1.5rem;
-  margin-left: 0;
-}
-
-.comments__button--custom .button__text {
-  flex: 1;
-  text-align: center;
-  text-transform: uppercase;
-  margin-left: -2rem;
 }

@@ -1,6 +1,7 @@
+// NavBar.jsx
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
-import Button from '../Buttons/Button';
+import Button from '../Buttons/Button/Button';
 import './NavBar.scss';
 
 function NavBar() {
@@ -32,9 +33,7 @@ function NavBar() {
           <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
         </div>
       </div>
-      <Button type="submit" iconSrc="/src/assets/icons/upload.svg" className="comments__button--custom">
-        Upload
-      </Button>
+      <Button type="submit" iconSrc="/src/assets/icons/upload.svg" className="header__button">Upload</Button>
       <div className="header__avatar header__avatar--outside">
         <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
       </div>
