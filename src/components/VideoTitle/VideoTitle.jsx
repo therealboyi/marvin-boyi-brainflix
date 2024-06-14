@@ -1,5 +1,5 @@
-// VideoTitle.jsx
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const VideoTitle = ({ currentVideoId }) => {
   const [videoTitle, setVideoTitle] = useState('');
@@ -8,12 +8,8 @@ const VideoTitle = ({ currentVideoId }) => {
   useEffect(() => {
     const fetchApiKey = async () => {
       try {
-        const response = await fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        setApiKey(data.api_key);
+        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
+        setApiKey(response.data.api_key);
       } catch (error) {
         console.error('Error fetching API key:', error);
       }
@@ -26,17 +22,8 @@ const VideoTitle = ({ currentVideoId }) => {
       if (!apiKey || !currentVideoId) return;
 
       try {
-        const response = await fetch('/src/data/video-details.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        const updatedVideoDetails = data.map(video => ({
-          ...video,
-          video: `${video.video}?api_key=${apiKey}`
-        }));
-        const video = updatedVideoDetails.find(video => video.id === currentVideoId);
-        setVideoTitle(video ? video.title : '');
+        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
+        setVideoTitle(response.data.title);
       } catch (error) {
         console.error('Error fetching video details:', error);
       }
@@ -57,4 +44,3 @@ const VideoTitle = ({ currentVideoId }) => {
 };
 
 export default VideoTitle;
-

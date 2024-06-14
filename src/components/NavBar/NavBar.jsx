@@ -1,10 +1,17 @@
 // NavBar.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import Button from '../Buttons/Button/Button';
 import './NavBar.scss';
 
 function NavBar() {
+  const navigate = useNavigate();
+
+  const handleUploadClick = () => {
+    navigate('/upload');
+  };
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -33,7 +40,7 @@ function NavBar() {
           <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
         </div>
       </div>
-      <Button type="submit" iconSrc="/src/assets/icons/upload.svg" className="header__button">Upload</Button>
+      <Button type="button" iconSrc="/src/assets/icons/upload.svg" className="header__button" onClick={handleUploadClick}>Upload</Button>
       <div className="header__avatar header__avatar--outside">
         <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="Avatar" size="large" />
       </div>

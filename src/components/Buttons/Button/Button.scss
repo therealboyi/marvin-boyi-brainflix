@@ -1,6 +1,8 @@
 // Button.scss
+$blue-color: #007bff;
+
 .button {
-  background-color: #007bff;
+  background-color: $blue-color;
   color: #fff;
   border: none;
   border-radius: 0.3125rem;
@@ -13,10 +15,10 @@
   max-width: 12.5rem;
   height: auto;
   text-transform: uppercase;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #276cda; 
+    background-color: darken($blue-color, 10%);
   }
 
   &--small {
@@ -30,7 +32,7 @@
   }
 
   &--primary {
-    background-color: #007bff;
+    background-color: $blue-color;
   }
 
   &--secondary {
@@ -41,7 +43,7 @@
     background-color: #dc3545;
   }
 
-  @media (max-width: 768px) { 
+  @media (max-width: 768px) {
     width: 100%;
     max-width: none;
     justify-content: center;
@@ -60,7 +62,7 @@
     }
   }
 
-  @media (min-width: 769px) { 
+  @media (min-width: 769px) {
     &--small {
       padding: 0.25rem 0.5rem;
     }
@@ -70,20 +72,20 @@
     }
   }
 
-  @media (min-width: 1280px) { 
+  @media (min-width: 1280px) {
     margin-right: 0rem;
   }
 }
 
 .button__icon {
   margin-right: 0.5rem;
-  height: 1.5rem; 
-  margin-left: 0; 
+  height: 1.5rem;
+  margin-left: 0;
 }
 
 .button__text {
   flex: 1;
   text-align: center;
   text-transform: uppercase;
-  margin-left: -2rem; 
+  margin-left: -2rem;
 }
