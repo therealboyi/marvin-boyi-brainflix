@@ -1,0 +1,114 @@
+// UploadPage.scss
+.upload-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: none; 
+    max-width: 800px;
+    margin: 0 auto;
+  
+    h1 {
+      font-family: 'Avenir', sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  }
+  
+  .upload-content {
+    display: flex;
+    flex-direction: column;
+  
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+  
+      .thumbnail-container {
+        margin-right: 20px; 
+        flex: 0 0 45%;
+      }
+    }
+  
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .thumbnail-container {
+        flex: 0 0 45%;
+        margin-right: 20px; 
+      }
+    }
+  }
+  
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  
+    .form-group {
+      margin-bottom: 20px;
+  
+      label {
+        font-family: 'Avenir', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: block;
+        color: #666;
+      }
+  
+      input, textarea {
+        width: 100%;
+        padding: 10px;
+        font-family: 'Avenir', sans-serif;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+  
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+    }
+  
+    .button-group {
+      display: flex;
+      flex-direction: column;
+  
+      .button--primary {
+        margin-bottom: 10px;
+      }
+  
+      .cancel-button {
+        color: #0062cc;
+        cursor: pointer;
+        text-decoration: none;
+        font-family: 'Avenir', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .upload-form {
+      .button-group {
+        flex-direction: row;
+        justify-content: flex-end;
+  
+        .button--primary {
+          order: 2; 
+          margin-left: 10px; 
+          margin-bottom: 0; 
+        }
+  
+        .cancel-button {
+          order: 1; 
+          margin-bottom: 0; 
+        }
+      }
+    }
+  }
+  
