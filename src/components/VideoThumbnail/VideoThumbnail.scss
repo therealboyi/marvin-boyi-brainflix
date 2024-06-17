@@ -1,37 +1,49 @@
 // VideoThumbnail.scss
+@import '../../styles/partials/mixins';
+@import '../../styles/partials/variables';
+
 .thumbnail-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  
-    &__label {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      display: block;
-      color: #666;
-      text-align: left; 
-      width: 100%;
-      font-family: 'Avenir', sans-serif; 
-    }
-  
-    &__image-wrapper {
-      width: 100%;
-      background-color: #E1E1E1; 
-      border-radius: 4px;
-      overflow: hidden;
-  
-      @media (min-width: 1024px) {
-        width: 400px; 
-      }
-    }
-  
-    &__image {
-      width: 100%;
-      border-radius: 4px;
-      object-fit: cover;
-      display: block;
-    }
+  @include flex-center-column();
+  margin-bottom: 1rem;
+
+  &__label {
+    @include font-avenir($font-size-label, $font-weight-bold, $color-gray);
+    margin-bottom: 0;
+    display: block;
+    text-align: left;
+    width: 100%;
   }
-  
+
+  &__image-wrapper {
+    width: 100%;
+    height: auto;
+    background-color: $color-mercury;
+    @include border-radius($border-radius);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  &__image {
+    width: 100%;
+    @include border-radius($border-radius);
+    object-fit: cover;
+    display: block;
+  }
+}
+
+@media (min-width: $tablet-breakpoint) and (max-width: $desktop-breakpoint) {
+  .thumbnail-container__image-wrapper {
+    @include responsive-image-wrapper(30rem);
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .thumbnail-container__image-wrapper {
+    @include responsive-image-wrapper(22rem!important);
+  }
+
+  .thumbnail-container__image {
+    width: 100%;
+    object-fit: cover;
+  }
+}

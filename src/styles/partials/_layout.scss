@@ -1,0 +1,26 @@
+// _layout.scss
+@import 'variables';
+@import 'mixins';
+
+.global-grid {
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: $desktop-breakpoint) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem 7.5rem;
+  }
+
+  @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem 2rem;
+  }
+
+  @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin: 1rem;
+  }
+}

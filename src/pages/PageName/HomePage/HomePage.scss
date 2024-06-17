@@ -12,83 +12,61 @@ h1, h2, h3, p, a, button, label {
 }
 
 h1 {
-  font-size: 33px; 
-  line-height: 44px;
+  font-size: 2.0625rem; 
+  line-height: 2.75rem;
   font-weight: 700;
 
   @media (max-width: $tablet-breakpoint) {
-    font-size: 24px; 
-    line-height: 32px;
+    font-size: 1.5rem; 
+    line-height: 2rem;
   }
 }
 
 h2 {
-  font-size: 12px; 
-  line-height: 20px;
+  font-size: .75rem; 
+  line-height: 1.25rem;
   font-weight: 700;
 
   @media (max-width: $tablet-breakpoint) {
-    font-size: 12px; 
-    line-height: 20px;
+    font-size: .75rem; 
+    line-height: 1.25rem;
   }
 }
 
 h3 {
-  font-size: 14px; 
-  line-height: 22px;
+  font-size: .875rem; 
+  line-height: 1.375rem;
   font-weight: 700;
 
   @media (max-width: $tablet-breakpoint) {
-    font-size: 13px; 
-    line-height: 18px;
+    font-size: .8125rem; 
+    line-height: 1.125rem;
   }
 }
 
 p {
-  font-size: 14px; 
-  line-height: 22px;
+  font-size: .875rem; 
+  line-height: 1.375rem;
   font-weight: 400;
 
   @media (max-width: $tablet-breakpoint) {
-    font-size: 13px; 
-    line-height: 18px;
+    font-size: .8125rem; 
+    line-height: 1.125rem;
   }
 }
 
 a, button, label {
-  font-size: 12px; 
-  line-height: 20px;
+  font-size: .75rem; 
+  line-height: 1.25rem;
   font-weight: 700;
   text-decoration: none;
 
   @media (max-width: $tablet-breakpoint) {
-    font-size: 10px; 
-    line-height: 20px;
+    font-size: .625rem; 
+    line-height: 1.25rem;
   }
 }
 
-.global-grid {
-  display: grid;
-  gap: 16px; 
-
-  @media (min-width: $desktop-breakpoint) {
-    grid-template-columns: 1fr;
-    gap: 24px; 
-    margin: 2rem 7.5rem;
-  }
-
-  @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
-    grid-template-columns: 1fr;
-    gap: 24px; 
-    margin: 2rem;
-  }
-
-  @media (max-width: $tablet-breakpoint) and (min-width: $mobile-breakpoint) {
-    grid-template-columns: 1fr;
-    gap: 0.5rem; 
-    margin: 16px; 
-  }
-}
 
 .app {
   display: grid;
@@ -148,11 +126,11 @@ a, button, label {
 
 .content-container {
   display: grid;
-  grid-template-columns: 2fr 1px 1fr; 
+  grid-template-columns: 2fr .0625rem 1fr; 
   grid-gap: 1rem;
 
   @media (min-width: $desktop-breakpoint) {
-    grid-template-columns: 2fr 1px 1fr; 
+    grid-template-columns: 2fr .0625rem 1fr; 
     grid-gap: 0rem; 
   }
 

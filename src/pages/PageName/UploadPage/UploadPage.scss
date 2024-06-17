@@ -1,114 +1,189 @@
 // UploadPage.scss
+@import '../../../styles/partials/variables';
+@import '../../../styles/partials/mixins';
+@import '../../../styles/partials/typography';
+@import '../../../styles/partials/buttons';
+
 .upload-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: none; 
-    max-width: 800px;
-    margin: 0 auto;
-  
-    h1 {
-      font-family: 'Avenir', sans-serif;
-      font-size: 32px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #333;
+  background-color: #fff;
+  border-radius: .3125rem;
+  box-shadow: none;
+
+  &__title {
+    font-family: 'Avenir', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #323232;
+    margin-top: 1rem;
+  }
+
+  &__divider {
+    border: none;
+    border-top: .0625rem solid #ccc;
+    margin: 1rem 0;
+
+    &--top {
+      display: none;
+      @media (min-width: 768px) {
+        display: block;
+      }
+    }
+
+    &--bottom-tablet {
+      display: none;
+      @media (min-width: 768px) and (max-width: 1279px) {
+        display: block;
+        width: auto;
+        margin-top: -1rem;
+      }
+    }
+
+    &--bottom-desktop {
+      display: none;
+      @media (min-width: 1280px) {
+        display: block;
+        width: 100%;
+        margin-top: 0;
+      }
     }
   }
-  
-  .upload-content {
+
+  &__content {
     display: flex;
     flex-direction: column;
-  
-    @media (min-width: 1024px) {
+    gap: 1rem;
+
+    @media (min-width: 1280px) {
       flex-direction: row;
       justify-content: space-between;
-      align-items: flex-start;
-  
-      .thumbnail-container {
-        margin-right: 20px; 
-        flex: 0 0 45%;
-      }
-    }
-  
-    @media (min-width: 768px) and (max-width: 1023px) {
-      .thumbnail-container {
-        flex: 0 0 45%;
-        margin-right: 20px; 
-      }
+      gap: 1rem;
     }
   }
-  
-  .upload-form {
+
+  &__form {
     display: flex;
     flex-direction: column;
-    width: 100%;
-  
-    .form-group {
-      margin-bottom: 20px;
-  
-      label {
+    margin-right: 1.5rem;
+
+    @media (min-width: 1280px) {
+      width: 100%;
+      margin-right: 1.5rem;
+    }
+    
+    &-group {
+      margin-bottom: .625rem;
+      margin-right: 0 !important;
+
+      .upload-container__label {
         font-family: 'Avenir', sans-serif;
-        font-size: 14px;
+        font-size: .875rem;
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: .3125rem;
         display: block;
-        color: #666;
+        color: #AFAFAF;
       }
-  
-      input, textarea {
+
+      .upload-container__input,
+      .upload-container__textarea {
         width: 100%;
-        padding: 10px;
+        padding: .625rem;
         font-family: 'Avenir', sans-serif;
         font-size: 14px;
         border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-bottom: 10px;
+        border-radius: .3125rem;
+        margin-bottom: .625rem;
+        background-color: #FAFAFA;
+
+        &::placeholder {
+          color: #323232;        
+        }
       }
-  
-      textarea {
+
+      .upload-container__textarea {
         resize: vertical;
         min-height: 100px;
-      }
-    }
-  
-    .button-group {
-      display: flex;
-      flex-direction: column;
-  
-      .button--primary {
-        margin-bottom: 10px;
-      }
-  
-      .cancel-button {
-        color: #0062cc;
-        cursor: pointer;
-        text-decoration: none;
-        font-family: 'Avenir', sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        text-align: center;
+
+        @media (min-width: 1280px) {
+          min-height: 80px !important;
+        }
       }
     }
   }
-  
-  @media (min-width: 768px) {
-    .upload-form {
-      .button-group {
+
+  &__button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -0.625rem;
+    width: 100%;  
+
+    .button--primary {
+      margin-bottom: .625rem;
+      width: 100%;  
+
+      @media (min-width: 768px) {
+        margin-bottom: 0;
+        max-width: 200px; 
+      }
+    }
+
+    .upload-container__cancel-button {
+      color: #0062cc;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Avenir', sans-serif;
+      font-size: .875rem;
+      font-weight: 600;
+      text-align: center;
+      width: 10%;  
+    }
+
+    &--inside {
+      display: flex;
+      gap: 2rem;
+      width: 100%;  
+
+      @media (min-width: 1280px) {
+        display: none;
+      }
+
+      @media (min-width: 768px) and (max-width: 1279px) {
         flex-direction: row;
         justify-content: flex-end;
-  
-        .button--primary {
-          order: 2; 
-          margin-left: 10px; 
-          margin-bottom: 0; 
+        align-items: center;
+        gap: 4rem;
+
+        .upload-container__cancel-button {
+          order: 1;
         }
-  
-        .cancel-button {
-          order: 1; 
-          margin-bottom: 0; 
+
+        .button--primary {
+          order: 2;
+        }
+      }
+    }
+
+    &--outside {
+      display: none;
+      margin-top: 1.25rem;
+      width: 100%;  
+
+      @media (min-width: 1280px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4rem;
+
+        .upload-container__cancel-button {
+          order: 1;
+        }
+
+        .button--primary {
+          order: 2;
         }
       }
     }
   }
-  
+}

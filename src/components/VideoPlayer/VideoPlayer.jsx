@@ -1,3 +1,4 @@
+// VideoPlayer.jsx
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import './VideoPlayer.scss';
@@ -6,8 +7,9 @@ import VolumeButton from '../Buttons/VolumeButton/VolumeButton';
 import FullscreenButton from '../Buttons/FullscreenButton/FullscreenButton';
 import Scrubber from '../Buttons/Scrubber/Scrubber';
 
-const VideoPlayer = ({ currentVideoId }) => {
+const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
   const videoRef = useRef(null);
+  const videoContainerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -18,7 +20,7 @@ const VideoPlayer = ({ currentVideoId }) => {
   const [duration, setDuration] = useState(0);
   const [videoDetails, setVideoDetails] = useState(null);
   const [apiKey, setApiKey] = useState('');
-  const [isFullHeight, setIsFullHeight] = useState(false);
+  const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
     const fetchApiKey = async () => {
@@ -41,6 +43,14 @@ const VideoPlayer = ({ currentVideoId }) => {
         const video = response.data;
         setVideoDetails(video);
         setDuration(parseDuration(video.duration));
+        // Stop and reset the video when a new video is loaded
+        if (videoRef.current) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+          setIsPlaying(false);
+          setScrubberValue(0);
+          setCurrentTime(0);
+        }
       } catch (error) {
         console.error('Error fetching video details:', error);
       }
@@ -90,7 +100,9 @@ const VideoPlayer = ({ currentVideoId }) => {
 
     const handleEnded = () => {
       setIsPlaying(false);
-      setIsFullHeight(false);
+      setShowControls(true);
+      videoRef.current.classList.remove('video-player__video--playing');
+      if (onVideoEnd) onVideoEnd();
     };
 
     video.addEventListener('progress', handleProgress);
@@ -104,15 +116,37 @@ const VideoPlayer = ({ currentVideoId }) => {
     };
   }, [videoDetails]);
 
+  useEffect(() => {
+    let timer;
+    const handleMouseMove = () => {
+      if (!isPlaying) return;
+
+      setShowControls(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        setShowControls(false);
+      }, 1500);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      clearTimeout(timer);
+    };
+  }, [isPlaying]);
+
   const handlePlayPause = () => {
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
-      setIsFullHeight(true);
+      setShowControls(false);
+      videoRef.current.classList.add('video-player__video--playing');
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
-      setIsFullHeight(false);
+      setShowControls(true);
+      videoRef.current.classList.remove('video-player__video--playing');
     }
   };
 
@@ -125,14 +159,14 @@ const VideoPlayer = ({ currentVideoId }) => {
 
   const handleFullscreen = () => {
     if (!isFullscreen) {
-      if (videoRef.current.requestFullscreen) {
-        videoRef.current.requestFullscreen();
-      } else if (videoRef.current.mozRequestFullScreen) {
-        videoRef.current.mozRequestFullScreen();
-      } else if (videoRef.current.webkitRequestFullscreen) {
-        videoRef.current.webkitRequestFullscreen();
-      } else if (videoRef.current.msRequestFullscreen) {
-        videoRef.current.msRequestFullscreen();
+      if (videoContainerRef.current.requestFullscreen) {
+        videoContainerRef.current.requestFullscreen();
+      } else if (videoContainerRef.current.mozRequestFullScreen) {
+        videoContainerRef.current.mozRequestFullScreen();
+      } else if (videoContainerRef.current.webkitRequestFullscreen) {
+        videoContainerRef.current.webkitRequestFullscreen();
+      } else if (videoContainerRef.current.msRequestFullscreen) {
+        videoContainerRef.current.msRequestFullscreen();
       }
       setIsFullscreen(true);
     } else {
@@ -178,36 +212,34 @@ const VideoPlayer = ({ currentVideoId }) => {
   }
 
   return (
-    <div className={`video-player video-player--container ${isFullHeight ? 'video-player--full-height' : ''}`}>
+    <div ref={videoContainerRef} className={`video-player video-player--container ${isPlaying ? 'video-player--full-height' : ''}`}>
       <div className="video-player__wrapper">
-        {!isPlaying && (
-          <div className="video-player__thumbnail" onClick={handlePlayPause}>
-            <img src={videoDetails.image} alt={videoDetails.title} />
-          </div>
-        )}
-        <video ref={videoRef} onClick={handlePlayPause} className="video-player__video" style={{ display: isPlaying ? 'block' : 'none' }}>
+        <div className={`video-player__thumbnail ${isPlaying ? 'video-player__thumbnail--hidden' : ''}`} onClick={handlePlayPause}>
+          <img src={videoDetails.image} alt={videoDetails.title} />
+        </div>
+        <video ref={videoRef} onClick={handlePlayPause} className={`video-player__video ${isPlaying ? 'video-player__video--playing' : ''}`}>
           <source src={`${videoDetails.video}?api_key=${apiKey}`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="video-player__controls">
+        <div className={`video-player__controls ${isPlaying && !showControls ? 'video-player__controls--hidden' : ''} ${isPlaying ? 'video-player__controls--playing' : ''}`}>
           <div className="video-player__controls--left">
             <PlayPauseButton isPlaying={isPlaying} onTogglePlayPause={handlePlayPause} />
           </div>
           <div className="video-player__controls--center">
-            <Scrubber 
-              value={scrubberValue} 
-              buffer={bufferValue} 
-              onScrub={handleScrub} 
-              currentTime={currentTime} 
-              duration={duration} 
+            <Scrubber
+              value={scrubberValue}
+              buffer={bufferValue}
+              onScrub={handleScrub}
+              currentTime={currentTime}
+              duration={duration}
             />
           </div>
           <div className="video-player__controls--right">
             <FullscreenButton isFullscreen={isFullscreen} onToggleFullscreen={handleFullscreen} />
-            <VolumeButton 
-              volume={volume} 
-              onVolumeChange={handleVolumeChange} 
-              onVolumeToggle={handleVolumeToggle} 
+            <VolumeButton
+              volume={volume}
+              onVolumeChange={handleVolumeChange}
+              onVolumeToggle={handleVolumeToggle}
             />
           </div>
         </div>
