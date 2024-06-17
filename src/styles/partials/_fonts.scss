@@ -1,6 +1,7 @@
+// _fonts.scss
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/src/assets/fonts/AvenirNextLTPro.ttf') format('ttf'),
+  src: url('/src/assets/fonts/AvenirNextLTPro.ttf') format('truetype'),
        url('/src/assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
@@ -8,7 +9,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/src/assets/fonts/AvenirNextLTProDemi.ttf') format('ttf'),
+  src: url('/src/assets/fonts/AvenirNextLTProDemi.ttf') format('truetype'),
        url('/src/assets/fonts/AvenirNextLTPro-Demi.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
@@ -16,7 +17,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/src/assets/fonts/AvenirNextLTProBold.ttf') format('ttf'),
+  src: url('/src/assets/fonts/AvenirNextLTProBold.ttf') format('truetype'),
        url('/src/assets/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;

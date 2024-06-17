@@ -1,9 +1,12 @@
+// VideoDetails.scss
+@import '../../styles/partials/variables';
+@import '../../styles/partials/mixins';
+
 .video-description {
-    padding: 1rem;
-    color: #323232;
-    background-color: #FAFAFA;
-    border: 1px solid #E1E1E1;
-    border-radius: 5px;
-    margin-bottom: 2rem;
-  }
-  
+  @include padding(1rem);
+  color: $color-brainflix-black; 
+  background-color: $color-alabaster; 
+  border: 1px solid $color-mercury; 
+  @include border-radius($border-radius); 
+  margin-bottom: 2rem;
+}

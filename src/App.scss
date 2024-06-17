@@ -1,109 +1,17 @@
-// Global breakpoints
-$desktop-breakpoint: 1280px;
-$tablet-breakpoint: 768px;
-$mobile-breakpoint: 320px;
-
-@import './styles/partials/mixins';
-@import './styles/partials/fonts';
-
-// Global font sizes
-// html {
-//   font-size: 16px; // Base font size
-// }
-
-h1, h2, h3, p, a, button, label {
-  margin: 0; 
-}
-
-h1 {
-  font-size: 33px; 
-  line-height: 44px;
-  font-weight: 700;
-
-  @media (max-width: $tablet-breakpoint) {
-    font-size: 24px; 
-    line-height: 32px;
-  }
-}
-
-h2 {
-  font-size: 12px; 
-  line-height: 20px;
-  font-weight: 700;
-
-  @media (max-width: $tablet-breakpoint) {
-    font-size: 12px; 
-    line-height: 20px;
-  }
-}
-
-h3 {
-  font-size: 14px; 
-  line-height: 22px;
-  font-weight: 700;
-
-  @media (max-width: $tablet-breakpoint) {
-    font-size: 13px; 
-    line-height: 18px;
-  }
-}
-
-p {
-  font-size: 14px; 
-  line-height: 22px;
-  font-weight: 400;
-
-  @media (max-width: $tablet-breakpoint) {
-    font-size: 13px; 
-    line-height: 18px;
-  }
-}
-
-a, button, label {
-  font-size: 12px; 
-  line-height: 20px;
-  font-weight: 700;
-  text-decoration: none;
-
-  @media (max-width: $tablet-breakpoint) {
-    font-size: 10px; 
-    line-height: 20px;
-  }
-}
-
-
-// Global layout grid
-.global-grid {
-  display: grid;
-  gap: 16px; 
-
-  @media (min-width: $desktop-breakpoint) {
-    grid-template-columns: 1fr;
-    gap: 24px; 
-    margin: 2rem 7.5rem;   }
-
-  @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
-    grid-template-columns: 1fr;
-    gap: 24px; 
-    margin: 2rem; 
-  }
-
-  @media (max-width: $tablet-breakpoint) and (min-width: $mobile-breakpoint) {
-    grid-template-columns: 1fr;
-    gap: 0.5rem; 
-    margin: 16px; 
-  }
-}
-
-
+// App.scss
+@import '../src/styles/partials/variables';
+@import '../src/styles/partials/mixins';
+@import '../src/styles/partials/fonts';
+@import '../src/styles/partials/typography';
+@import '../src/styles/partials/buttons';
+@import '../src/styles/partials/layout';
 
 .app {
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "navbar"
-    "main"
-    "footer";
+    "main";
 }
 
 .navbar {
@@ -124,17 +32,17 @@ a, button, label {
 
   @media (min-width: $desktop-breakpoint) {
     margin-left: -8rem;
-    margin-right: -8rem; 
+    margin-right: -8rem;
   }
 
-  @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
+  @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
     margin-left: -3rem;
     margin-right: -2.75rem;
   }
 
-  @media (max-width: $tablet-breakpoint) and (min-width: $mobile-breakpoint) {
+  @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
     margin-left: -3rem;
-    margin-right: -1.5rem; 
+    margin-right: -1.5rem;
   }
 
   &::before {
@@ -154,19 +62,18 @@ a, button, label {
   }
 }
 
-
 .content-container {
   display: grid;
-  grid-template-columns: 2fr 1px 1fr; 
+  grid-template-columns: 2fr .0625rem 1fr;
   grid-gap: 1rem;
 
   @media (min-width: $desktop-breakpoint) {
-    grid-template-columns: 2fr 1px 1fr; 
-    grid-gap: 0rem; 
+    grid-template-columns: 2fr .0625rem 1fr;
+    grid-gap: 0;
   }
 
-  @media (max-width: $desktop-breakpoint) {
-    grid-template-columns: 1fr; 
+  @media (max-width: 1279px) {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -174,50 +81,54 @@ a, button, label {
   grid-column: 1;
 
   @media (min-width: $desktop-breakpoint) {
-    padding-right: 1rem; 
+    padding-right: 1rem;
   }
 }
 
 .divider {
-  background-color: #ccc; 
+  background-color: #ccc;
   height: 1px;
   margin: 1rem 0;
 }
 
-.title-divider {
-  @media (min-width: $tablet-breakpoint) and (max-width: $desktop-breakpoint) {
+.title-divider,
+.main-divider {
+  display: none;
+
+  @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
     display: none;
   }
-  
+
   @media (min-width: $desktop-breakpoint) {
-    display: none; 
+    display: block;
   }
 }
 
 .main-divider {
   grid-column: 2;
-  background-color: #ccc; 
+  background-color: #ccc;
   width: 1px;
   height: 100%;
-  
-  @media (max-width: $desktop-breakpoint) {
-    display: none; 
-  }
-}
 
-.footer {
-  grid-column: 3;
-  width: 100%; 
-
-  @media (max-width: $desktop-breakpoint) {
-    grid-column: 1;
-    width: 100%; 
+  @media (max-width: 1279px) {
+    display: none;
   }
 }
 
 .headline-container {
-  h1, h2, p {
+  h1,
+  h2,
+  p {
     margin: 0.5rem 0;
+  }
+}
+
+.next-videos-container {
+  grid-column: 3;
+  width: 100%;
+
+  @media (max-width: 1279px) {
+    grid-column: 1;
   }
 }
 
@@ -229,4 +140,269 @@ a, button, label {
 
 .clickable {
   cursor: pointer;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+
+    a img {
+      width: auto;
+      height: auto;
+    }
+  }
+
+  &__search-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  &__search-container {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: .625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    height: 24px;
+    width: auto;
+  }
+
+  &__search-input {
+    width: 100%;
+    border: .0625rem solid #ccc;
+    border-radius: .3125rem;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    box-sizing: border-box;
+    height: 40px;
+    font-family: 'Avenir', sans-serif;
+  }
+
+  &__search-input::placeholder {
+    font-family: 'Avenir', sans-serif;
+    color: #323232;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: #E1E1E1;
+
+    &--inside {
+      display: none;
+    }
+
+    &--outside {
+      display: block;
+      margin-left: 1rem;
+    }
+  }
+
+  &__avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    &__logo {
+      margin-bottom: 0.5rem;
+      justify-content: center;
+    }
+
+    &__search-avatar-wrapper {
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    &__avatar {
+      width: 36px;
+      height: 36px;
+    }
+
+    &__avatar--inside {
+      display: block;
+    }
+
+    &__avatar--outside {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__logo a img {
+      margin-right: 5rem;
+    }
+
+    &__search-avatar-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &__avatar--inside {
+      display: none;
+    }
+
+    &__avatar--outside {
+      display: block;
+      margin-left: 1rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    &__logo {
+      margin-right: 10rem;
+    }
+  }
+}
+
+.thumbnail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.3125rem;
+    display: block;
+    color: #AFAFAF;
+    text-align: left;
+    width: 100%;
+    font-family: 'Avenir', sans-serif;
+  }
+
+  &__image-wrapper {
+    width: 100%;
+    background-color: #E1E1E1;
+    border-radius: 0.3125rem;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    border-radius: 0.3125rem;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+@media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+  .thumbnail-container__image-wrapper {
+    width: 50%;
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .thumbnail-container__image-wrapper {
+    width: 100%;
+    align-self: flex-start;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.25rem;
+
+  .button--primary {
+    margin-bottom: 0.625rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+    }
+  }
+
+  .cancel-button {
+    color: #0062cc;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Avenir', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &--inside {
+    display: flex;
+
+    @media (min-width: 1280px) {
+      display: none;
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 2rem;
+
+      .cancel-button {
+        order: 1;
+      }
+
+      .button--primary {
+        order: 2;
+      }
+    }
+  }
+
+  &--outside {
+    display: none;
+
+    @media (min-width: 1280px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 2rem;
+
+      .cancel-button {
+        order: 1;
+      }
+
+      .button--primary {
+        order: 2;
+      }
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .button-group--inside {
+    display: none;
+  }
+
+  .button-group--outside {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 2rem;
+  }
 }

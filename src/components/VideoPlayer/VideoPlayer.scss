@@ -1,150 +1,249 @@
-// Global breakpoints
-$desktop-breakpoint: 1280px;
-$tablet-breakpoint: 768px;
-$mobile-breakpoint: 320px;
+// VideoPlayer.scss
+@import '../../styles/partials/variables';
+@import '../../styles/partials/mixins';
+@import '../../styles/partials/scrubber-mixin';
 
-.video-player-container {
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 45%; 
-  background-color: black;
-  position: relative;
-  transition: padding-top 0.3s ease, margin 0.3s ease; 
-
-  &.full-height {
-    padding-top: 45%; 
+.video-player {
+  &--container {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 45%;
+    background-color: $color-brainflix-darkblack; 
+    position: relative;
+    overflow: hidden;
+    transition: padding-top $transition-time ease, margin $transition-time ease;
   }
 
-  .video-player {
+  &--full-height {
+    padding-top: 45%;
+  }
+
+  &__wrapper {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: black;
+    background: $color-brainflix-darkblack; 
     z-index: 1;
+  }
 
-    video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+  &__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity $transition-time ease; 
+
+    &--playing {
+      opacity: 1;
+    }
+
+    @media (min-width: $tablet-breakpoint) {
+      object-fit: contain;
+    }
+
+    @media (max-width: $tablet-breakpoint) {
+      object-fit: cover;
+    }
+  }
+
+  &__thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include flex-center-column(); 
+    cursor: pointer;
+    z-index: 3;
+    opacity: 1;
+    transition: opacity $transition-time ease; 
+
+    &--hidden {
+      opacity: 0; 
+    }
+
+    img {
       width: 100%;
       height: 100%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
+      object-fit: cover;
 
-      @media (min-width: $tablet-breakpoint) {
-        object-fit: contain; 
+      @media (min-width: $desktop-breakpoint) {
+        width: 67%;
       }
 
-      @media (max-width: $tablet-breakpoint) {
-        object-fit: cover; 
+      @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
+        width: 91%;
+      }
+    }
+  }
+
+  &__controls {
+    @include flex-align-center-space-between(); 
+    position: absolute;
+    bottom: .625rem;
+    width: calc(68% - 20px); 
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    z-index: 4;
+    padding: 0 .625rem; 
+    transition: opacity $transition-time ease, width $transition-time ease;
+
+    @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+      transform: translateX(-50%) scale(0.9);
+      width: calc(100% - 20px); 
+    }
+
+    @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
+      transform: translateX(-50%) scale(0.6);
+      margin-left: 0.6rem;
+      width: calc(155% - 20px); 
+    }
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &--playing {
+      width: calc(100% - 20px); 
+
+      @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+        width: calc(105% - 20px); 
+      }
+
+      @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
+        width: calc(155% - 20px); 
       }
     }
 
-    .thumbnail {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      transform: translate(-50%, -50%);
-      display: flex;
+    &--left,
+    &--center,
+    &--right {
+      background: rgba(0, 0, 0, 0.5);
+      padding: .625rem;
+      @include border-radius($border-radius); 
+      @include flex-align-center(); 
+      margin: 0 .625rem;
+      height: 25px;
+    }
+
+    &--left {
+      margin-right: auto;
+
+      .control-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 0 .3125rem;
+        position: relative;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    &--center {
+      flex-grow: 1;
       justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 2;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-
-        @media (min-width: $desktop-breakpoint) {
-          width: 67%; 
-        }
-
-        @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
-          width: 91%; 
-        }
+      .scrubber {
+        @include scrubber-styles;
       }
     }
 
-    .controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
+    &--right {
+      margin-left: auto;
 
-      .left-controls,
-      .center-controls,
-      .right-controls {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        margin: 0 10px;
-        height: 25px;
-      }
+      .volume-container {
+        @include flex-align-center(); 
+        position: relative;
+        margin: -0.125rem -0.5rem;
 
-      .left-controls {
-        margin-right: auto;
+        &:hover .volume {
+          width: 100px;
+          opacity: 1;
+        }
 
-        .control-button {
-          background: none;
-          border: none;
+        img {
+          width: 30px;
+          height: 30px;
           cursor: pointer;
-          margin: 0 5px;
-          position: relative;
+        }
 
-          img {
-            width: 20px;
-            height: 20px;
+        .volume {
+          margin-left: .3125rem;
+          width: 0;
+          max-width: 100px;
+          background: $color-white; 
+          height: 5px;
+          @include border-radius($border-radius); 
+          outline: none;
+          cursor: pointer;
+          transition: width $transition-time ease, opacity $transition-time ease; 
+          opacity: 0;
+
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            @include border-radius(50%); 
+            background: $color-white; 
+            cursor: pointer;
+          }
+
+          &::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            @include border-radius(50%); 
+            background: $color-white; 
+            cursor: pointer;
           }
         }
       }
 
-      .center-controls {
-        flex-grow: 1;
-        justify-content: center;
-      }
+      .control-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding-top: .5625rem;
+        margin: -0.125rem .3125rem;
+        position: relative;
 
-      .right-controls {
-        margin-left: auto;
-
-        .control-button {
-          background: none;
-          border: none;
-          cursor: pointer;
-          margin: 0 5px;
-          position: relative;
-
-          img {
-            width: 30px;
-            height: 30px;
-          }
+        img {
+          width: 30px;
+          height: 30px;
         }
       }
     }
   }
 }
 
-@media (max-width: 320px) {
-  .video-player-container .controls {
-    .left-controls,
-    .center-controls,
-    .right-controls {
+@media (max-width: $mobile-breakpoint) {
+  .video-player__controls {
+    &--left,
+    &--center,
+    &--right {
       height: 30px;
-      padding: 5px;
+      padding: .3125rem;
     }
-    .left-controls .control-button img,
-    .right-controls .control-button img {
+    &--center .scrubber {
+      height: 3px;
+      &::-webkit-slider-thumb,
+      &::-moz-range-thumb {
+        width: 10px;
+        height: 10px;
+      }
+    }
+    &--left .control-button img,
+    &--right .control-button img {
       width: 20px;
       height: 20px;
     }

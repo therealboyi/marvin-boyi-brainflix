@@ -1,8 +1,9 @@
+// CommentSection.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CommentSection.scss';
 import { formatTimestamp } from '../utils';
-import Button from '../Buttons/Button';
+import Button from '../Buttons/Button/Button';
 import Avatar from '../Avatar/Avatar';
 
 const CommentSection = ({ currentVideoId }) => {
@@ -43,13 +44,8 @@ const CommentSection = ({ currentVideoId }) => {
       setLoading(true);
 
       try {
-        const response = await axios.get('/src/data/video-details.json');
-        const updatedVideoDetails = response.data.map(video => ({
-          ...video,
-          video: `${video.video}?api_key=${apiKey}`
-        }));
-        const video = updatedVideoDetails.find(video => video.id === currentVideoId);
-        setComments(video ? video.comments : []);
+        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
+        setComments(response.data.comments);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching video details:', error);
@@ -75,14 +71,11 @@ const CommentSection = ({ currentVideoId }) => {
     const newComment = {
       name: 'Anonymous',
       comment: commentText,
-      timestamp: new Date().toISOString(),
     };
 
     try {
-      await axios.post('https://unit-3-project-api-0a5620414506.herokuapp.com/comments', newComment, {
-        headers: { 'Authorization': `Bearer ${apiKey}` },
-      });
-      setComments([...comments, newComment]);
+      const response = await axios.post(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}/comments?api_key=${apiKey}`, newComment);
+      setComments([response.data, ...comments]);
       setCommentText('');
       setCommentTextError(false);
     } catch (error) {
@@ -99,18 +92,18 @@ const CommentSection = ({ currentVideoId }) => {
       <h2 className="comments__counter">{comments.length} Comments</h2>
       <div className="comments__form-container">
         <div className="comments__form-wrapper">
-          <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="User Avatar" size="large" />
+          <Avatar src="/src/assets/images/Mohan-muruge.jpg" size="large" />
           <div className="comments__form-column">
             <span htmlFor="comment" className="comments__label bold">JOIN THE CONVERSATION</span>
             <form className={`comments__form ${isDesktopOrTablet ? 'comments__form--horizontal' : ''}`} onSubmit={addNewComment}>
               <textarea
                 id="comment"
-                className={`comments__textarea ${commentTextError ? 'error' : ''}`}
+                className={`comments__textarea ${commentTextError ? 'comments__textarea--error' : ''}`}
                 placeholder="Add a new comment"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
               ></textarea>
-              <Button type="submit" iconSrc="/src/assets/icons/add_comment.svg" className="comments__button--custom">COMMENT</Button>
+              <Button type="submit" iconSrc="/src/assets/icons/add_comment.svg" className="button--primary">COMMENT</Button>
             </form>
           </div>
         </div>
@@ -119,8 +112,8 @@ const CommentSection = ({ currentVideoId }) => {
         {comments.map((comment, index) => (
           <React.Fragment key={comment.id || comment.timestamp}>
             <div className="comments__divider"></div>
-            <div className={`comments__item ${isDesktopOrTablet && index === comments.length - 1 ? 'comments__item--last' : ''}`}>
-              <Avatar src="" alt="" size="large" />
+            <div className={`comments__item ${isDesktopOrTablet && index === 0 ? 'comments__item--first' : ''}`}>
+              <Avatar src={comment.avatarUrl} size="large" />
               <div className="comments__content">
                 <div className="comments__header">
                   <p className="comments__name bold">{comment.name}</p>
