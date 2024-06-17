@@ -1,3 +1,4 @@
+// CommentSection.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CommentSection.scss';
@@ -74,7 +75,7 @@ const CommentSection = ({ currentVideoId }) => {
 
     try {
       const response = await axios.post(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}/comments?api_key=${apiKey}`, newComment);
-      setComments([...comments, response.data]);
+      setComments([response.data, ...comments]);
       setCommentText('');
       setCommentTextError(false);
     } catch (error) {
@@ -91,7 +92,7 @@ const CommentSection = ({ currentVideoId }) => {
       <h2 className="comments__counter">{comments.length} Comments</h2>
       <div className="comments__form-container">
         <div className="comments__form-wrapper">
-          <Avatar src="/src/assets/images/Mohan-muruge.jpg" alt="User Avatar" size="large" />
+          <Avatar src="/src/assets/images/Mohan-muruge.jpg" size="large" />
           <div className="comments__form-column">
             <span htmlFor="comment" className="comments__label bold">JOIN THE CONVERSATION</span>
             <form className={`comments__form ${isDesktopOrTablet ? 'comments__form--horizontal' : ''}`} onSubmit={addNewComment}>
@@ -102,7 +103,7 @@ const CommentSection = ({ currentVideoId }) => {
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
               ></textarea>
-              <Button type="submit" iconSrc="/src/assets/icons/add_comment.svg" className="comments__button comments__button--custom">COMMENT</Button>
+              <Button type="submit" iconSrc="/src/assets/icons/add_comment.svg" className="button--primary">COMMENT</Button>
             </form>
           </div>
         </div>
@@ -111,8 +112,8 @@ const CommentSection = ({ currentVideoId }) => {
         {comments.map((comment, index) => (
           <React.Fragment key={comment.id || comment.timestamp}>
             <div className="comments__divider"></div>
-            <div className={`comments__item ${isDesktopOrTablet && index === comments.length - 1 ? 'comments__item--last' : ''}`}>
-              <Avatar src="" alt="" size="large" />
+            <div className={`comments__item ${isDesktopOrTablet && index === 0 ? 'comments__item--first' : ''}`}>
+              <Avatar src={comment.avatarUrl} size="large" />
               <div className="comments__content">
                 <div className="comments__header">
                   <p className="comments__name bold">{comment.name}</p>

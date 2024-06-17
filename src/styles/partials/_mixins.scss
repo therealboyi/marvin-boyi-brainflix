@@ -1,14 +1,90 @@
 // _mixins.scss
-@import 'fonts';
+@import 'variables';
 
 @mixin font-default {
-  font-family: $base-font-family;
+  font-family: $font-family-primary;
   font-size: 16px;
   line-height: 1.5;
 }
 
-@mixin font-large {
-  font-family: $base-font-family;
-  font-size: 24px;
-  line-height: 1.5;
+@mixin heading($size, $line-height) {
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: 700;
+  font-family: $font-family-primary;
+}
+
+@mixin body-text($size, $line-height) {
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: 400;
+  font-family: $font-family-primary;
+}
+
+@mixin button-style($bg-color, $hover-color) {
+  background-color: $bg-color;
+  color: #fff;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 12.5rem;
+  text-transform: uppercase;
+  transition: background-color $transition-time ease;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+@mixin flex-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-align-start {
+  display: flex;
+  align-items: flex-start;
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin font-avenir($size, $weight, $color) {
+  font-family: 'Avenir', sans-serif;
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin responsive-image-wrapper($width) {
+  width: $width;
+  align-self: flex-start;
+}
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+@mixin flex-align-center-space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin padding($padding) {
+  padding: $padding;
 }

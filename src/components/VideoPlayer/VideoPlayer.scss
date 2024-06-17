@@ -1,23 +1,21 @@
 // VideoPlayer.scss
-// Global breakpoints
-$desktop-breakpoint: 1280px;
-$tablet-breakpoint: 768px;
-$mobile-breakpoint: 320px;
-
+@import '../../styles/partials/variables';
+@import '../../styles/partials/mixins';
 @import '../../styles/partials/scrubber-mixin';
 
 .video-player {
   &--container {
     width: 100%;
     margin: 0 auto;
-    padding-top: 45%; 
-    background-color: black;
+    padding-top: 45%;
+    background-color: $color-brainflix-darkblack; 
     position: relative;
-    transition: padding-top 0.3s ease, margin 0.3s ease; 
+    overflow: hidden;
+    transition: padding-top $transition-time ease, margin $transition-time ease;
   }
 
   &--full-height {
-    padding-top: 45%; 
+    padding-top: 45%;
   }
 
   &__wrapper {
@@ -26,40 +24,49 @@ $mobile-breakpoint: 320px;
     left: 0;
     width: 100%;
     height: 100%;
-    background: black;
+    background: $color-brainflix-darkblack; 
     z-index: 1;
   }
 
   &__video {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    transform: translate(-50%, -50%);
+    object-fit: cover;
     z-index: 2;
+    opacity: 0;
+    transition: opacity $transition-time ease; 
+
+    &--playing {
+      opacity: 1;
+    }
 
     @media (min-width: $tablet-breakpoint) {
-      object-fit: contain; 
+      object-fit: contain;
     }
 
     @media (max-width: $tablet-breakpoint) {
-      object-fit: cover; 
+      object-fit: cover;
     }
   }
 
   &__thumbnail {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center-column(); 
     cursor: pointer;
-    z-index: 2;
+    z-index: 3;
+    opacity: 1;
+    transition: opacity $transition-time ease; 
+
+    &--hidden {
+      opacity: 0; 
+    }
 
     img {
       width: 100%;
@@ -67,35 +74,62 @@ $mobile-breakpoint: 320px;
       object-fit: cover;
 
       @media (min-width: $desktop-breakpoint) {
-        width: 67%; 
+        width: 67%;
       }
 
       @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
-        width: 91%; 
+        width: 91%;
       }
     }
   }
 
   &__controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flex-align-center-space-between(); 
     position: absolute;
-    bottom: 10px;
-    width: 100%;
+    bottom: .625rem;
+    width: calc(68% - 20px); 
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
+    transform: translateX(-50%) scale(1);
+    z-index: 4;
+    padding: 0 .625rem; 
+    transition: opacity $transition-time ease, width $transition-time ease;
+
+    @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+      transform: translateX(-50%) scale(0.9);
+      width: calc(100% - 20px); 
+    }
+
+    @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
+      transform: translateX(-50%) scale(0.6);
+      margin-left: 0.6rem;
+      width: calc(155% - 20px); 
+    }
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &--playing {
+      width: calc(100% - 20px); 
+
+      @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+        width: calc(105% - 20px); 
+      }
+
+      @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
+        width: calc(155% - 20px); 
+      }
+    }
 
     &--left,
     &--center,
     &--right {
       background: rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      margin: 0 10px;
+      padding: .625rem;
+      @include border-radius($border-radius); 
+      @include flex-align-center(); 
+      margin: 0 .625rem;
       height: 25px;
     }
 
@@ -106,7 +140,7 @@ $mobile-breakpoint: 320px;
         background: none;
         border: none;
         cursor: pointer;
-        margin: 0 5px;
+        margin: 0 .3125rem;
         position: relative;
 
         img {
@@ -129,9 +163,9 @@ $mobile-breakpoint: 320px;
       margin-left: auto;
 
       .volume-container {
-        display: flex;
-        align-items: center;
+        @include flex-align-center(); 
         position: relative;
+        margin: -0.125rem -0.5rem;
 
         &:hover .volume {
           width: 100px;
@@ -145,31 +179,31 @@ $mobile-breakpoint: 320px;
         }
 
         .volume {
-          margin-left: 5px;
+          margin-left: .3125rem;
           width: 0;
           max-width: 100px;
-          background: #fff;
+          background: $color-white; 
           height: 5px;
-          border-radius: 5px;
+          @include border-radius($border-radius); 
           outline: none;
           cursor: pointer;
-          transition: width 0.3s ease, opacity 0.3s ease;
+          transition: width $transition-time ease, opacity $transition-time ease; 
           opacity: 0;
 
           &::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 15px;
             height: 15px;
-            border-radius: 50%;
-            background: #fff;
+            @include border-radius(50%); 
+            background: $color-white; 
             cursor: pointer;
           }
 
           &::-moz-range-thumb {
             width: 15px;
             height: 15px;
-            border-radius: 50%;
-            background: #fff;
+            @include border-radius(50%); 
+            background: $color-white; 
             cursor: pointer;
           }
         }
@@ -179,7 +213,8 @@ $mobile-breakpoint: 320px;
         background: none;
         border: none;
         cursor: pointer;
-        margin: 0 5px;
+        padding-top: .5625rem;
+        margin: -0.125rem .3125rem;
         position: relative;
 
         img {
@@ -191,19 +226,13 @@ $mobile-breakpoint: 320px;
   }
 }
 
-@media (min-width: 1280px) {
-  .video-player--container {
-    padding-top: 55rem;
-  }
-}
-
-@media (max-width: 320px) {
+@media (max-width: $mobile-breakpoint) {
   .video-player__controls {
     &--left,
     &--center,
     &--right {
       height: 30px;
-      padding: 5px;
+      padding: .3125rem;
     }
     &--center .scrubber {
       height: 3px;

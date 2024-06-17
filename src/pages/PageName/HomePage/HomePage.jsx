@@ -72,38 +72,36 @@ const HomePage = ({ initialVideoId }) => {
   const filteredVideos = videos.filter(video => video.id !== currentVideoId);
 
   return (
-    <div className="app global-grid">
-      <main className="main">
-        <section className="video-section">
-          <VideoPlayer currentVideoId={currentVideoId} />
-        </section>
-        <div className="content-container">
-          <section className="headline">
-            <div className="headline-container">
-              <VideoTitle currentVideoId={currentVideoId} />
-              <div className="divider title-divider"></div>
-              <MetricData currentVideoId={currentVideoId} />
-              <div className="divider"></div>
-            </div>
-            <VideoDescription currentVideoId={currentVideoId} />
-            <div className="comment-section-container">
-              <CommentSection currentVideoId={currentVideoId} />
-            </div>
-            {!isDesktop && (
-              <div className="next-videos-container">
-                <NextVideos videos={filteredVideos} onVideoClick={(id) => navigate(`/videos/${id}`)} />
-              </div>
-            )}
-          </section>
-          {isDesktop && <div className="main-divider"></div>}
-          {isDesktop && (
+    <main className="main">
+      <section className="video-section">
+        <VideoPlayer currentVideoId={currentVideoId} />
+      </section>
+      <div className="content-container">
+        <section className="headline">
+          <div className="headline-container">
+            <VideoTitle currentVideoId={currentVideoId} />
+            <div className="divider title-divider"></div>
+            <MetricData currentVideoId={currentVideoId} />
+            <div className="divider"></div>
+          </div>
+          <VideoDescription currentVideoId={currentVideoId} />
+          <div className="comment-section-container">
+            <CommentSection currentVideoId={currentVideoId} />
+          </div>
+          {!isDesktop && (
             <div className="next-videos-container">
               <NextVideos videos={filteredVideos} onVideoClick={(id) => navigate(`/videos/${id}`)} />
             </div>
           )}
-        </div>
-      </main>
-    </div>
+        </section>
+        {isDesktop && <div className="main-divider"></div>}
+        {isDesktop && (
+          <div className="next-videos-container">
+            <NextVideos videos={filteredVideos} onVideoClick={(id) => navigate(`/videos/${id}`)} />
+          </div>
+        )}
+      </div>
+    </main>
   );
 };
 
