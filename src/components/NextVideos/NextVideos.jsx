@@ -3,8 +3,13 @@ import './NextVideos.scss';
 
 const NextVideos = ({ videos, onVideoClick }) => {
   const handleImageError = (e) => {
-    e.target.style.backgroundColor = '#E1E1E1'; 
-    e.target.src = ''; 
+    e.target.style.backgroundColor = '#E1E1E1';
+    e.target.src = '';
+  };
+
+  const handleVideoClick = (videoId) => {
+    window.scrollTo(0, 0);
+    onVideoClick(videoId);
   };
 
   return (
@@ -14,8 +19,8 @@ const NextVideos = ({ videos, onVideoClick }) => {
         {videos.map((video) => (
           <li
             key={video.id}
-            className="next-videos__item clickable"
-            onClick={() => onVideoClick(video.id)}
+            className="next-videos__item next-videos__item--clickable"
+            onClick={() => handleVideoClick(video.id)}
           >
             <img
               src={video.image}

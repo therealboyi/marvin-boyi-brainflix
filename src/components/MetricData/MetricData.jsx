@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './MetricData.scss';
 import views from '/Users/user/Documents/Brainstation/marvin-boyi-brainflix/src/assets/icons/views.svg';
 import likes from '/Users/user/Documents/Brainstation/marvin-boyi-brainflix/src/assets/icons/likes.svg';
@@ -11,12 +12,8 @@ const MetricData = ({ currentVideoId }) => {
   useEffect(() => {
     const fetchApiKey = async () => {
       try {
-        const response = await fetch('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        setApiKey(data.api_key);
+        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
+        setApiKey(response.data.api_key);
       } catch (error) {
         console.error('Error fetching API key:', error);
       }
@@ -29,17 +26,8 @@ const MetricData = ({ currentVideoId }) => {
       if (!apiKey || !currentVideoId) return;
 
       try {
-        const response = await fetch('/src/data/video-details.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        const updatedVideoDetails = data.map(video => ({
-          ...video,
-          video: `${video.video}?api_key=${apiKey}`
-        }));
-        const video = updatedVideoDetails.find(video => video.id === currentVideoId);
-        const { views, likes, channel, timestamp } = video || {};
+        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
+        const { views, likes, channel, timestamp } = response.data;
         setVideoMetrics({ views, likes, channel, timestamp });
       } catch (error) {
         console.error('Error fetching video details:', error);
@@ -74,24 +62,24 @@ const MetricData = ({ currentVideoId }) => {
     <div className="metric-data">
       {isMobile ? (
         <>
-          <div className="metric-column">
-            <p className="metric-item metric-item-bold">By {videoMetrics.channel}</p>
-            <p className="metric-item"><img src={views} alt="Views" className="icon" /> {videoMetrics.views}</p>
+          <div className="metric-data__column">
+            <p className="metric-data__item metric-data__item--bold">By {videoMetrics.channel}</p>
+            <p className="metric-data__item"><img src={views} alt="Views" className="metric-data__icon" /> {videoMetrics.views}</p>
           </div>
-          <div className="metric-column">
-            <p className="metric-item">{formatDate(videoMetrics.timestamp)}</p>
-            <p className="metric-item"><img src={likes} alt="Likes" className="icon" /> {videoMetrics.likes}</p>
+          <div className="metric-data__column">
+            <p className="metric-data__item">{formatDate(videoMetrics.timestamp)}</p>
+            <p className="metric-data__item"><img src={likes} alt="Likes" className="metric-data__icon" /> {videoMetrics.likes}</p>
           </div>
         </>
       ) : (
         <>
-          <div className="metric-column">
-            <p className="metric-item metric-item-bold">By {videoMetrics.channel}</p>
-            <p className="metric-item">{formatDate(videoMetrics.timestamp)}</p>
+          <div className="metric-data__column">
+            <p className="metric-data__item metric-data__item--bold">By {videoMetrics.channel}</p>
+            <p className="metric-data__item">{formatDate(videoMetrics.timestamp)}</p>
           </div>
-          <div className="metric-column">
-            <p className="metric-item"><img src={views} alt="Views" className="icon" /> {videoMetrics.views}</p>
-            <p className="metric-item"><img src={likes} alt="Likes" className="icon" /> {videoMetrics.likes}</p>
+          <div className="metric-data__column">
+            <p className="metric-data__item"><img src={views} alt="Views" className="metric-data__icon" /> {videoMetrics.views}</p>
+            <p className="metric-data__item"><img src={likes} alt="Likes" className="metric-data__icon" /> {videoMetrics.likes}</p>
           </div>
         </>
       )}

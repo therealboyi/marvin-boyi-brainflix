@@ -1,5 +1,5 @@
+// Button.jsx
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Button.scss';
 
 function Button({ onClick, children, className, type = 'button', iconSrc }) {
@@ -10,13 +10,5 @@ function Button({ onClick, children, className, type = 'button', iconSrc }) {
     </button>
   );
 }
-
-Button.propTypes = {
-  onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  type: PropTypes.string,
-  iconSrc: PropTypes.string,
-};
 
 export default Button;
