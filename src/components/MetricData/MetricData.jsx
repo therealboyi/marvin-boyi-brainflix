@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MetricData.scss';
-import views from '/Users/user/Documents/Brainstation/marvin-boyi-brainflix/src/assets/icons/views.svg';
-import likes from '/Users/user/Documents/Brainstation/marvin-boyi-brainflix/src/assets/icons/likes.svg';
+import views from '../../assets/icons/views.svg';
+import likes from '../../assets/icons/likes.svg';
 
 const MetricData = ({ currentVideoId }) => {
   const [videoMetrics, setVideoMetrics] = useState({ views: '', likes: '', channel: '', timestamp: '' });
