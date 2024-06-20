@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import "./App.scss";
+// App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/PageName/HomePage/HomePage";
 import VideoDetailsPage from "./pages/PageName/VideoDetailsPage/VideoDetailsPage";
@@ -22,3 +23,4 @@ function App() {
 }
 
 export default App;
+
