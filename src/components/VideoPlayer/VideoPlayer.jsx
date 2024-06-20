@@ -1,4 +1,4 @@
-// VideoPlayer.jsx
+// src/components/VideoPlayer.jsx
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import './VideoPlayer.scss';
@@ -6,8 +6,9 @@ import PlayPauseButton from '../Buttons/PlayPauseButton/PlayPauseButton';
 import VolumeButton from '../Buttons/VolumeButton/VolumeButton';
 import FullscreenButton from '../Buttons/FullscreenButton/FullscreenButton';
 import Scrubber from '../Buttons/Scrubber/Scrubber';
+import { API_URL, VIDEOS_ENDPOINT } from '../Api';
 
-const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
+const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -19,27 +20,14 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [videoDetails, setVideoDetails] = useState(null);
-  const [apiKey, setApiKey] = useState('');
   const [showControls, setShowControls] = useState(true);
-
-  useEffect(() => {
-    const fetchApiKey = async () => {
-      try {
-        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        setApiKey(response.data.api_key);
-      } catch (error) {
-        console.error('Error fetching API key:', error);
-      }
-    };
-    fetchApiKey();
-  }, []);
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
       if (!apiKey || !currentVideoId) return;
 
       try {
-        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
+        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}?api_key=${apiKey}`);
         const video = response.data;
         setVideoDetails(video);
         setDuration(parseDuration(video.duration));
@@ -55,6 +43,7 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
         console.error('Error fetching video details:', error);
       }
     };
+
     if (apiKey && currentVideoId) {
       fetchVideoDetails();
     }
@@ -249,3 +238,4 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
 };
 
 export default VideoPlayer;
+

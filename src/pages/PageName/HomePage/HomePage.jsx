@@ -1,6 +1,7 @@
-// HomePage.jsx
+// src/components/HomePage.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import "./HomePage.scss";
 import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
 import VideoTitle from "../../../components/VideoTitle/VideoTitle";
@@ -8,7 +9,7 @@ import MetricData from "../../../components/MetricData/MetricData";
 import VideoDescription from "../../../components/VideoDetails/VideoDetails";
 import CommentSection from "../../../components/CommentSection/CommentSection";
 import NextVideos from "../../../components/NextVideos/NextVideos";
-import axios from 'axios';
+import { API_URL, VIDEOS_ENDPOINT, fetchApiKey } from "../../../components/Api";
 
 const HomePage = ({ initialVideoId }) => {
   const { videoId } = useParams();
@@ -19,15 +20,16 @@ const HomePage = ({ initialVideoId }) => {
   const [apiKey, setApiKey] = useState('');
 
   useEffect(() => {
-    const fetchApiKey = async () => {
+    const getApiKey = async () => {
       try {
-        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        setApiKey(response.data.api_key);
+        const key = await fetchApiKey();
+        setApiKey(key);
       } catch (error) {
-        console.error('Error fetching API key:', error);
+        console.error('Error getting API key:', error);
       }
     };
-    fetchApiKey();
+
+    getApiKey();
   }, []);
 
   useEffect(() => {
@@ -46,10 +48,10 @@ const HomePage = ({ initialVideoId }) => {
       if (!apiKey) return;
 
       try {
-        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos?api_key=${apiKey}`);
-        const firstVideoId = response.data[0].id;
+        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}?api_key=${apiKey}`);
         setVideos(response.data);
         if (!initialVideoId && !videoId) {
+          const firstVideoId = response.data[0].id;
           setCurrentVideoId(firstVideoId);
           navigate(`/videos/${firstVideoId}`, { replace: true });
         } else {
@@ -74,19 +76,19 @@ const HomePage = ({ initialVideoId }) => {
   return (
     <main className="main">
       <section className="video-section">
-        <VideoPlayer currentVideoId={currentVideoId} />
+        <VideoPlayer currentVideoId={currentVideoId} apiKey={apiKey} />
       </section>
       <div className="content-container">
         <section className="headline">
           <div className="headline-container">
-            <VideoTitle currentVideoId={currentVideoId} />
+            <VideoTitle currentVideoId={currentVideoId} apiKey={apiKey} />
             <div className="divider title-divider"></div>
-            <MetricData currentVideoId={currentVideoId} />
+            <MetricData currentVideoId={currentVideoId} apiKey={apiKey} />
             <div className="divider"></div>
           </div>
-          <VideoDescription currentVideoId={currentVideoId} />
+          <VideoDescription currentVideoId={currentVideoId} apiKey={apiKey} />
           <div className="comment-section-container">
-            <CommentSection currentVideoId={currentVideoId} />
+            <CommentSection currentVideoId={currentVideoId} apiKey={apiKey} />
           </div>
           {!isDesktop && (
             <div className="next-videos-container">
@@ -96,9 +98,9 @@ const HomePage = ({ initialVideoId }) => {
         </section>
         {isDesktop && <div className="main-divider"></div>}
         {isDesktop && (
-          <div className="next-videos-container">
+          <footer className="next-videos-container">
             <NextVideos videos={filteredVideos} onVideoClick={(id) => navigate(`/videos/${id}`)} />
-          </div>
+          </footer>
         )}
       </div>
     </main>
@@ -106,3 +108,4 @@ const HomePage = ({ initialVideoId }) => {
 };
 
 export default HomePage;
+

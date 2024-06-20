@@ -16,9 +16,9 @@ const NextVideos = ({ videos, onVideoClick }) => {
   return (
     <div className="next-videos">
       <h2 className="next-videos__title">Next Videos</h2>
-      <ul className="next-videos__list">
+      <div className="next-videos__container">
         {videos.map((video) => (
-          <li
+          <article
             key={video.id}
             className="next-videos__item next-videos__item--clickable"
             onClick={() => handleVideoClick(video.id)}
@@ -33,9 +33,9 @@ const NextVideos = ({ videos, onVideoClick }) => {
               <h3 className="next-videos__video-title">{video.title}</h3>
               <p className="next-videos__channel">{video.channel}</p>
             </div>
-          </li>
+          </article>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
