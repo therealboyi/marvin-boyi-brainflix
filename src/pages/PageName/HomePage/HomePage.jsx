@@ -1,104 +1,57 @@
-// HomePage.jsx
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./HomePage.scss";
-import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
-import VideoTitle from "../../../components/VideoTitle/VideoTitle";
-import MetricData from "../../../components/MetricData/MetricData";
-import VideoDescription from "../../../components/VideoDetails/VideoDetails";
-import CommentSection from "../../../components/CommentSection/CommentSection";
-import NextVideos from "../../../components/NextVideos/NextVideos";
-import axios from 'axios';
+// src/pages/PageName/Homepage/HomePage.jsx
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import useApiKey from '../../../components/useApiKey';
+import useVideos from '../../../components/useVideos';
+import useIsDesktop from '../../../components/useIsDesktop';
+import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
+import VideoTitle from '../../../components/VideoTitle/VideoTitle';
+import MetricData from '../../../components/MetricData/MetricData';
+import VideoDescription from '../../../components/VideoDetails/VideoDetails';
+import CommentSection from '../../../components/CommentSection/CommentSection';
+import NextVideos from '../../../components/NextVideos/NextVideos';
+import './HomePage.scss';
 
 const HomePage = ({ initialVideoId }) => {
   const { videoId } = useParams();
-  const navigate = useNavigate();
-  const [currentVideoId, setCurrentVideoId] = useState(videoId || initialVideoId || "");
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1280);
-  const [videos, setVideos] = useState([]);
-  const [apiKey, setApiKey] = useState('');
-
-  useEffect(() => {
-    const fetchApiKey = async () => {
-      try {
-        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        setApiKey(response.data.api_key);
-      } catch (error) {
-        console.error('Error fetching API key:', error);
-      }
-    };
-    fetchApiKey();
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1280);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const fetchVideoData = async () => {
-      if (!apiKey) return;
-
-      try {
-        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos?api_key=${apiKey}`);
-        const firstVideoId = response.data[0].id;
-        setVideos(response.data);
-        if (!initialVideoId && !videoId) {
-          setCurrentVideoId(firstVideoId);
-          navigate(`/videos/${firstVideoId}`, { replace: true });
-        } else {
-          setCurrentVideoId(videoId || initialVideoId);
-        }
-      } catch (error) {
-        console.error('Error fetching video data:', error);
-      }
-    };
-
-    fetchVideoData();
-  }, [apiKey, initialVideoId, navigate, videoId]);
-
-  useEffect(() => {
-    if (currentVideoId) {
-      localStorage.setItem('currentVideoId', currentVideoId);
-    }
-  }, [currentVideoId]);
+  const apiKey = useApiKey();
+  const isDesktop = useIsDesktop();
+  const { videos, currentVideoId, setCurrentVideoId } = useVideos(apiKey, initialVideoId, videoId);
 
   const filteredVideos = videos.filter(video => video.id !== currentVideoId);
+
+  const handleVideoChange = (newVideoId) => {
+    setCurrentVideoId(newVideoId);
+  };
 
   return (
     <main className="main">
       <section className="video-section">
-        <VideoPlayer currentVideoId={currentVideoId} />
+        <VideoPlayer currentVideoId={currentVideoId} apiKey={apiKey} />
       </section>
       <div className="content-container">
         <section className="headline">
           <div className="headline-container">
-            <VideoTitle currentVideoId={currentVideoId} />
+            <VideoTitle currentVideoId={currentVideoId} apiKey={apiKey} />
             <div className="divider title-divider"></div>
-            <MetricData currentVideoId={currentVideoId} />
+            <MetricData currentVideoId={currentVideoId} apiKey={apiKey} />
             <div className="divider"></div>
           </div>
-          <VideoDescription currentVideoId={currentVideoId} />
+          <VideoDescription currentVideoId={currentVideoId} apiKey={apiKey} />
           <div className="comment-section-container">
-            <CommentSection currentVideoId={currentVideoId} />
+            <CommentSection currentVideoId={currentVideoId} apiKey={apiKey} />
           </div>
           {!isDesktop && (
             <div className="next-videos-container">
-              <NextVideos videos={filteredVideos} onVideoClick={(id) => navigate(`/videos/${id}`)} />
+              <NextVideos videos={filteredVideos} onVideoChange={handleVideoChange} />
             </div>
           )}
         </section>
         {isDesktop && <div className="main-divider"></div>}
         {isDesktop && (
-          <div className="next-videos-container">
-            <NextVideos videos={filteredVideos} onVideoClick={(id) => navigate(`/videos/${id}`)} />
-          </div>
+          <section className="next-videos-container">
+            <NextVideos videos={filteredVideos} onVideoChange={handleVideoChange} />
+          </section>
         )}
       </div>
     </main>

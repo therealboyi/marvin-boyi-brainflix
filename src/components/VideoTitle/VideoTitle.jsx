@@ -1,29 +1,19 @@
-// VideoTitle.jsx
-import React, { useState, useEffect } from 'react';
+// src/components/VideoTitle.jsx
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+import useApiKey from '../useApiKey';
 
 const VideoTitle = ({ currentVideoId }) => {
   const [videoTitle, setVideoTitle] = useState('');
-  const [apiKey, setApiKey] = useState('');
-
-  useEffect(() => {
-    const fetchApiKey = async () => {
-      try {
-        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        setApiKey(response.data.api_key);
-      } catch (error) {
-        console.error('Error fetching API key:', error);
-      }
-    };
-    fetchApiKey();
-  }, []);
+  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
       if (!apiKey || !currentVideoId) return;
 
       try {
-        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
+        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}?api_key=${apiKey}`);
         setVideoTitle(response.data.title);
       } catch (error) {
         console.error('Error fetching video details:', error);
