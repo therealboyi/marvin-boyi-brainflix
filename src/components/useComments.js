@@ -1,24 +1,21 @@
 // src/components/useComments.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL, VIDEOS_ENDPOINT } from '../components/Api';
-import useApiKey from './useApiKey';
-
+import { API_URL, VIDEOS_ENDPOINT } from './Api';
 
 const useComments = (currentVideoId) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchComments = async () => {
-      if (!apiKey || !currentVideoId) return;
+      if (!currentVideoId) return;
 
       setLoading(true);
 
       try {
         const response = await axios.get(
-          `${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}/comments?api_key=${apiKey}`
+          `${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`
         );
         const sortedComments = response.data.comments.sort(
           (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
@@ -32,12 +29,12 @@ const useComments = (currentVideoId) => {
     };
 
     fetchComments();
-  }, [apiKey, currentVideoId]);
+  }, [currentVideoId]);
 
   const addComment = async (newComment) => {
     try {
       const response = await axios.post(
-        `${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}/comments?api_key=${apiKey}`,
+        `${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}/comments`,
         newComment
       );
       setComments([response.data, ...comments]);

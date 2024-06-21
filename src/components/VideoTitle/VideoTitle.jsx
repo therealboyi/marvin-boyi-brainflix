@@ -2,18 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL, VIDEOS_ENDPOINT } from '../Api';
-import useApiKey from '../useApiKey';
 
 const VideoTitle = ({ currentVideoId }) => {
   const [videoTitle, setVideoTitle] = useState('');
-  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
-      if (!apiKey || !currentVideoId) return;
+      if (!currentVideoId) return;
 
       try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}?api_key=${apiKey}`);
+        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
         setVideoTitle(response.data.title);
       } catch (error) {
         console.error('Error fetching video details:', error);
@@ -21,7 +19,7 @@ const VideoTitle = ({ currentVideoId }) => {
     };
 
     fetchVideoDetails();
-  }, [apiKey, currentVideoId]);
+  }, [currentVideoId]);
 
   if (!videoTitle) {
     return <div>Loading...</div>;

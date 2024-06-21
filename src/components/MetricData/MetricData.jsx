@@ -5,19 +5,17 @@ import './MetricData.scss';
 import views from '../../assets/icons/views.svg';
 import likes from '../../assets/icons/likes.svg';
 import { API_URL, VIDEOS_ENDPOINT } from '../Api';
-import useApiKey from '../useApiKey';
 
 const MetricData = ({ currentVideoId }) => {
   const [videoMetrics, setVideoMetrics] = useState({ views: '', likes: '', channel: '', timestamp: '' });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
-      if (!apiKey || !currentVideoId) return;
+      if (!currentVideoId) return;
 
       try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}?api_key=${apiKey}`);
+        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
         const { views, likes, channel, timestamp } = response.data;
         setVideoMetrics({ views, likes, channel, timestamp });
       } catch (error) {
@@ -26,7 +24,7 @@ const MetricData = ({ currentVideoId }) => {
     };
 
     fetchVideoDetails();
-  }, [apiKey, currentVideoId]);
+  }, [currentVideoId]);
 
   useEffect(() => {
     const handleResize = () => {
