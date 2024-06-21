@@ -1,0 +1,59 @@
+// src/components/CommentItem/CommentItem.scss
+@import '../../styles/partials/variables';
+@import '../../styles/partials/mixins';
+
+.comment-item {
+  display: flex;
+  align-items: flex-start; 
+  margin-bottom: 1rem;
+
+  &--first {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  &__avatar {
+    width: 3rem;
+    height: 3rem;
+    @include border-radius(50%);
+    background-color: $color-mercury;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    width: 100%;
+    padding-left: 1rem;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  &__name {
+    font-weight: $font-weight-bold;
+    text-align: left;
+  }
+
+  &__date {
+    color: $color-mercury;
+    text-align: right;
+  }
+
+  &__text {
+    text-align: left; 
+  }
+}
+
+.comment-item__divider {
+  height: 1px;
+  background-color: $color-mercury;
+  margin: 1rem 0;
+}

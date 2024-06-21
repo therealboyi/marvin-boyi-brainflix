@@ -1,15 +1,14 @@
-// VideoPlayer.jsx
+// src/components/VideoPlayer/VideoPlayer.jsx
 import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
+import useVideoDetails from '../useVideoDetails';
+import VideoControls from '../VideoControls/VideoControls';
 import './VideoPlayer.scss';
-import PlayPauseButton from '../Buttons/PlayPauseButton/PlayPauseButton';
-import VolumeButton from '../Buttons/VolumeButton/VolumeButton';
-import FullscreenButton from '../Buttons/FullscreenButton/FullscreenButton';
-import Scrubber from '../Buttons/Scrubber/Scrubber';
 
-const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
+const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
+  const { videoDetails, duration } = useVideoDetails(currentVideoId, apiKey);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -17,48 +16,7 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
   const [scrubberValue, setScrubberValue] = useState(0);
   const [bufferValue, setBufferValue] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [videoDetails, setVideoDetails] = useState(null);
-  const [apiKey, setApiKey] = useState('');
   const [showControls, setShowControls] = useState(true);
-
-  useEffect(() => {
-    const fetchApiKey = async () => {
-      try {
-        const response = await axios.get('https://unit-3-project-api-0a5620414506.herokuapp.com/register');
-        setApiKey(response.data.api_key);
-      } catch (error) {
-        console.error('Error fetching API key:', error);
-      }
-    };
-    fetchApiKey();
-  }, []);
-
-  useEffect(() => {
-    const fetchVideoDetails = async () => {
-      if (!apiKey || !currentVideoId) return;
-
-      try {
-        const response = await axios.get(`https://unit-3-project-api-0a5620414506.herokuapp.com/videos/${currentVideoId}?api_key=${apiKey}`);
-        const video = response.data;
-        setVideoDetails(video);
-        setDuration(parseDuration(video.duration));
-        // Stop and reset the video when a new video is loaded
-        if (videoRef.current) {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-          setIsPlaying(false);
-          setScrubberValue(0);
-          setCurrentTime(0);
-        }
-      } catch (error) {
-        console.error('Error fetching video details:', error);
-      }
-    };
-    if (apiKey && currentVideoId) {
-      fetchVideoDetails();
-    }
-  }, [apiKey, currentVideoId]);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -115,6 +73,16 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
       video.removeEventListener('ended', handleEnded);
     };
   }, [videoDetails]);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setIsPlaying(false);
+      setScrubberValue(0);
+      setCurrentTime(0);
+    }
+  }, [currentVideoId]);
 
   useEffect(() => {
     let timer;
@@ -200,13 +168,6 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
     }
   };
 
-  const parseDuration = (duration) => {
-    const parts = duration.split(':');
-    const minutes = parseInt(parts[0], 10);
-    const seconds = parseInt(parts[1], 10);
-    return minutes * 60 + seconds;
-  };
-
   if (!videoDetails) {
     return <div>Loading...</div>;
   }
@@ -221,28 +182,21 @@ const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
           <source src={`${videoDetails.video}?api_key=${apiKey}`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className={`video-player__controls ${isPlaying && !showControls ? 'video-player__controls--hidden' : ''} ${isPlaying ? 'video-player__controls--playing' : ''}`}>
-          <div className="video-player__controls--left">
-            <PlayPauseButton isPlaying={isPlaying} onTogglePlayPause={handlePlayPause} />
-          </div>
-          <div className="video-player__controls--center">
-            <Scrubber
-              value={scrubberValue}
-              buffer={bufferValue}
-              onScrub={handleScrub}
-              currentTime={currentTime}
-              duration={duration}
-            />
-          </div>
-          <div className="video-player__controls--right">
-            <FullscreenButton isFullscreen={isFullscreen} onToggleFullscreen={handleFullscreen} />
-            <VolumeButton
-              volume={volume}
-              onVolumeChange={handleVolumeChange}
-              onVolumeToggle={handleVolumeToggle}
-            />
-          </div>
-        </div>
+        <VideoControls
+          isPlaying={isPlaying}
+          onTogglePlayPause={handlePlayPause}
+          scrubberValue={scrubberValue}
+          bufferValue={bufferValue}
+          onScrub={handleScrub}
+          currentTime={currentTime}
+          duration={duration}
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={handleFullscreen}
+          volume={volume}
+          onVolumeChange={handleVolumeChange}
+          onVolumeToggle={handleVolumeToggle}
+          showControls={showControls}
+        />
       </div>
     </div>
   );
