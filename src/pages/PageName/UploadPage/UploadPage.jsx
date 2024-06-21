@@ -1,4 +1,3 @@
-// UploadPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import VideoThumbnail from '../../../components/VideoThumbnail/VideoThumbnail';
@@ -12,11 +11,40 @@ const VideoUpload = () => {
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Video uploaded with title:", title, "and description:", description);
-    alert('Upload successful!');
-    navigate('/');
+    console.log("Publish button clicked");
+
+    const newVideo = {
+      title: title || 'Untitled Video',
+      description: description || 'No description provided.',
+      image: '/images/Upload-video-preview.jpg' // Hardcoded image path
+    };
+    
+    console.log("Submitting new video:", newVideo);
+
+    try {
+      const response = await fetch('http://localhost:8080/videos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newVideo)
+      });
+      console.log("Response status:", response.status);
+
+      if (response.ok) {
+        console.log('Upload successful!');
+        alert('Upload successful!');
+        navigate('/');
+      } else {
+        console.log('Upload failed!');
+        alert('Upload failed!');
+      }
+    } catch (error) {
+      console.error('Error uploading video:', error);
+      alert('Upload failed!');
+    }
   };
 
   return (
@@ -47,16 +75,16 @@ const VideoUpload = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
+          <hr className="upload-container__divider upload-container__divider--bottom-tablet" />
+          <div className="upload-container__button-group upload-container__button-group--inside">
+            <Button type="submit" iconSrc={uploadIcon} className="button button--primary">PUBLISH</Button>
+            <span className="upload-container__cancel-button" onClick={() => navigate('/')}>CANCEL</span>
+          </div>
         </form>
-        <hr className="upload-container__divider upload-container__divider--bottom-tablet" />
-        <div className="upload-container__button-group upload-container__button-group--inside">
-          <Button type="submit" iconSrc={uploadIcon} className="button button--primary" onClick={handleSubmit}>PUBLISH</Button>
-          <span className="upload-container__cancel-button" onClick={() => navigate('/')}>CANCEL</span>
-        </div>
       </div>
       <hr className="upload-container__divider upload-container__divider--bottom-desktop" />
       <div className="upload-container__button-group upload-container__button-group--outside">
-        <Button type="submit" iconSrc={uploadIcon} className="button button--primary" onClick={handleSubmit}>PUBLISH</Button>
+        <Button type="button" iconSrc={uploadIcon} className="button button--primary" onClick={handleSubmit}>PUBLISH</Button>
         <span className="upload-container__cancel-button" onClick={() => navigate('/')}>CANCEL</span>
       </div>
     </div>
@@ -64,8 +92,3 @@ const VideoUpload = () => {
 };
 
 export default VideoUpload;
-
-
-
-
-
