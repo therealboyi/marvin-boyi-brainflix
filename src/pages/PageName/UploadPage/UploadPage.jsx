@@ -12,26 +12,34 @@ import uploadIcon from '../../../assets/icons/publish.svg';
 const UploadPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [imageFile, setImageFile] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newVideo = {
-      title,
-      description,
-      image: `${API_URL}/images/image4.jpg`, 
-      channel: 'My Channel', 
-      views: '0', 
-      likes: '0', 
-      duration: '0:00', 
-      video: 'https://unit-3-project-api-0a5620414506.herokuapp.com/stream', 
-      timestamp: Date.now(),
-      comments: []
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    if (imageFile) {
+      formData.append('image', imageFile);
+    } else {
+      formData.append('image', ''); 
+    }
+    formData.append('channel', 'My Channel');
+    formData.append('views', '0');
+    formData.append('likes', '0');
+    formData.append('duration', '0:00');
+    formData.append('video', 'https://unit-3-project-api-0a5620414506.herokuapp.com/stream');
+    formData.append('timestamp', Date.now().toString());
+    formData.append('comments', JSON.stringify([]));
 
     try {
-      await axios.post(`${API_URL}${VIDEOS_ENDPOINT}`, newVideo);
+      await axios.post(`${API_URL}${VIDEOS_ENDPOINT}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       alert('Upload successful!');
       navigate('/');
     } catch (error) {
@@ -68,6 +76,16 @@ const UploadPage = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
+          <div className="upload-container__form-group">
+            <label htmlFor="image" className="upload-container__label">UPLOAD AN IMAGE</label>
+            <input
+              type="file"
+              id="image"
+              className="upload-container__input"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+            />
+          </div>
           <div className="upload-container__button-group upload-container__button-group--inside">
             <Button type="submit" iconSrc={uploadIcon} className="button button--primary">PUBLISH</Button>
             <span className="upload-container__cancel-button" onClick={() => navigate('/')}>CANCEL</span>
@@ -85,3 +103,4 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
+

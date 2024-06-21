@@ -25,24 +25,24 @@ const CommentSection = ({ currentVideoId }) => {
     };
   }, []);
 
+  const fetchVideoComments = async () => {
+    if (!currentVideoId) return;
+
+    setLoading(true);
+
+    try {
+      const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
+      const sortedComments = response.data.comments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      setComments(sortedComments);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching video comments:', error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchVideoDetails = async () => {
-      if (!currentVideoId) return;
-
-      setLoading(true);
-
-      try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
-        const sortedComments = response.data.comments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        setComments(sortedComments);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching video details:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchVideoDetails();
+    fetchVideoComments();
   }, [currentVideoId]);
 
   const addNewComment = async (event) => {
@@ -62,12 +62,27 @@ const CommentSection = ({ currentVideoId }) => {
     };
 
     try {
+      console.log('Posting new comment:', newComment);
       const response = await axios.post(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}/comments`, newComment);
+      console.log('Response from server:', response.data);
+
+      // Update comments state directly after successful post
       setComments([response.data, ...comments]);
       setCommentText('');
       setCommentTextError(false);
     } catch (error) {
       console.error('Error posting new comment:', error);
+    }
+  };
+
+  const deleteComment = async (commentId) => {
+    try {
+      console.log('Deleting comment with ID:', commentId);
+      await axios.delete(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}/comments/${commentId}`);
+      // Filter out the deleted comment from the comments state
+      setComments(comments.filter(comment => comment.id !== commentId));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
     }
   };
 
@@ -106,6 +121,7 @@ const CommentSection = ({ currentVideoId }) => {
                 <div className="comments__header">
                   <p className="comments__name bold">{comment.name}</p>
                   <p className="comments__date">{formatTimestamp(new Date(comment.timestamp))}</p>
+                  <button className="comments__delete-button" onClick={() => deleteComment(comment.id)}>Delete</button>
                 </div>
                 <p className="comments__text">{comment.comment}</p>
               </div>
