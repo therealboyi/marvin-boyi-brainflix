@@ -1,9 +1,0 @@
-// VideoDetails.scss
-@import '../../styles/partials/variables';
-@import '../../styles/partials/mixins';
-
-.video-description {
-  @include padding(1rem);
-  color: $color-brainflix-black; 
-  margin-bottom: 2rem;
-}
