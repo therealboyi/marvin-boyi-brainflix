@@ -1,24 +1,12 @@
 // src/components/VideoTitle.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { API_URL, VIDEOS_ENDPOINT, fetchApiKey } from '../Api';
+import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+import useApiKey from '../useApiKey';
 
 const VideoTitle = ({ currentVideoId }) => {
   const [videoTitle, setVideoTitle] = useState('');
-  const [apiKey, setApiKey] = useState('');
-
-  useEffect(() => {
-    const getApiKey = async () => {
-      try {
-        const key = await fetchApiKey();
-        setApiKey(key);
-      } catch (error) {
-        console.error('Error getting API key:', error);
-      }
-    };
-
-    getApiKey();
-  }, []);
+  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchVideoDetails = async () => {

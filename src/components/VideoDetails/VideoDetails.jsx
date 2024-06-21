@@ -1,10 +1,13 @@
-// src/components/VideoDescription.jsx
+// src/components/VideoDetails.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+import useApiKey from '../useApiKey';
+import './VideoDetails.scss';
 
-const VideoDescription = ({ currentVideoId, apiKey }) => {
+const VideoDescription = ({ currentVideoId }) => {
   const [videoDescription, setVideoDescription] = useState('');
+  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
@@ -33,4 +36,5 @@ const VideoDescription = ({ currentVideoId, apiKey }) => {
 };
 
 export default VideoDescription;
+
 

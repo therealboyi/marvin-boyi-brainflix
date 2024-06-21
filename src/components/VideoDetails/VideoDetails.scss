@@ -5,8 +5,5 @@
 .video-description {
   @include padding(1rem);
   color: $color-brainflix-black; 
-  background-color: $color-alabaster; 
-  border: 1px solid $color-mercury; 
-  @include border-radius($border-radius); 
   margin-bottom: 2rem;
 }

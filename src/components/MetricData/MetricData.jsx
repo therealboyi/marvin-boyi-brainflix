@@ -5,10 +5,12 @@ import './MetricData.scss';
 import views from '../../assets/icons/views.svg';
 import likes from '../../assets/icons/likes.svg';
 import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+import useApiKey from '../useApiKey';
 
-const MetricData = ({ currentVideoId, apiKey }) => {
+const MetricData = ({ currentVideoId }) => {
   const [videoMetrics, setVideoMetrics] = useState({ views: '', likes: '', channel: '', timestamp: '' });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const apiKey = useApiKey();
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
@@ -77,3 +79,4 @@ const MetricData = ({ currentVideoId, apiKey }) => {
 };
 
 export default MetricData;
+
