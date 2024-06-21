@@ -1,0 +1,74 @@
+// NextVideos.scss
+@import '../../styles/partials/variables';
+@import '../../styles/partials/mixins';
+
+.next-videos {
+  margin-top: 1rem;
+
+  &__title {
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    @include font-avenir($font-size-label, $font-weight-bold, $color-silver); 
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    @include flex-align-center(); 
+    margin-bottom: 1rem;
+
+    &--clickable {
+      cursor: pointer;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+  }
+
+  &__thumbnail {
+    width: 120px;
+    height: 90px;
+    margin-right: 1rem;
+    object-fit: cover;
+    @include border-radius($border-radius); 
+    background-color: $color-mercury; 
+
+    &:error {
+      background-color: $color-mercury; 
+      content: '';
+    }
+  }
+
+  &__info {
+    @include flex-center-column(); 
+    justify-content: center;
+    gap: 2rem;
+    align-items: flex-start; 
+  }
+
+  &__video-title {
+    margin: 0;
+    color: $color-brainflix-black; 
+  }
+
+  &__channel {
+    margin: 0;
+    color: $color-gray; 
+  }
+
+  @include media-breakpoint-up($desktop-breakpoint) {
+    padding: 1rem;
+  }
+
+  @include media-breakpoint-down($desktop-breakpoint) {
+    padding: 0;
+  }
+}
