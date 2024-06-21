@@ -13,7 +13,16 @@ const UploadPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(thumbnailImage);
   const navigate = useNavigate();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +62,7 @@ const UploadPage = () => {
       <h1 className="upload-container__title">Upload Video</h1>
       <hr className="upload-container__divider upload-container__divider--top" />
       <div className="upload-container__content">
-        <VideoThumbnail imageSrc={thumbnailImage} />
+        <VideoThumbnail imageSrc={imagePreview} />
         <form onSubmit={handleSubmit} className="upload-container__form">
           <div className="upload-container__form-group">
             <label htmlFor="title" className="upload-container__label">TITLE YOUR VIDEO</label>
@@ -83,7 +92,7 @@ const UploadPage = () => {
               id="image"
               className="upload-container__input"
               accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
+              onChange={handleImageChange}
             />
           </div>
           <div className="upload-container__button-group upload-container__button-group--inside">
@@ -103,4 +112,3 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
-
