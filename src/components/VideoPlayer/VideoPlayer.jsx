@@ -4,10 +4,10 @@ import useVideoDetails from '../useVideoDetails';
 import VideoControls from '../VideoControls/VideoControls';
 import './VideoPlayer.scss';
 
-const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
+const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
-  const { videoDetails, duration } = useVideoDetails(currentVideoId, apiKey);
+  const { videoDetails, duration } = useVideoDetails(currentVideoId);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -179,7 +179,7 @@ const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
           <img src={videoDetails.image} alt={videoDetails.title} />
         </div>
         <video ref={videoRef} onClick={handlePlayPause} className={`video-player__video ${isPlaying ? 'video-player__video--playing' : ''}`}>
-          <source src={`${videoDetails.video}?api_key=${apiKey}`} type="video/mp4" />
+          <source src={videoDetails.video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <VideoControls

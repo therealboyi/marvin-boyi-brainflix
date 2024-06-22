@@ -33,13 +33,13 @@ const UploadPage = () => {
     if (imageFile) {
       formData.append('image', imageFile);
     } else {
-      formData.append('image', ''); 
+      formData.append('image', '');
     }
     formData.append('channel', 'My Channel');
     formData.append('views', '0');
     formData.append('likes', '0');
     formData.append('duration', '0:00');
-    formData.append('video', 'https://unit-3-project-api-0a5620414506.herokuapp.com/stream');
+    formData.append('video', `${API_URL}/video/BrainStation_Sample_Video.mp4`); // Update this line
     formData.append('timestamp', Date.now().toString());
     formData.append('comments', JSON.stringify([]));
 
