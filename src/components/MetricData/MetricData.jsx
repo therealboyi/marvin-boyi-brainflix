@@ -1,79 +1,66 @@
-// MetricData.jsx
-import './MetricData.scss';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import viewsIcon from '../../assets/icons/views.svg';
-import likesIcon from '../../assets/icons/likes.svg';
-import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+// src/components/CommentForm/CommentForm.jsx
+import React, { useState } from 'react';
+import Avatar from '../Avatar/Avatar';
+import Button from '../Buttons/Button/Button';
+import '../../components/CommentSection/CommentSection.scss';
 
-const MetricData = ({ currentVideoId }) => {
-  const [videoMetrics, setVideoMetrics] = useState({ views: 0, likes: 0, channel: '', timestamp: Date.now() });
-  const [liked, setLiked] = useState(false);
 
-  useEffect(() => {
-    const fetchVideoDetails = async () => {
-      if (!currentVideoId) return;
+const CommentForm = ({ onAddComment, isDesktopOrTablet }) => {
+  const [commentText, setCommentText] = useState('');
+  const [commentTextError, setCommentTextError] = useState(false);
 
-      try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
-        const { views, likes, channel, timestamp } = response.data;
-        setVideoMetrics({ views, likes, channel, timestamp: Number(timestamp) });
-      } catch (error) {
-        console.error('Error fetching video details:', error);
-      }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const isCommentTextEmpty = !commentText.trim();
+    setCommentTextError(isCommentTextEmpty);
+
+    if (isCommentTextEmpty) {
+      alert('Please enter a comment.');
+      return;
+    }
+
+    const newComment = {
+      name: 'Anonymous',
+      comment: commentText,
     };
 
-    fetchVideoDetails();
-  }, [currentVideoId]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    if (isNaN(date.getTime())) return 'Invalid Date';
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
+    onAddComment(newComment);
+    setCommentText('');
+    setCommentTextError(false);
   };
 
-  if (!videoMetrics.views || !videoMetrics.likes || !videoMetrics.channel || !videoMetrics.timestamp) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <section className="metric-data">
-      <div className="metric-data__left">
-        <div className="metric-data__column">
-          <p className="metric-data__item metric-data__item--bold">By {videoMetrics.channel}</p>
-        </div>
-        <div className="metric-data__column metric-data__column--date">
-          <p className="metric-data__item">{formatDate(videoMetrics.timestamp)}</p>
-        </div>
-      </div>
-      <div className="metric-data__right">
-        <div className="metric-data__column metric-data__column--views">
-          <p className="metric-data__item">
-            <img src={viewsIcon} alt="Views" className="metric-data__icon" /> {videoMetrics.views.toLocaleString()}
-          </p>
-        </div>
-        <div className="metric-data__column metric-data__column--likes">
-          <p className="metric-data__item">
-            <img
-              src={likesIcon}
-              alt="Likes"
-              className={`metric-data__icon ${liked ? 'metric-data__icon--liked' : ''}`}
-              onClick={handleLike}
-            /> {videoMetrics.likes.toLocaleString()}
-          </p>
+    <section className="comments__form-container">
+      <div className="comments__form-wrapper">
+        <Avatar src="/src/assets/images/Mohan-muruge.jpg" size="large" className="comments__avatar--margin-top" />
+        <div className="comments__form-column">
+          <label htmlFor="comment" className="comments__label bold">
+            JOIN THE CONVERSATION
+          </label>
+          <form
+            className={`comments__form ${isDesktopOrTablet ? 'comments__form--horizontal' : ''}`}
+            onSubmit={handleSubmit}
+          >
+            <textarea
+              id="comment"
+              className={`comments__textarea ${commentTextError ? 'comments__textarea--error' : ''}`}
+              placeholder="Add a new comment"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            ></textarea>
+            <Button
+              type="submit"
+              iconSrc="/src/assets/icons/add_comment.svg"
+              className="button--primary"
+            >
+              COMMENT
+            </Button>
+          </form>
         </div>
       </div>
     </section>
   );
 };
 
-export default MetricData;
-
+export default CommentForm;
