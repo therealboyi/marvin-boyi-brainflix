@@ -3,8 +3,34 @@
 @import '../../styles/partials/mixins';
 
 .metric-data {
-  --icon-color: $color-silver;
-  --channel-color: $color-brainflix-black;
+  display: grid;
+  margin-top: 0;
+  margin-bottom: -1rem;
+  grid-template-columns: repeat(4, 1fr);
+
+  @include media-breakpoint-down($tablet-breakpoint) {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -1rem;
+
+    &__column--date {
+      order: 2;
+    }
+    &__column--views {
+      order: 1;
+    }
+    &__column--likes {
+      order: 3;
+    }
+  }
+
+  @include media-breakpoint-up($tablet-breakpoint) {
+    display: flex;
+    justify-content: space-between;
+
+    .metric-data__left {
+      @include flex-row(center);
+      gap: 3rem;
+    }
 
     .metric-data__right {
       @include flex-row(center);

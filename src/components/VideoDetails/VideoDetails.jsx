@@ -17,5 +17,4 @@ const VideoDetails = ({ currentVideoId }) => {
   );
 };
 
-export default VideoDescription;
-
+export default VideoDetails;

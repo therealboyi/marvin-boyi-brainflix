@@ -7,7 +7,7 @@ import Video from '../Video/Video';
 import VideoThumbnail from '../VideoPlayerThumbnail/VideoPlayerThumbnail';
 import './VideoPlayer.scss';
 
-const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
+const VideoPlayer = ({ currentVideoId, onVideoEnd }) => {
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
   const { videoDetails, duration } = useVideoDetails(currentVideoId);

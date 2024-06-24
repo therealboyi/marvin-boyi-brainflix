@@ -75,3 +75,9 @@
   background-color: $color-mercury;
   margin: 1rem 0;
 }
+
+.comments__placeholderavatar {
+  &--margin-top {
+    margin-top: 0rem; 
+  }
+}

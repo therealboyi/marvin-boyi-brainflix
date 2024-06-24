@@ -119,7 +119,7 @@ const UploadPage = () => {
       </div>
       <hr className="upload-container__divider upload-container__divider--bottom-desktop" />
       <div className="upload-container__button-group upload-container__button-group--outside">
-        <Button type="button" iconSrc={uploadIcon} className="button button--primary" onClick={handleSubmit}>PUBLISH</Button>
+        <Button type="submit" iconSrc={uploadIcon} className="button button--primary" onClick={handleSubmit}>PUBLISH</Button>
         <span className="upload-container__cancel-button" onClick={() => navigate('/')}>CANCEL</span>
       </div>
     </section>

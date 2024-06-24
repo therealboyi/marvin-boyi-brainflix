@@ -25,14 +25,14 @@ const HomePage = ({ initialVideoId }) => {
   return (
     <main className="main">
       <section className="video-section">
-        <VideoPlayer currentVideoId={currentVideoId} apiKey={apiKey} />
+        <VideoPlayer currentVideoId={currentVideoId} />
       </section>
       <div className="content-container">
         <article className="headline">
           <div className="headline-container">
-            <VideoTitle currentVideoId={currentVideoId} apiKey={apiKey} />
+            <VideoTitle currentVideoId={currentVideoId} />
             <div className="divider title-divider"></div>
-            <MetricData currentVideoId={currentVideoId} apiKey={apiKey} />
+            <MetricData currentVideoId={currentVideoId} />
             <div className="divider"></div>
           </div>
           <VideoDetails currentVideoId={currentVideoId} />
