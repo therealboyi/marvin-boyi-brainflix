@@ -63,4 +63,4 @@ const CommentForm = ({ onAddComment, isDesktopOrTablet }) => {
   );
 };
 
-export default CommentForm;
+export default MetricData;
