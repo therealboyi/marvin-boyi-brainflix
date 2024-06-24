@@ -14,16 +14,14 @@ const useComments = (currentVideoId) => {
       setLoading(true);
 
       try {
-        const response = await axios.get(
-          `${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`
-        );
+        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
         const sortedComments = response.data.comments.sort(
           (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
         );
         setComments(sortedComments);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        console.error('Error fetching comments:', error);
         setLoading(false);
       }
     };
@@ -39,11 +37,20 @@ const useComments = (currentVideoId) => {
       );
       setComments([response.data, ...comments]);
     } catch (error) {
-      console.error("Error posting new comment:", error);
+      console.error('Error posting new comment:', error);
     }
   };
 
-  return { comments, loading, addComment };
+  const deleteComment = async (commentId) => {
+    try {
+      await axios.delete(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}/comments/${commentId}`);
+      setComments(comments.filter(comment => comment.id !== commentId));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
+  return { comments, loading, addComment, deleteComment };
 };
 
 export default useComments;

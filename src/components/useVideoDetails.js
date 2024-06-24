@@ -1,7 +1,6 @@
 // src/components/useVideoDetails.js
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_URL, VIDEOS_ENDPOINT } from './Api';
+import { fetchData, VIDEOS_ENDPOINT } from './Api';
 
 const useVideoDetails = (currentVideoId) => {
   const [videoDetails, setVideoDetails] = useState(null);
@@ -12,8 +11,7 @@ const useVideoDetails = (currentVideoId) => {
       if (!currentVideoId) return;
 
       try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
-        const video = response.data;
+        const video = await fetchData(`${VIDEOS_ENDPOINT}/${currentVideoId}`);
         setVideoDetails(video);
         setDuration(parseDuration(video.duration));
       } catch (error) {

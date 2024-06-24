@@ -23,6 +23,7 @@
     background-size: cover;
     background-position: center;
     @include border-radius(50%);
+    background-color: $color-mercury;
   }
 
   &--small {

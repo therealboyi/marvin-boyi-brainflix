@@ -28,20 +28,20 @@
 
 .video-section {
   position: relative;
-  background-color: black;
+  background-color: $color-brainflix-darkblack;
 
-  @media (min-width: $desktop-breakpoint) {
+  @include media-breakpoint-up($desktop-breakpoint) {
     margin-left: -8rem;
     margin-right: -8rem;
   }
 
-  @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+  @include media-breakpoint-down($tablet-max-breakpoint) {
     margin-left: -3rem;
-    margin-right: -2.75rem;
+    margin-right: -3rem;
   }
 
-  @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
-    margin-left: -3rem;
+  @include media-breakpoint-down($mobile-max-breakpoint) {
+    margin-left: -2rem;
     margin-right: -1.5rem;
   }
 
@@ -52,7 +52,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: black;
+    background-color: $color-brainflix-darkblack;
     z-index: -1;
   }
 
@@ -67,12 +67,12 @@
   grid-template-columns: 2fr .0625rem 1fr;
   grid-gap: 1rem;
 
-  @media (min-width: $desktop-breakpoint) {
+  @include media-breakpoint-up($desktop-breakpoint) {
     grid-template-columns: 2fr .0625rem 1fr;
     grid-gap: 0;
   }
 
-  @media (max-width: 1279px) {
+  @include media-breakpoint-down($tablet-max-breakpoint) {
     grid-template-columns: 1fr;
   }
 }
@@ -80,13 +80,13 @@
 .headline {
   grid-column: 1;
 
-  @media (min-width: $desktop-breakpoint) {
+  @include media-breakpoint-up($desktop-breakpoint) {
     padding-right: 1rem;
   }
 }
 
 .divider {
-  background-color: #ccc;
+  background-color: $color-mercury;
   height: 1px;
   margin: 1rem 0;
 }
@@ -95,22 +95,18 @@
 .main-divider {
   display: none;
 
-  @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
-    display: none;
-  }
-
-  @media (min-width: $desktop-breakpoint) {
+  @include media-breakpoint-down($tablet-max-breakpoint) {
     display: block;
   }
 }
 
 .main-divider {
   grid-column: 2;
-  background-color: #ccc;
+  background-color: $color-mercury;
   width: 1px;
   height: 100%;
 
-  @media (max-width: 1279px) {
+  @include media-breakpoint-down($tablet-max-breakpoint) {
     display: none;
   }
 }
@@ -126,8 +122,9 @@
 .next-videos-container {
   grid-column: 3;
   width: 100%;
+  margin-left: 0rem;
 
-  @media (max-width: 1279px) {
+  @include media-breakpoint-down($tablet-max-breakpoint) {
     grid-column: 1;
   }
 }
@@ -146,7 +143,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: $color-white;
 
   &__logo {
     display: flex;
@@ -195,7 +192,7 @@
 
   &__search-input::placeholder {
     font-family: 'Avenir', sans-serif;
-    color: #323232;
+    color: $color-brainflix-black;
   }
 
   &__avatar {
@@ -204,7 +201,7 @@
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    background-color: #E1E1E1;
+    background-color: $color-mercury;
 
     &--inside {
       display: none;
@@ -223,7 +220,7 @@
     border-radius: 50%;
   }
 
-  @media (max-width: 767px) {
+  @include media-breakpoint-down($mobile-max-breakpoint) {
     flex-direction: column;
     align-items: stretch;
 
@@ -251,7 +248,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @include media-breakpoint-up($tablet-min-breakpoint) {
     &__logo a img {
       margin-right: 5rem;
     }
@@ -274,7 +271,7 @@
     }
   }
 
-  @media (min-width: 1280px) {
+  @include media-breakpoint-up($desktop-breakpoint) {
     &__logo {
       margin-right: 10rem;
     }
@@ -285,13 +282,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0rem;
+  margin-left: 0rem;
+  margin-right: 0rem;
 
   &__label {
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 0.3125rem;
     display: block;
-    color: #AFAFAF;
+    color: $color-silver;
     text-align: left;
     width: 100%;
     font-family: 'Avenir', sans-serif;
@@ -299,9 +299,29 @@
 
   &__image-wrapper {
     width: 100%;
-    background-color: #E1E1E1;
+    background-color: $color-mercury;
     border-radius: 0.3125rem;
     overflow: hidden;
+  }
+
+  @include media-breakpoint-down($tablet-max-breakpoint) {
+    .thumbnail-container__image-wrapper {
+      width: 25rem;
+      align-self: flex-start;
+    }
+  }
+
+  @include media-breakpoint-down($mobile-max-breakpoint) {
+    .thumbnail-container__image-wrapper {
+      width: 100%;
+    }
+  }
+
+  @include media-breakpoint-up($desktop-breakpoint) {
+    .thumbnail-container__image-wrapper {
+      width: 100%;
+      align-self: flex-start;
+    }
   }
 
   &__image {
@@ -309,20 +329,6 @@
     border-radius: 0.3125rem;
     object-fit: cover;
     display: block;
-  }
-}
-
-@media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
-  .thumbnail-container__image-wrapper {
-    width: 50%;
-    align-self: flex-start;
-  }
-}
-
-@media (min-width: $desktop-breakpoint) {
-  .thumbnail-container__image-wrapper {
-    width: 100%;
-    align-self: flex-start;
   }
 }
 
@@ -335,13 +341,13 @@
   .button--primary {
     margin-bottom: 0.625rem;
 
-    @media (min-width: 768px) {
+    @include media-breakpoint-up($tablet-min-breakpoint) {
       margin-bottom: 0;
     }
   }
 
   .cancel-button {
-    color: #0062cc;
+    color: $color-brainflix-blue;
     cursor: pointer;
     text-decoration: none;
     font-family: 'Avenir', sans-serif;
@@ -353,11 +359,11 @@
   &--inside {
     display: flex;
 
-    @media (min-width: 1280px) {
+    @include media-breakpoint-up($desktop-breakpoint) {
       display: none;
     }
 
-    @media (min-width: 768px) and (max-width: 1279px) {
+    @include media-breakpoint-down($tablet-max-breakpoint) {
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
@@ -376,7 +382,7 @@
   &--outside {
     display: none;
 
-    @media (min-width: 1280px) {
+    @include media-breakpoint-up($desktop-breakpoint) {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
@@ -394,7 +400,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@include media-breakpoint-up($desktop-breakpoint) {
   .button-group--inside {
     display: none;
   }

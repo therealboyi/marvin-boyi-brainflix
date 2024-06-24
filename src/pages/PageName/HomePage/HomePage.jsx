@@ -6,7 +6,7 @@ import useIsDesktop from '../../../components/useIsDesktop';
 import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
 import VideoTitle from '../../../components/VideoTitle/VideoTitle';
 import MetricData from '../../../components/MetricData/MetricData';
-import VideoDescription from '../../../components/VideoDetails/VideoDetails';
+import VideoDetails from '../../../components/VideoDetails/VideoDetails';
 import CommentSection from '../../../components/CommentSection/CommentSection';
 import NextVideos from '../../../components/NextVideos/NextVideos';
 import './HomePage.scss';
@@ -28,24 +28,25 @@ const HomePage = ({ initialVideoId }) => {
         <VideoPlayer currentVideoId={currentVideoId} />
       </section>
       <div className="content-container">
-        <section className="headline">
+        <article className="headline">
           <div className="headline-container">
             <VideoTitle currentVideoId={currentVideoId} />
             <div className="divider title-divider"></div>
             <MetricData currentVideoId={currentVideoId} />
             <div className="divider"></div>
           </div>
-          <VideoDescription currentVideoId={currentVideoId} />
+          <VideoDetails currentVideoId={currentVideoId} />
           <div className="comment-section-container">
-            <CommentSection currentVideoId={currentVideoId} />
+            <CommentSection currentVideoId={currentVideoId} isDesktopOrTablet={isDesktop} />
           </div>
           {!isDesktop && (
             <div className="next-videos-container">
+              <div className="divider mobile-divider"></div>
               <NextVideos videos={filteredVideos} onVideoChange={handleVideoChange} />
             </div>
           )}
-        </section>
-        {isDesktop && <div className="main-divider"></div>}
+        </article>
+        {isDesktop && <div className="side-divider"></div>}
         {isDesktop && (
           <section className="next-videos-container">
             <NextVideos videos={filteredVideos} onVideoChange={handleVideoChange} />

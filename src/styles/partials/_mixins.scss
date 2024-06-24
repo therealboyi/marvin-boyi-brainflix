@@ -63,6 +63,20 @@
   align-items: center;
 }
 
+@mixin flex-column($align: stretch, $justify: flex-start) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin flex-row($align: stretch, $justify: flex-start) {
+  display: flex;
+  flex-direction: row;
+  align-items: $align;
+  justify-content: $justify;
+}
+
 @mixin font-avenir($size, $weight, $color) {
   font-family: 'Avenir', sans-serif;
   font-size: $size;
@@ -89,6 +103,38 @@
   padding: $padding;
 }
 
+@mixin spacing($margin, $padding) {
+  margin: $margin;
+  padding: $padding;
+}
+
+@mixin box-shadow($x, $y, $blur, $color) {
+  box-shadow: $x $y $blur $color;
+}
+
+@mixin text-style($size, $weight, $color, $line-height: 1.5) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  line-height: $line-height;
+}
+
+@mixin transition($property: all, $duration: $transition-time, $timing: ease-in-out) {
+  transition: $property $duration $timing;
+}
+
+@mixin responsive-font-size($mobile-size, $tablet-size, $desktop-size) {
+  font-size: $mobile-size;
+
+  @include media-breakpoint-up($tablet-min-breakpoint) {
+    font-size: $tablet-size;
+  }
+
+  @include media-breakpoint-up($desktop-breakpoint) {
+    font-size: $desktop-size;
+  }
+}
+
 @mixin media-breakpoint-up($breakpoint) {
   @media (min-width: $breakpoint) {
     @content;
@@ -99,4 +145,7 @@
   @media (max-width: $breakpoint) {
     @content;
   }
+}
+@mixin cursor-pointer {
+  cursor: pointer;
 }

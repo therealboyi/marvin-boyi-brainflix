@@ -8,7 +8,7 @@
     width: 100%;
     margin: 0 auto;
     padding-top: 45%;
-    background-color: $color-brainflix-darkblack; 
+    background-color: $color-brainflix-darkblack;
     position: relative;
     overflow: hidden;
     transition: padding-top $transition-time ease, margin $transition-time ease;
@@ -24,7 +24,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: $color-brainflix-darkblack; 
+    background: $color-brainflix-darkblack;
     z-index: 1;
   }
 
@@ -37,35 +37,34 @@
     object-fit: cover;
     z-index: 2;
     opacity: 0;
-    transition: opacity $transition-time ease; 
+    transition: opacity $transition-time ease;
 
     &--playing {
       opacity: 1;
     }
 
-    @media (min-width: $tablet-breakpoint) {
+    @include media-breakpoint-up($tablet-breakpoint) {
       object-fit: contain;
     }
 
-    @media (max-width: $tablet-breakpoint) {
+    @include media-breakpoint-down($tablet-breakpoint) {
       object-fit: cover;
     }
   }
 
   &__thumbnail {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -1rem;
     width: 100%;
     height: 100%;
-    @include flex-center-column(); 
+    @include flex-center-column();
     cursor: pointer;
     z-index: 3;
     opacity: 1;
-    transition: opacity $transition-time ease; 
+    transition: opacity $transition-time ease;
 
     &--hidden {
-      opacity: 0; 
+      opacity: 0;
     }
 
     img {
@@ -73,37 +72,50 @@
       height: 100%;
       object-fit: cover;
 
-      @media (min-width: $desktop-breakpoint) {
-        width: 67%;
+      @include media-breakpoint-up($desktop-breakpoint) {
+        margin-left: -1rem;
+        margin-right: 2rem;
+        width: calc(100% - 25rem);
       }
 
-      @media (max-width: $desktop-breakpoint) and (min-width: $tablet-breakpoint) {
-        width: 91%;
+      @include media-breakpoint-down($tablet-max-breakpoint) {
+        margin-right: 3rem;
+        margin-left: -2rem;
+        width: calc(100% - 6rem);
+      }
+      @include media-breakpoint-down($mobile-max-breakpoint) {
+        width: 100%;
       }
     }
   }
 
   &__controls {
-    @include flex-align-center-space-between(); 
+    @include flex-align-center-space-between();
     position: absolute;
     bottom: .625rem;
-    width: calc(68% - 20px); 
+    width: calc(68% - 20px);
     left: 50%;
     transform: translateX(-50%) scale(1);
     z-index: 4;
-    padding: 0 .625rem; 
+    padding: 0 .625rem;
     transition: opacity $transition-time ease, width $transition-time ease;
 
-    @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
+    @include media-breakpoint-down($tablet-max-breakpoint) {
       transform: translateX(-50%) scale(0.9);
-      width: calc(100% - 20px); 
+      width: calc(100% - 20px);
     }
 
-    @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
+    @include media-breakpoint-down($mobile-max-breakpoint) {
       transform: translateX(-50%) scale(0.6);
-      margin-left: 0.6rem;
-      width: calc(155% - 20px); 
+      margin-left: 0.4rem;
+      width: calc(155% - 20px);
     }
+
+    @include media-breakpoint-up($desktop-breakpoint) {
+      left: 51.4%;
+    }
+
+
 
     &--hidden {
       opacity: 0;
@@ -111,14 +123,19 @@
     }
 
     &--playing {
-      width: calc(100% - 20px); 
+      width: calc(100% - 20px);
 
-      @media (min-width: $tablet-breakpoint) and (max-width: 1279px) {
-        width: calc(105% - 20px); 
+      @include media-breakpoint-down($tablet-max-breakpoint) {
+        width: calc(105% - 20px);
       }
 
-      @media (min-width: $mobile-breakpoint) and (max-width: 767px) {
-        width: calc(155% - 20px); 
+      @include media-breakpoint-down($mobile-max-breakpoint) {
+        width: calc(155% - 20px);
+      }
+
+      @include media-breakpoint-up($desktop-breakpoint) {
+        width: calc(90% - 20px);
+
       }
     }
 
@@ -127,8 +144,8 @@
     &--right {
       background: rgba(0, 0, 0, 0.5);
       padding: .625rem;
-      @include border-radius($border-radius); 
-      @include flex-align-center(); 
+      @include border-radius($border-radius);
+      @include flex-align-center();
       margin: 0 .625rem;
       height: 25px;
     }
@@ -163,7 +180,7 @@
       margin-left: auto;
 
       .volume-container {
-        @include flex-align-center(); 
+        @include flex-align-center();
         position: relative;
         margin: -0.125rem -0.5rem;
 
@@ -182,28 +199,28 @@
           margin-left: .3125rem;
           width: 0;
           max-width: 100px;
-          background: $color-white; 
+          background: $color-white;
           height: 5px;
-          @include border-radius($border-radius); 
+          @include border-radius($border-radius);
           outline: none;
           cursor: pointer;
-          transition: width $transition-time ease, opacity $transition-time ease; 
+          transition: width $transition-time ease, opacity $transition-time ease;
           opacity: 0;
 
           &::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 15px;
             height: 15px;
-            @include border-radius(50%); 
-            background: $color-white; 
+            @include border-radius(50%);
+            background: $color-white;
             cursor: pointer;
           }
 
           &::-moz-range-thumb {
             width: 15px;
             height: 15px;
-            @include border-radius(50%); 
-            background: $color-white; 
+            @include border-radius(50%);
+            background: $color-white;
             cursor: pointer;
           }
         }
@@ -226,7 +243,7 @@
   }
 }
 
-@media (max-width: $mobile-breakpoint) {
+@include media-breakpoint-down($mobile-max-breakpoint) {
   .video-player__controls {
     &--left,
     &--center,

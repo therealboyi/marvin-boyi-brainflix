@@ -7,7 +7,7 @@
   margin-bottom: 1rem;
 
   &__label {
-    @include font-avenir($font-size-label, $font-weight-bold, $color-gray);
+    @include font-avenir($font-size-label, $font-weight-bold, $color-silver);
     margin-bottom: 0;
     display: block;
     text-align: left;
@@ -21,6 +21,10 @@
     @include border-radius($border-radius);
     overflow: hidden;
     box-sizing: border-box;
+
+    &--error {
+      background-color: $color-mercury;
+    }
   }
 
   &__image {
@@ -28,22 +32,26 @@
     @include border-radius($border-radius);
     object-fit: cover;
     display: block;
-  }
-}
 
-@media (min-width: $tablet-breakpoint) and (max-width: $desktop-breakpoint) {
-  .thumbnail-container__image-wrapper {
-    @include responsive-image-wrapper(30rem);
-  }
-}
-
-@media (min-width: $desktop-breakpoint) {
-  .thumbnail-container__image-wrapper {
-    @include responsive-image-wrapper(22rem!important);
+    &--error {
+      display: none;
+    }
   }
 
-  .thumbnail-container__image {
-    width: 100%;
-    object-fit: cover;
+  @include media-breakpoint-down($tablet-max-breakpoint) {
+    &__image-wrapper {
+      @include responsive-image-wrapper(30rem);
+    }
+  }
+
+  @include media-breakpoint-up($desktop-breakpoint) {
+    &__image-wrapper {
+      @include responsive-image-wrapper(22rem !important);
+    }
+
+    &__image {
+      width: 100%;
+      object-fit: cover;
+    }
   }
 }

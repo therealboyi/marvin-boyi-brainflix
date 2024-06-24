@@ -1,36 +1,20 @@
 // src/components/VideoDetails.jsx
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+import React from 'react';
+import useVideoDetails from '../useVideoDetails';
 import './VideoDetails.scss';
 
-const VideoDescription = ({ currentVideoId }) => {
-  const [videoDescription, setVideoDescription] = useState('');
+const VideoDetails = ({ currentVideoId }) => {
+  const { videoDetails } = useVideoDetails(currentVideoId);
 
-  useEffect(() => {
-    const fetchVideoDetails = async () => {
-      if (!currentVideoId) return;
-
-      try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
-        setVideoDescription(response.data.description);
-      } catch (error) {
-        console.error('Error fetching video details:', error);
-      }
-    };
-
-    fetchVideoDetails();
-  }, [currentVideoId]);
-
-  if (!videoDescription) {
+  if (!videoDetails) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="video-description">
-      <p>{videoDescription}</p>
-    </div>
+    <section className="video-description">
+      <p>{videoDetails.description}</p>
+    </section>
   );
 };
 
-export default VideoDescription;
+export default VideoDetails;
