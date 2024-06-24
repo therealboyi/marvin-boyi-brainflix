@@ -20,7 +20,7 @@ body {
   }
 
   &__form-container {
-    margin-bottom: 0rem;
+    margin-bottom: 2rem;
   }
 
   &__form-wrapper {
@@ -47,9 +47,8 @@ body {
     width: 100%;
     margin-bottom: -1rem;
 
-    &--horizontal {
+    @include media-breakpoint-up(768px) {
       flex-direction: row;
-      align-items: center;
     }
   }
 
@@ -81,7 +80,7 @@ body {
     }
 
     &--error {
-      border-color: #d22d2d;
+      border-color: $color-red;
     }
 
     &:focus {
@@ -112,6 +111,13 @@ body {
     border-top: none;
     border-bottom: none;
     padding-top: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__list-item {
+    margin-bottom: 1rem;
   }
 
   &__divider {
@@ -122,7 +128,7 @@ body {
 
   &__item {
     display: flex;
-    align-items: flex-start; 
+    align-items: flex-start;
     margin-bottom: 1rem;
 
     &--first {
@@ -144,14 +150,15 @@ body {
   &__content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
     width: 100%;
     padding-left: 1rem;
   }
 
   &__header {
-    display: flex;
-    justify-content: space-between; 
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
     width: 100%;
     margin-bottom: 0.25rem;
   }
@@ -161,21 +168,22 @@ body {
     text-align: left;
   }
 
+  &__date-delete-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
   &__date {
     color: $color-mercury;
     text-align: right;
   }
 
   &__text {
-    text-align: left; 
+    text-align: left;
   }
 
-  @media (min-width: 768px) {
-    &__form--horizontal {
-      flex-direction: row;
-      align-items: center;
-    }
-
+  @include media-breakpoint-up(767px) {
     &__textarea {
       margin-right: 1rem;
       margin-bottom: 0;
@@ -191,10 +199,16 @@ body {
     }
   }
 
-  @media (max-width: 767px) {
+  @include media-breakpoint-down(767px) {
     &__textarea {
       height: 5rem;
       margin-bottom: 1rem;
     }
+  }
+}
+
+.comments__avatar {
+  &--margin-top {
+    margin-top: 1.875rem; 
   }
 }

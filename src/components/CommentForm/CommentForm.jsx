@@ -1,7 +1,9 @@
-// CommentForm.jsx
+// src/components/CommentForm/CommentForm.jsx
 import React, { useState } from 'react';
 import Avatar from '../Avatar/Avatar';
 import Button from '../Buttons/Button/Button';
+import '../../components/CommentSection/CommentSection.scss';
+
 
 const CommentForm = ({ onAddComment, isDesktopOrTablet }) => {
   const [commentText, setCommentText] = useState('');
@@ -29,24 +31,20 @@ const CommentForm = ({ onAddComment, isDesktopOrTablet }) => {
   };
 
   return (
-    <div className="comments__form-container">
+    <section className="comments__form-container">
       <div className="comments__form-wrapper">
-        <Avatar src="/src/assets/images/Mohan-muruge.jpg" size="large" />
+        <Avatar src="/src/assets/images/Mohan-muruge.jpg" size="large" className="comments__avatar--margin-top" />
         <div className="comments__form-column">
-          <span htmlFor="comment" className="comments__label bold">
+          <label htmlFor="comment" className="comments__label bold">
             JOIN THE CONVERSATION
-          </span>
+          </label>
           <form
-            className={`comments__form ${
-              isDesktopOrTablet ? 'comments__form--horizontal' : ''
-            }`}
+            className={`comments__form ${isDesktopOrTablet ? 'comments__form--horizontal' : ''}`}
             onSubmit={handleSubmit}
           >
             <textarea
               id="comment"
-              className={`comments__textarea ${
-                commentTextError ? 'comments__textarea--error' : ''
-              }`}
+              className={`comments__textarea ${commentTextError ? 'comments__textarea--error' : ''}`}
               placeholder="Add a new comment"
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
@@ -61,7 +59,7 @@ const CommentForm = ({ onAddComment, isDesktopOrTablet }) => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

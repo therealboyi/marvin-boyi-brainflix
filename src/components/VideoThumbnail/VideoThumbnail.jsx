@@ -1,15 +1,16 @@
-// VideoThumbnail.jsx
+// src/components/VideoThumbnail.jsx
 import React from 'react';
 import './VideoThumbnail.scss';
 
 const VideoThumbnail = ({ imageSrc }) => {
   const handleImageError = (e) => {
+    e.target.classList.add('thumbnail-container__image--error');
     e.target.style.display = 'none';
-    e.target.parentNode.style.backgroundColor = '#E1E1E1';
+    e.target.parentNode.classList.add('thumbnail-container__image-wrapper--error');
   };
 
   return (
-    <div className="thumbnail-container">
+    <figure className="thumbnail-container">
       <label className="thumbnail-container__label">VIDEO THUMBNAIL</label>
       <div className="thumbnail-container__image-wrapper">
         <img 
@@ -19,7 +20,7 @@ const VideoThumbnail = ({ imageSrc }) => {
           onError={handleImageError} 
         />
       </div>
-    </div>
+    </figure>
   );
 };
 

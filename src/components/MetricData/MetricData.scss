@@ -3,15 +3,44 @@
 @import '../../styles/partials/mixins';
 
 .metric-data {
-  --icon-color: $color-silver;
-  --channel-color: $color-brainflix-black;
+  display: grid;
+  margin-top: 0;
+  margin-bottom: -1rem;
+  grid-template-columns: repeat(4, 1fr);
 
-  @include flex-align-center-space-between();
-  flex-wrap: wrap;
+  @include media-breakpoint-down($tablet-breakpoint) {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -1rem;
+
+    &__column--date {
+      order: 2;
+    }
+    &__column--views {
+      order: 1;
+    }
+    &__column--likes {
+      order: 3;
+    }
+  }
+
+  @include media-breakpoint-up($tablet-breakpoint) {
+    display: flex;
+    justify-content: space-between;
+
+    .metric-data__left {
+      @include flex-row(center);
+      gap: 3rem;
+    }
+
+    .metric-data__right {
+      @include flex-row(center);
+      gap: 3rem;
+    }
+  }
 
   &__column {
     flex: 1;
-    @include flex-center-column();
+    align-items: flex-start;
     margin-right: 1.25rem;
 
     &:last-child {
@@ -23,11 +52,13 @@
     flex: 1;
     text-align: center;
     margin-bottom: .625rem;
-    @include flex-align-center();
+    @include flex-row(center);
 
     &--bold {
       color: var(--channel-color);
       font-weight: $font-weight-bold;
+      text-align: left;
+      white-space: nowrap;
     }
 
     &:not(&--bold) {
@@ -35,57 +66,31 @@
       gap: 0.5rem;
       align-items: center;
     }
-
-    &__icon {
-      width: 16px;
-      height: 16px;
-      margin-right: .75rem;
-      fill: var(--icon-color);
-    }
   }
 
-  @media (max-width: 767px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: .625rem;
+  &__icon {
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: .75rem;
+    fill: var(--icon-color);
+    @include transition(fill);
+    cursor: pointer;
 
-    &__column {
-      width: 100%;
-      display: contents; 
-
-      &__item {
-        width: 100%;
-        text-align: center;
-
-        &:last-child {
-          margin-bottom: .625rem;
-        }
-      }
+    &--liked {
+      fill: var(--liked-color);
+      animation: pop $transition-time ease-in-out;
     }
   }
+}
 
-  @media (min-width: 768px) {
-    &__column {
-      flex-direction: row;
-
-      &__item {
-        width: auto;
-        text-align: center;
-      }
-    }
+@keyframes pop {
+  0% {
+    transform: scale(1);
   }
-
-  @media (min-width: 768px) and (max-width: 1279px) {
-    &__column {
-      &:last-child {
-        margin-left: 7rem;
-      }
-    }
+  50% {
+    transform: scale(1.5);
   }
-
-  @media (min-width: 1280px) {
-    --icon-color: $color-silver;
-    --channel-color: $color-brainflix-black;
-    gap: 5rem;
+  100% {
+    transform: scale(1);
   }
 }

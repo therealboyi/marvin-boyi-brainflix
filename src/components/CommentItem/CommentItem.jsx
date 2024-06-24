@@ -5,19 +5,20 @@ import Avatar from "../Avatar/Avatar";
 import { formatTimestamp } from "../utils";
 import "./CommentItem.scss";
 
-const CommentItem = ({ comment, isFirst }) => (
+const CommentItem = ({ comment, isFirst, deleteComment }) => (
   <>
     <div className="comment-item__divider"></div>
     <div className={`comment-item ${isFirst ? "comment-item--first" : ""}`}>
-      <Avatar src={comment.avatarUrl} size="large" />
+      <Avatar src={comment.avatarUrl} size="large" className="comment-item__avatar comments__placeholderavatar--margin-top" />
       <div className="comment-item__content">
         <div className="comment-item__header">
           <p className="comment-item__name bold">{comment.name}</p>
-          <p className="comment-item__date">
+          <time className="comment-item__date">
             {formatTimestamp(new Date(comment.timestamp))}
-          </p>
+          </time>
         </div>
         <p className="comment-item__text">{comment.comment}</p>
+        <button className="comment-item__delete-button" onClick={() => deleteComment(comment.id)}>Delete</button>
       </div>
     </div>
   </>
@@ -31,6 +32,7 @@ CommentItem.propTypes = {
     comment: PropTypes.string,
   }).isRequired,
   isFirst: PropTypes.bool,
+  deleteComment: PropTypes.func.isRequired,
 };
 
 export default CommentItem;

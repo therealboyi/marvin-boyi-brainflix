@@ -4,7 +4,7 @@
 
 .comment-item {
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   margin-bottom: 1rem;
 
   &--first {
@@ -25,14 +25,14 @@
   &__content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
     width: 100%;
     padding-left: 1rem;
   }
 
   &__header {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     width: 100%;
     margin-bottom: 0.25rem;
   }
@@ -48,7 +48,25 @@
   }
 
   &__text {
-    text-align: left; 
+    text-align: left;
+    margin-bottom: 0rem;
+    width: 100%;
+  }
+
+  &__delete-button {
+    background: none;
+    border: none;
+    color: $color-mercury;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-align: right;
+    align-self: flex-end;
+    margin-bottom: -0.5rem;
+
+    &:hover {
+      color: darken($color-mercury, 10%);
+      text-decoration: underline;
+    }
   }
 }
 
@@ -56,4 +74,10 @@
   height: 1px;
   background-color: $color-mercury;
   margin: 1rem 0;
+}
+
+.comments__placeholderavatar {
+  &--margin-top {
+    margin-top: 0rem; 
+  }
 }

@@ -27,7 +27,6 @@ dist-ssr
 *.sw?
 vite.svg
 react.svg
-index.css
 .eslintrc.cjs
 *.cjs
 *.txt

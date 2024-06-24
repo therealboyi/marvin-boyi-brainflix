@@ -1,21 +1,18 @@
 // src/components/useVideos.js
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_URL, VIDEOS_ENDPOINT } from '../components/Api';
+import { fetchData, VIDEOS_ENDPOINT } from './Api';
 
-const useVideos = (apiKey, initialVideoId, videoId) => {
+const useVideos = (initialVideoId, videoId) => {
   const [videos, setVideos] = useState([]);
   const [currentVideoId, setCurrentVideoId] = useState(videoId || initialVideoId || '');
 
   useEffect(() => {
     const fetchVideoData = async () => {
-      if (!apiKey) return;
-
       try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}?api_key=${apiKey}`);
-        setVideos(response.data);
+        const data = await fetchData(VIDEOS_ENDPOINT);
+        setVideos(data);
         if (!initialVideoId && !videoId) {
-          const firstVideoId = response.data[0].id;
+          const firstVideoId = data[0].id;
           setCurrentVideoId(firstVideoId);
         } else {
           setCurrentVideoId(videoId || initialVideoId);
@@ -26,7 +23,7 @@ const useVideos = (apiKey, initialVideoId, videoId) => {
     };
 
     fetchVideoData();
-  }, [apiKey, initialVideoId, videoId]);
+  }, [initialVideoId, videoId]);
 
   useEffect(() => {
     if (currentVideoId) {
@@ -38,4 +35,3 @@ const useVideos = (apiKey, initialVideoId, videoId) => {
 };
 
 export default useVideos;
-

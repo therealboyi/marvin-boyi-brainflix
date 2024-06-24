@@ -2,12 +2,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import useVideoDetails from '../useVideoDetails';
 import VideoControls from '../VideoControls/VideoControls';
+import FullscreenHandler from '../FullscreenHandler/FullscreenHandler';
+import Video from '../Video/Video';
+import VideoThumbnail from '../VideoPlayerThumbnail/VideoPlayerThumbnail';
 import './VideoPlayer.scss';
 
 const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
-  const { videoDetails, duration } = useVideoDetails(currentVideoId, apiKey);
+  const { videoDetails, duration } = useVideoDetails(currentVideoId);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -17,62 +20,6 @@ const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
   const [bufferValue, setBufferValue] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [showControls, setShowControls] = useState(true);
-
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      if (!document.fullscreenElement) {
-        setIsFullscreen(false);
-      }
-    };
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!videoRef.current) return;
-
-    const video = videoRef.current;
-
-    const updateScrubber = () => {
-      const value = (video.currentTime / video.duration) * 100;
-      setScrubberValue(value);
-      setCurrentTime(video.currentTime);
-      requestAnimationFrame(updateScrubber);
-    };
-
-    const handleProgress = () => {
-      if (video.buffered.length > 0) {
-        const bufferEnd = video.buffered.end(video.buffered.length - 1);
-        const bufferValue = (bufferEnd / video.duration) * 100;
-        setBufferValue(bufferValue);
-      }
-    };
-
-    const handleLoadedMetadata = () => {
-      requestAnimationFrame(updateScrubber);
-    };
-
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setShowControls(true);
-      videoRef.current.classList.remove('video-player__video--playing');
-      if (onVideoEnd) onVideoEnd();
-    };
-
-    video.addEventListener('progress', handleProgress);
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    video.addEventListener('ended', handleEnded);
-
-    return () => {
-      video.removeEventListener('progress', handleProgress);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      video.removeEventListener('ended', handleEnded);
-    };
-  }, [videoDetails]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -173,32 +120,45 @@ const VideoPlayer = ({ currentVideoId, apiKey, onVideoEnd }) => {
   }
 
   return (
-    <div ref={videoContainerRef} className={`video-player video-player--container ${isPlaying ? 'video-player--full-height' : ''}`}>
-      <div className="video-player__wrapper">
-        <div className={`video-player__thumbnail ${isPlaying ? 'video-player__thumbnail--hidden' : ''}`} onClick={handlePlayPause}>
-          <img src={videoDetails.image} alt={videoDetails.title} />
+    <FullscreenHandler videoContainerRef={videoContainerRef} isFullscreen={isFullscreen} setIsFullscreen={setIsFullscreen}>
+      <figure ref={videoContainerRef} className={`video-player video-player--container ${isPlaying ? 'video-player--full-height' : ''}`}>
+        <div className="video-player__wrapper">
+          <VideoThumbnail
+            isPlaying={isPlaying}
+            image={videoDetails.image}
+            title={videoDetails.title}
+            onPlayPause={handlePlayPause}
+          />
+          <Video
+            videoRef={videoRef}
+            isPlaying={isPlaying}
+            videoSrc={videoDetails.video}
+            onPlayPause={handlePlayPause}
+            onVideoEnd={onVideoEnd}
+            setScrubberValue={setScrubberValue}
+            setCurrentTime={setCurrentTime}
+            setBufferValue={setBufferValue}
+            setIsPlaying={setIsPlaying}
+            setShowControls={setShowControls}
+          />
+          <VideoControls
+            isPlaying={isPlaying}
+            onTogglePlayPause={handlePlayPause}
+            scrubberValue={scrubberValue}
+            bufferValue={bufferValue}
+            onScrub={handleScrub}
+            currentTime={currentTime}
+            duration={duration}
+            isFullscreen={isFullscreen}
+            onToggleFullscreen={handleFullscreen}
+            volume={volume}
+            onVolumeChange={handleVolumeChange}
+            onVolumeToggle={handleVolumeToggle}
+            showControls={showControls}
+          />
         </div>
-        <video ref={videoRef} onClick={handlePlayPause} className={`video-player__video ${isPlaying ? 'video-player__video--playing' : ''}`}>
-          <source src={`${videoDetails.video}?api_key=${apiKey}`} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <VideoControls
-          isPlaying={isPlaying}
-          onTogglePlayPause={handlePlayPause}
-          scrubberValue={scrubberValue}
-          bufferValue={bufferValue}
-          onScrub={handleScrub}
-          currentTime={currentTime}
-          duration={duration}
-          isFullscreen={isFullscreen}
-          onToggleFullscreen={handleFullscreen}
-          volume={volume}
-          onVolumeChange={handleVolumeChange}
-          onVolumeToggle={handleVolumeToggle}
-          showControls={showControls}
-        />
-      </div>
-    </div>
+      </figure>
+    </FullscreenHandler>
   );
 };
 

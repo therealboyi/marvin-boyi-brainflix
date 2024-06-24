@@ -2,16 +2,16 @@
 @import '../../../styles/partials/variables';
 @import '../../../styles/partials/mixins';
 
-$blue-color: #007bff;
+$blue-color: $color-brainflix-blue;
 
 .button {
-  @include button-style($blue-color, darken($blue-color, 10%));
+  @include button-style($color-brainflix-blue, $color-brainflix-darkblue);
 
   &--small {
     padding: 0.25rem 0.5rem;
     max-width: 6.25rem;
 
-    @media (max-width: 767px) {
+    @include media-breakpoint-down($mobile-max-breakpoint) {
       padding: 0.25rem 0.5rem;
       max-width: none;
     }
@@ -21,25 +21,25 @@ $blue-color: #007bff;
     padding: 1rem 2rem;
     max-width: 18.75rem;
 
-    @media (max-width: 767px) {
+    @include media-breakpoint-down($mobile-max-breakpoint) {
       padding: 0.75rem 1.5rem;
       max-width: none;
     }
   }
 
   &--primary {
-    background-color: $blue-color;
+    background-color: $color-brainflix-blue;
   }
 
   &--secondary {
-    background-color: #6c757d;
+    background-color: $color-brainflix-darkblue;
   }
 
   &--danger {
-    background-color: #dc3545;
+    background-color: $color-red;
   }
 
-  @media (max-width: 767px) {
+  @include media-breakpoint-down($mobile-max-breakpoint) {
     width: 100%;
     max-width: none;
     justify-content: center;
@@ -47,16 +47,15 @@ $blue-color: #007bff;
     padding-left: 1rem;
     height: auto;
 
-    &--primary, &--secondary, &--danger {
-    }
+    
   }
 
-  @media (min-width: 768px) {
+  @include media-breakpoint-up($tablet-min-breakpoint) {
     width: 16rem;
     max-width: 12.5rem;
   }
 
-  @media (min-width: 1280px) {
+  @include media-breakpoint-up($desktop-breakpoint) {
     margin-right: 0;
   }
 }
