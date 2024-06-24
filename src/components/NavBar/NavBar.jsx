@@ -1,10 +1,9 @@
-// NavBar.jsx
+// src/components/NavBar/NavBar.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import Button from '../Buttons/Button/Button';
 import './NavBar.scss';
-
 
 function NavBar() {
   const navigate = useNavigate();

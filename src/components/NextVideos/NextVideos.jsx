@@ -7,13 +7,18 @@ const NextVideos = ({ videos, onVideoChange }) => {
   const navigate = useNavigate();
 
   const handleVideoClick = (videoId) => {
-    window.scrollTo(0, 0); // Scroll to top
+    window.scrollTo(0, 0); 
     onVideoChange(videoId);
     navigate(`/videos/${videoId}`);
   };
 
+  const handleImageError = (e) => {
+    e.target.classList.add('next-videos__thumbnail--error');
+    e.target.src = '';
+  };
+
   return (
-    <div className="next-videos">
+    <section className="next-videos">
       <h2 className="next-videos__title">Next Videos</h2>
       <div className="next-videos__container">
         {videos.map((video) => (
@@ -27,10 +32,7 @@ const NextVideos = ({ videos, onVideoChange }) => {
                 src={video.image}
                 alt={video.title}
                 className="next-videos__thumbnail"
-                onError={(e) => {
-                  e.target.style.backgroundColor = '#E1E1E1';
-                  e.target.src = '';
-                }}
+                onError={handleImageError}
               />
               <div className="next-videos__info">
                 <h3 className="next-videos__video-title">{video.title}</h3>
@@ -40,7 +42,7 @@ const NextVideos = ({ videos, onVideoChange }) => {
           </article>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

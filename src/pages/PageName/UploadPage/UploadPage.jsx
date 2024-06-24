@@ -24,22 +24,38 @@ const UploadPage = () => {
     }
   };
 
+  const getVideoDuration = (url) => {
+    return new Promise((resolve) => {
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src);
+        const duration = video.duration;
+        const minutes = Math.floor(duration / 60);
+        const seconds = Math.floor(duration % 60);
+        resolve(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+      };
+
+      video.src = url;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const videoUrl = `${API_URL}/videos/BrainStation_Sample_Video.mp4`;
+    const duration = await getVideoDuration(videoUrl);
+
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('description', description);
-    if (imageFile) {
-      formData.append('image', imageFile);
-    } else {
-      formData.append('image', '');
-    }
+    formData.append('description', description || 'No video description.');
+    formData.append('image', imageFile || '');
     formData.append('channel', 'My Channel');
     formData.append('views', '0');
     formData.append('likes', '0');
-    formData.append('duration', '0:00');
-    formData.append('video', `${API_URL}/video/BrainStation_Sample_Video.mp4`); // Update this line
+    formData.append('duration', duration);
+    formData.append('video', videoUrl);
     formData.append('timestamp', Date.now().toString());
     formData.append('comments', JSON.stringify([]));
 
@@ -52,13 +68,12 @@ const UploadPage = () => {
       alert('Upload successful!');
       navigate('/');
     } catch (error) {
-      console.error('Error uploading video:', error);
       alert('Error uploading video');
     }
   };
 
   return (
-    <div className="upload-container">
+    <section className="upload-container">
       <h1 className="upload-container__title">Upload Video</h1>
       <hr className="upload-container__divider upload-container__divider--top" />
       <div className="upload-container__content">
@@ -107,7 +122,7 @@ const UploadPage = () => {
         <Button type="submit" iconSrc={uploadIcon} className="button button--primary" onClick={handleSubmit}>PUBLISH</Button>
         <span className="upload-container__cancel-button" onClick={() => navigate('/')}>CANCEL</span>
       </div>
-    </div>
+    </section>
   );
 };
 

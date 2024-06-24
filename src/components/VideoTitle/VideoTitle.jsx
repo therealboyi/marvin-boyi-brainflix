@@ -1,34 +1,18 @@
 // src/components/VideoTitle.jsx
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { API_URL, VIDEOS_ENDPOINT } from '../Api';
+import React from 'react';
+import useVideoDetails from '../useVideoDetails';
 
 const VideoTitle = ({ currentVideoId }) => {
-  const [videoTitle, setVideoTitle] = useState('');
+  const { videoDetails } = useVideoDetails(currentVideoId);
 
-  useEffect(() => {
-    const fetchVideoDetails = async () => {
-      if (!currentVideoId) return;
-
-      try {
-        const response = await axios.get(`${API_URL}${VIDEOS_ENDPOINT}/${currentVideoId}`);
-        setVideoTitle(response.data.title);
-      } catch (error) {
-        console.error('Error fetching video details:', error);
-      }
-    };
-
-    fetchVideoDetails();
-  }, [currentVideoId]);
-
-  if (!videoTitle) {
+  if (!videoDetails) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="video-title">
-      <h1 className="video-title__text">{videoTitle}</h1>
-    </div>
+    <header className="video-title">
+      <h1 className="video-title__text">{videoDetails.title}</h1>
+    </header>
   );
 };
 

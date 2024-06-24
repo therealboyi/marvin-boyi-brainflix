@@ -5,56 +5,72 @@
 @import '../../../styles/partials/buttons';
 
 .upload-container {
-  background-color: #fff;
+  background-color: $color-white;
   border-radius: .3125rem;
   box-shadow: none;
+  margin-bottom: 5rem !important;
 
   &__title {
     font-family: 'Avenir', sans-serif;
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 1.5rem;
-    color: #323232;
+    margin-bottom: 1rem;
+    color: $color-brainflix-black;
     margin-top: 1rem;
+  
+    @include media-breakpoint-up($tablet-min-breakpoint) {
+      margin-top: -1rem;
+      margin-bottom: -0.5rem;
+    }
+    @include media-breakpoint-up($desktop-breakpoint) {
+      margin-top: 0rem;
+      margin-bottom: 0rem;
+    }
   }
+  
 
   &__divider {
     border: none;
-    border-top: .0625rem solid #ccc;
+    border-top: .0625rem solid $color-mercury;
     margin: 1rem 0;
 
     &--top {
-      display: none;
-      @media (min-width: 768px) {
-        display: block;
-      }
+        display: none;
+        @include media-breakpoint-up($tablet-min-breakpoint) {
+            display: block;
+        }
     }
 
     &--bottom-tablet {
-      display: none;
-      @media (min-width: 768px) and (max-width: 1279px) {
-        display: block;
-        width: auto;
-        margin-top: -1rem;
-      }
+        display: none;
+        @include media-breakpoint-down($tablet-max-breakpoint) {
+            display: block;
+            width: auto;
+            margin-top: -4rem;
+        }
     }
 
     &--bottom-desktop {
-      display: none;
-      @media (min-width: 1280px) {
-        display: block;
-        width: 100%;
-        margin-top: 0;
-      }
+        display: none;
+        @include media-breakpoint-up($desktop-breakpoint) {
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+        }
     }
-  }
+
+    @include media-breakpoint-down($mobile-max-breakpoint) {
+        display: none;
+    }
+}
+
 
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0rem;
 
-    @media (min-width: 1280px) {
+    @include media-breakpoint-up($desktop-breakpoint) {
       flex-direction: row;
       justify-content: space-between;
       gap: 1rem;
@@ -64,16 +80,16 @@
   &__form {
     display: flex;
     flex-direction: column;
-    margin-right: 1.5rem;
+    margin-right: 0;
 
-    @media (min-width: 1280px) {
+    @include media-breakpoint-up($desktop-breakpoint) {
       width: 100%;
-      margin-right: 1.5rem;
+      margin-right: 0;
     }
     
     &-group {
       margin-bottom: .625rem;
-      margin-right: 0 !important;
+      margin-right: 1.25rem !important;
 
       .upload-container__label {
         font-family: 'Avenir', sans-serif;
@@ -81,7 +97,7 @@
         font-weight: 600;
         margin-bottom: .3125rem;
         display: block;
-        color: #AFAFAF;
+        color: $color-silver;
       }
 
       .upload-container__input,
@@ -90,13 +106,13 @@
         padding: .625rem;
         font-family: 'Avenir', sans-serif;
         font-size: 14px;
-        border: 1px solid #ccc;
+        border: 1px solid $color-mercury;
         border-radius: .3125rem;
         margin-bottom: .625rem;
-        background-color: #FAFAFA;
+        background-color: $color-alabaster;
 
         &::placeholder {
-          color: #323232;        
+          color: $color-brainflix-black;        
         }
       }
 
@@ -104,7 +120,7 @@
         resize: vertical;
         min-height: 100px;
 
-        @media (min-width: 1280px) {
+        @include media-breakpoint-up($desktop-breakpoint) {
           min-height: 80px !important;
         }
       }
@@ -115,21 +131,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -0.625rem;
+    margin-top: 1rem;
     width: 100%;  
 
     .button--primary {
       margin-bottom: .625rem;
       width: 100%;  
 
-      @media (min-width: 768px) {
+      @include media-breakpoint-up($tablet-min-breakpoint) {
         margin-bottom: 0;
         max-width: 200px; 
       }
     }
 
     .upload-container__cancel-button {
-      color: #0062cc;
+      color: $color-brainflix-blue;
       cursor: pointer;
       text-decoration: none;
       font-family: 'Avenir', sans-serif;
@@ -144,15 +160,30 @@
       gap: 2rem;
       width: 100%;  
 
-      @media (min-width: 1280px) {
+      @include media-breakpoint-up($desktop-breakpoint) {
         display: none;
       }
 
-      @media (min-width: 768px) and (max-width: 1279px) {
+      @include media-breakpoint-down($mobile-max-breakpoint) {
+        flex-direction: column!important;
+        margin-top: 1rem !important;
+        gap: 2rem !important;
+        
+        .upload-container__cancel-button {
+          order: 2!important;
+        }
+
+        .button--primary {
+          order: 1;
+        }
+      }
+
+      @include media-breakpoint-down($tablet-max-breakpoint) {
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
         gap: 4rem;
+        margin-top: 3rem;
 
         .upload-container__cancel-button {
           order: 1;
@@ -160,6 +191,7 @@
 
         .button--primary {
           order: 2;
+          margin-top: -1rem;
         }
       }
     }
@@ -169,7 +201,7 @@
       margin-top: 1.25rem;
       width: 100%;  
 
-      @media (min-width: 1280px) {
+      @include media-breakpoint-up($desktop-breakpoint) {
         display: flex;
         flex-direction: row;
         justify-content: flex-end;

@@ -4,7 +4,7 @@ $color-brainflix-black: #323232;
 $color-brainflix-blue: #0095FF;
 $color-silver: #AFAFAF;
 $color-white: #FFFFFF;
-$color-gray: #666;
+$color-red: #ff0000;
 
 // Secondary Colors
 $color-brainflix-darkblack: #000000;
@@ -24,9 +24,21 @@ $desktop-breakpoint: 1280px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 320px;
 
+// Global Breakpoints Range
+$tablet-min-breakpoint: 768px;
+$tablet-max-breakpoint: 1279px;
+$mobile-min-breakpoint: 320px;
+$mobile-max-breakpoint: 767px;
+$tablet-breakpoint-range: "(min-width: #{$tablet-min-breakpoint}) and (max-width: #{$tablet-max-breakpoint})";
+$mobile-breakpoint-range: "(min-width: #{$mobile-min-breakpoint}) and (max-width: #{$mobile-max-breakpoint})";
+
 // Common Styles
 $border-radius: 0.3125rem;
 $transition-time: 0.3s;
 $font-family-primary: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-size-label: 0.875rem;
 $font-weight-bold: 600;
+
+// Icon Size
+$icon-size: 1rem;
+
